@@ -3,10 +3,10 @@ import { Flex, Heading, Button } from '@radix-ui/themes';
 
 function NavbarLP() {
   return (
-    <nav className='fixed top-0 w-full  z-10 '>
-      <Flex justify='between' className='py-6 px-12'>
+    <nav className='fixed top-0 w-full z-10 bg-[#FCFCFC]'>
+      <Flex justify='between' className='py-4 px-12'>
         <Flex align='center'>
-          <Heading>XD</Heading>
+          <Heading>App Logo</Heading>
         </Flex>
         <Flex gap='5' align='center' className='text-sm'>
           <a href="/descargar" className='text-[#646464]'>Descargar</a>

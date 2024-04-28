@@ -1,5 +1,6 @@
-import HomeLP from "./layout/LandingPage/HomeLP"
 import NavbarLP from "./layout/LandingPage/NavbarLP"
+import HomeLP from "./layout/LandingPage/HomeLP"
+import Footer from "./layout/LandingPage/Footer"
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <NavbarLP/>
       <HomeLP/>
+      <Footer/>
     </>
   )
 }
