@@ -9,7 +9,9 @@ function NavbarLP() {
           <a href="#inicio"><Heading>App Logo</Heading></a>
         </Flex>
         <Flex gap='5' align='center' className='text-sm'>
-          <a href="/#explorar" className='text-[#646464] '>Explorar</a>
+          <a href="/#inicio" className='text-[#646464] '>Inicio</a>
+          <a href="/#descubrir" className='text-[#646464] '>Descubrir</a>
+          <a href="/#novedades" className='text-[#646464] '>Novedades</a>
           <a href="/iniciar-sesion" className='text-[#646464]'>Iniciar Sesión</a>
           <Button radius='none' className='hover:cursor-pointer'>Registrate</Button>
         </Flex>
