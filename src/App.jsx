@@ -1,17 +1,10 @@
-import NavbarLP from "./layout/LandingPage/NavbarLP"
-import HomeLP from "./layout/LandingPage/HomeLP"
-import Footer from "./layout/LandingPage/Footer"
-import SectionsLP from "./layout/LandingPage/SectionsLP"
+import LandingPage from "./pages/LandingPage"
 
 function App() {
 
   return (
     <>
-      <NavbarLP/>
-      <HomeLP/>
-      <SectionsLP/>
-      
-      <Footer/>
+      <LandingPage/>
     </>
   )
 }
