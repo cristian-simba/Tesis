@@ -7,7 +7,7 @@ function SectionsCardsLP() {
   return (
     <section  id='descubrir'>
       <Flex direction='column' className='min-h-screen' justify='center' align='center' gap='2'>
-        <Heading size='7'>Descubre y comparte tu estilo ideal para cada día.</Heading>
+        <Heading size='6'>Descubre y comparte tu estilo ideal para cada día.</Heading>
         <Text size='3' className='mb-5 text-[#646464]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, vero. Rerum reprehenderit quidem expedita</Text>
 
         <Grid columns='3' gapX='5' align='center' className=' px-28 pb-4'>

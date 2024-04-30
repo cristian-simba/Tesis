@@ -13,7 +13,7 @@ function SectionCard({image, title, text}) {
               display: 'block',
               objectFit: 'cover',
               width: '100%',
-              height: 175,
+              height: 150,
               backgroundColor: 'var(--gray-5)',
             }} />
           </Inset>
