@@ -5,14 +5,17 @@ function NavbarLP() {
   return (
     <nav className='fixed top-0 w-full z-10 bg-[#FCFCFC]'>
       <Flex justify='between' className='py-4 px-12'>
-        <Flex align='center'>
+        <Flex justify='center' align='center' gap='5'>
           <a href="#inicio"><Heading>App Logo</Heading></a>
+          <a href="/#ideas" className='text-[#646464] text-sm'>Explorar</a>
         </Flex>
-        <Flex gap='5' align='center' className='text-sm'>
-          <a href="/#inicio" className='text-[#646464] '>Inicio</a>
-          <a href="/#descubrir" className='text-[#646464] '>Descubrir</a>
-          <a href="/#novedades" className='text-[#646464] '>Novedades</a>
-          <a href="/iniciar-sesion" className='text-[#646464]'>Iniciar Sesión</a>
+        <Flex gap='2' align='center' className='text-sm'>
+          <a href="/#info" className='text-[#646464] mr-3'>Info</a>
+          <a href="/#descubrir" className='text-[#646464] mr-3'>Descubrir</a>
+          <a href="/#novedades" className='text-[#646464] mr-3'>Novedades</a>
+          
+          <Button color='gray' variant='soft' radius='none' className='hover:cursor-pointer'>Iniciar Sesión</Button>
+          
           <Button radius='none' className='hover:cursor-pointer'>Registrate</Button>
         </Flex>
       </Flex>

@@ -1,10 +1,10 @@
 import React from 'react'
-import { Card, Flex, Heading, Text, Inset } from '@radix-ui/themes'
+import { Card, Flex, Heading, Text, Inset, Button } from '@radix-ui/themes'
 
 function SectionCard({image, title, text}) {
   return (
     <Card size='1' variant='surface'>
-      <Flex direction='column' gap='1' justify='center'>
+      <Flex direction='column' gap='2' justify='center'>
         <Inset 
           clip="padding-box" 
           side="top" 
@@ -19,6 +19,11 @@ function SectionCard({image, title, text}) {
           </Inset>
         <Heading size='3'>{title}</Heading>
         <Text size="2" >{text}</Text>
+        <Button
+          radius='none' 
+          className='hover:cursor-pointer'
+          >Ver más
+        </Button>
       </Flex>
     </Card>
   )

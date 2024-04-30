@@ -13,7 +13,7 @@ function SectionsCardsLP() {
         <Grid columns='3' gapX='5' align='center' className=' px-28 pb-4'>
 
           <SectionCard 
-            image={'https://audaces.com/wp-content/uploads/2022/03/estilos-de-moda.webp'}
+            image={'https://media.gq.com.mx/photos/6165c414e1224bdb3d42c49b/3:2/w_1998,h_1332,c_limit/habitos-de-un-hombre-con-estilo-como-se-comporta.jpg'}
             title={'Registrate'} 
             text={'Regístrate para poder utilizar nuestra aplicación web o móvil.'}
           />

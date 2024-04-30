@@ -4,14 +4,16 @@ import image from '../../assets/styleImg.webp'
 
 function HomeLP() {
   return (
-    <section id='inicio'>
+    <section id='info'>
         <Grid columns='2' align='center' gap='5' className='px-28 min-h-screen'>
             <Flex direction='column' gap='6'>
                 <Heading size='8'>Haz que tus estilos luzcan perfectos </Heading>
                 <Text size='3' className='text-[#646464]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut itaque, et enim ad reiciendis mollitia doloremque maxime voluptatibus ea vitae..✨   </Text>
 
                 <Flex gap='3'>
+                    
                     <Button color='gray' variant='soft' radius='none' className='hover:cursor-pointer'>Registrate</Button>
+
                     <Button radius='none' className='hover:cursor-pointer'>Descarga la aplicación</Button>
                 </Flex>
             </Flex>
