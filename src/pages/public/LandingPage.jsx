@@ -11,6 +11,7 @@ function LandingPage() {
     <main>
         <NavbarLP/>
         <HomeLP/>
+        <SectionsCardsLP/>
     </main>
   )
 }
