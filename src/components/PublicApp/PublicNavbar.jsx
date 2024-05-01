@@ -14,13 +14,14 @@ function PublicNavbar() {
                 placeholder="Buscar ideas de estilos"
             />
 
-        </Flex>
+        </Flex> 
 
         <Flex gap='2' align='center' className='text-sm'>
           
           <Button color='gray' variant='soft' radius='none' className='hover:cursor-pointer'>Iniciar Sesión</Button>
           
           <Button radius='none' className='hover:cursor-pointer'>Registrate</Button>
+
         </Flex>
       </Flex>
     </nav>

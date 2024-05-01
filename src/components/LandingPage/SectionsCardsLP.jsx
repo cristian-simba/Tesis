@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Heading, Text, Flex } from '@radix-ui/themes'
-import SectionCard from '../../components/LandingPage/SectionCard'
+import SectionCard from './Cards/SectionCard'
 import image from '../../assets/styleImg.webp'
 
 function SectionsCardsLP() {
