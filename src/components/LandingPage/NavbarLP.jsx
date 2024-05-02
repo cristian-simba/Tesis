@@ -24,15 +24,20 @@ function NavbarLP() {
           </a>
         </Flex>
 
-        <Flex gap='3' align='center' className='md:text-xs lg:text-sm'>
+        <Flex gap='3' align='center' className='md:text-xs lg:text-sm text-[#646464]'>
+
           {windowWidth > 768 ? (
             <>
-              <a href="/#info" className='text-[#646464] cursor-pointer'>Información</a>
-              <a href="/#descubrir" className='text-[#646464] cursor-pointer'>Descubrir</a>
-              <a href="/#novedades" className='text-[#646464] cursor-pointer'>Noticias</a>
+              <a href="/#info" className=' cursor-pointer'>Información</a>
+              <a href="/#descubrir" className='cursor-pointer'>Descubrir</a>
+              <a href="/#novedades" className=' cursor-pointer'>Noticias</a>
 
-              <Button radius='none' className='hover:cursor-pointer'>Descargar aplicación</Button>
+              <Button radius='none'
+              size={{'md': '3', 'lg': '4'}} 
+              className='hover:cursor-pointer'>Descargar aplicación
+              </Button>
             </>
+
           ) : (
             <button onClick={toggleMenu}
             className='hover:cursor-pointer'><IoIosMenu size='1.5em'/></button>
@@ -41,14 +46,24 @@ function NavbarLP() {
       </Flex>
 
       {isMenuOpen && (
-        <Box position='absolute' top='100%' left='0' right='0' py='4' px='6' 
-        className='bg-white' >
-          <Flex direction='column' gap='2'>
-            <a href="/#info" className='text-[#646464]'>Información</a>
-            <a href="/#descubrir" className='text-[#646464]'>Descubrir</a>
-            <a href="/#novedades" className='text-[#646464]'>Noticias</a>
-            <Button color='gray' variant='soft' radius='none' className='hover:cursor-pointer'>Entrar como invitado</Button>
-            <Button radius='none' className='hover:cursor-pointer'>Descargar aplicación </Button>
+        <Box 
+        position='absolute' top='100%' left='0' right='0' py='4' px='6' 
+        className='bg-white' 
+        >
+          <Flex direction='column' gap='2' className='text-[#646464]'>
+            <a href="/#info" >Información</a>
+            <a href="/#descubrir" >Descubrir</a>
+            <a href="/#novedades">Noticias</a>
+
+            <Button color='gray' 
+            variant='soft' radius='none' 
+            className='hover:cursor-pointer'>Entrar como invitado
+            </Button>
+
+            <Button radius='none' 
+            className='hover:cursor-pointer'>Descargar aplicación 
+            </Button>
+            
           </Flex>
         </Box>
       )}

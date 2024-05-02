@@ -17,12 +17,12 @@ function SectionCard({image, title, text}) {
               backgroundColor: 'var(--gray-5)',
             }} />
           </Inset>
-        <Heading size={{'initial': '2'}}>{title}</Heading>
-        <Text size={{'sm':'1', 'md':'2'}} >{text}</Text>
+        <Heading size={{'initial': '2', 'md':'3', 'lg': '4'}}>{title}</Heading>
+        <Text size={{'sm':'1', 'md':'3'}} >{text}</Text>
         <Button
           radius='none' 
           className='hover:cursor-pointer'
-          size={{'sm': '1', 'md': '2'}}
+          size={{'sm': '1', 'md': '3', 'lg': '4'}}
           >Ver más
         </Button>
       </Flex>
