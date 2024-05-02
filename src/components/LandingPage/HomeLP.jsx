@@ -15,8 +15,8 @@ return (
                     <Heading size='8'>Haz que tus estilos luzcan perfectos </Heading>
                     <Text size={{'sm':'2', 'md':'3'}} className='text-[#646464]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut itaque, et enim ad reiciendis mollitia doloremque maxime voluptatibus ea vitae..✨   </Text>
 
-                    <Flex gap='3'>
-                    <Button color='gray' variant='soft' radius='none' size={{'md': '1', 'lg': '2'}} className='hover:cursor-pointer'>Registrate</Button>
+                    <Flex gap='4'>
+                    <Button color='gray' variant='soft' radius='none' size={{'md': '1', 'lg': '2'}} className='hover:cursor-pointer'>Entrar como invitado</Button>
                     <Button radius='none' size={{'md': '1', 'lg': '2'}} className='hover:cursor-pointer'>Descarga la aplicación</Button>
                     </Flex>
                 </Flex>
@@ -33,14 +33,14 @@ return (
         </section>
         ) : (
             <section id='info'>
-            <Flex align='center' gap='5' className='px-8 min-h-screen'>
-                <Flex direction='column' gap='6'>
+            <Flex align='center' gap='5' className='px-8 min-h-screen '>
+                <Flex direction='column' gap='6' >
                     <Heading size='8'>Haz que tus estilos luzcan perfectos </Heading>
                     <img src={image} alt="" className=' rounded-md ' />
                     <Text size='3' className='text-[#646464]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut itaque, et enim ad reiciendis mollitia doloremque maxime voluptatibus ea vitae..✨   </Text>
 
-                    <Flex gap='3'>
-                    <Button color='gray' variant='soft' radius='none' className='hover:cursor-pointer'>Registrate</Button>
+                    <Flex gap='3' direction='column'>
+                    <Button color='gray' variant='soft' radius='none' className='hover:cursor-pointer'>Entrar como invitado</Button>
                     <Button radius='none' className='hover:cursor-pointer'>Descarga la aplicación</Button>
                     </Flex>
                 </Flex>

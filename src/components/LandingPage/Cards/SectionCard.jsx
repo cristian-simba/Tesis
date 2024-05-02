@@ -3,7 +3,7 @@ import { Card, Flex, Heading, Text, Inset, Button } from '@radix-ui/themes'
 
 function SectionCard({image, title, text}) {
   return (
-    <Card size='1' variant='surface'>
+    <Card size='1' variant='surface' >
       <Flex direction='column' gap='2' justify='center'>
         <Inset 
           clip="padding-box" 
@@ -13,11 +13,11 @@ function SectionCard({image, title, text}) {
               display: 'block',
               objectFit: 'cover',
               width: '100%',
-              height: 150,
+              height: 175,
               backgroundColor: 'var(--gray-5)',
             }} />
           </Inset>
-        <Heading size={{'sm':'2', 'md': '3'}}>{title}</Heading>
+        <Heading size={{'initial': '2'}}>{title}</Heading>
         <Text size={{'sm':'1', 'md':'2'}} >{text}</Text>
         <Button
           radius='none' 

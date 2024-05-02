@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function PublicNavbar() {
   return (
-    <nav className='fixed bottom-0 w-full z-10 bg-[#FCFCFC]'>
+    <nav className='fixed top-0 w-full z-10 bg-[#FCFCFC]'>
       <Flex justify='between' className='py-4 px-12'>
         <Flex justify='center' align='center' gap='5'>
           <Link to="/"><Heading>App Logo</Heading></Link>

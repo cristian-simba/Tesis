@@ -1,9 +1,10 @@
 import React from 'react'
+import PublicNavbar from '../../components/PublicApp/PublicNavbar'
 
 function PublicApp() {
   return (
     <div>
-        <h2>XD</h2>
+        <PublicNavbar/>
     </div>
   )
 }
