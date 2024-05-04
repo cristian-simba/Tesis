@@ -16,19 +16,19 @@ function SectionsCardsLP() {
       image:
         "https://media.gq.com.mx/photos/6165c414e1224bdb3d42c49b/3:2/w_1998,h_1332,c_limit/habitos-de-un-hombre-con-estilo-como-se-comporta.jpg",
       title: "Registrate",
-      text: "Regístrate para poder utilizar nuestra aplicación web o móvil.",
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
       image:
         "https://audaces.com/wp-content/uploads/2023/08/estilo-elegante-estilos-de-moda-1024x683.jpg",
       title: "Explora",
-      text: "Inicia sesion para descubrir todas las novedades en estilos.",
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
     {
       image:
         "https://media.gq.com.mx/photos/639ab651b258d7ba43866a37/4:3/w_2421,h_1816,c_limit/habitos-de-un-hombre-con-estilo-en-2023.jpg",
       title: "Publica",
-      text: "Publica tus estilos para inspirar a otros usuarios.",
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     },
   ];
 
@@ -41,8 +41,8 @@ function SectionsCardsLP() {
         align="center"
         gap="2"
       >
-        <Heading size={{ sm: "4", md: "5" }}>{headingText}</Heading>
-        <Text size={{ sm: "2", md: "3" }} className="mb-5 text-[#646464]">
+        <Heading >{headingText}</Heading>
+        <Text className="mb-5 text-[#646464]">
           {paragraphText}
         </Text>
 
@@ -57,22 +57,21 @@ function SectionsCardsLP() {
           ))}
         </Grid>
       </Flex>
-      {/* <Flex justify='center' align='center' className='mt-[-70px] hover:cursor-pointer'>
-          <a href="#novedades">
-            <Text size='2'
-              className='font-bold pr-1'>
-              Novedades
+      <Flex justify='center' align='center' className='mt-[-60px] hover:cursor-pointer'>
+          <a href="#noticias">
+            <Text className="font-bold pr-2">
+              Ultimas noticias de moda
             </Text>
           </a>
 
           <IoIosArrowDown />
-        </Flex> */}
+        </Flex>
     </section>
   ) : (
     <section id="descubrir">
       <Flex
         direction="column"
-        className="min-h-screen px-8"
+        className="min-h-96 py-20 px-8"
         justify="center"
         align="center"
         gap="2"

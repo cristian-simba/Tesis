@@ -16,7 +16,7 @@ function NavbarLP() {
   const data = [
     { href: "/#info", text: "Información" },
     { href: "/#descubrir", text: "Descubrir" },
-    { href: "/#novedades", text: "Noticias" },
+    { href: "/#noticias", text: "Noticias" },
   ];
 
   return (

@@ -18,7 +18,7 @@ function HomeLP() {
         <Flex direction="column" gap="6" className="bg-white">
           <Heading size="8">{headingText}</Heading>
 
-          <Text size={{ sm: "2", md: "3" }} className="text-[#646464]">
+          <Text className="text-[#646464]">
             {paragraphText}
           </Text>
 
@@ -33,14 +33,11 @@ function HomeLP() {
         </Flex>
       </Grid>
 
-      <Flex
-        justify="center"
-        align="center"
-        className="mt-[-70px] py-5  hover:cursor-pointer"
+      <Flex justify="center" align="center" className="mt-[-70px] py-5  hover:cursor-pointer"
       >
-        <a href="#descubrir">
-          <Text size={{ sm: "2", md: "3" }} className="font-bold pr-2">
-            Descubrir
+        <a href="#download">
+          <Text size={{ sm: "2", md: "3", lg:"5"  }} className="font-bold pr-2">
+            Nuestra aplicación
           </Text>
         </a>
         <IoIosArrowDown />
