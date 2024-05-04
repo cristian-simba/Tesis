@@ -15,7 +15,7 @@ function HomeLP() {
   return windowWidth > 768 ? (
     <section id="info">
       <Grid columns="2" align="center" gap="5" className="px-28 min-h-screen">
-        <Flex direction="column" gap="6">
+        <Flex direction="column" gap="6" className="bg-white">
           <Heading size="8">{headingText}</Heading>
 
           <Text size={{ sm: "2", md: "3" }} className="text-[#646464]">
