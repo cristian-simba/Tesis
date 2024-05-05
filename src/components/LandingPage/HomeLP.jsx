@@ -13,7 +13,7 @@ function HomeLP() {
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut itaque, et enim ad reiciendis mollitia doloremque maxime voluptatibus ea vitae..✨";
 
   return windowWidth > 768 ? (
-    <section id="info">
+    <div id="info">
       <Grid columns="2" align="center" gap="5" className="px-28 min-h-screen">
         <Flex direction="column" gap="6" className="bg-white">
           <Heading size="8">{headingText}</Heading>
@@ -42,9 +42,9 @@ function HomeLP() {
         </a>
         <IoIosArrowDown />
       </Flex>
-    </section>
+    </div>
   ) : (
-    <section id="info">
+    <div id="info">
       <Flex align="center" gap="5" className="px-8 min-h-screen ">
         <Flex direction="column" gap="6">
           <Heading size="8">{headingText}</Heading>
@@ -61,7 +61,7 @@ function HomeLP() {
           </Flex>
         </Flex>
       </Flex>
-    </section>
+    </div>
   );
 }
 

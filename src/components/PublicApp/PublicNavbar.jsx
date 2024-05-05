@@ -1,29 +1,76 @@
-import React from 'react';
-import { Flex, Heading, Button } from '@radix-ui/themes';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Flex, Heading, Button, Box } from "@radix-ui/themes";
+import { Link } from "react-router-dom";
+import { useWindowWidth } from "../../hooks/useWindowWidth";
+import { IoIosMenu } from "react-icons/io";
+import { DowloadButton, InvitateButton } from "../LandingPage/Buttons/LandingBtns";
 
 function PublicNavbar() {
+  const windowWidth = useWindowWidth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const data = [
+    { href: "/#info", text: "Información" },
+    { href: "/#descubrir", text: "Descubrir" },
+    { href: "/#noticias", text: "Noticias" },
+  ];
+
   return (
-    <nav className='fixed top-0 w-full z-10 bg-[#FCFCFC]'>
-      <Flex justify='between' className='py-4 px-12'>
-        <Flex justify='center' align='center' gap='5'>
-          <Link to="/"><Heading>App Logo</Heading></Link>
-            <input 
-                type="text" 
-                className=" border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-full text-sm px-5 py-2" 
-                placeholder="Buscar ideas de estilos"
-            />
+    <nav className="fixed top-0 w-full z-10 bg-[#FCFCFC]">
+      <Flex justify="between" px={{ initial: "5", sm: "8", md: "9" }} py="4">
+        <Flex justify="center" align="center" gap="5">
+          <Link to="/">
+            <Heading>App Logo</Heading>
+          </Link>
+        </Flex>
 
-        </Flex> 
-
-        <Flex gap='2' align='center' className='text-sm'>
-          
-          <Button color='gray' variant='soft' radius='none' className='hover:cursor-pointer'>Iniciar Sesión</Button>
-          
-          <Button radius='none' className='hover:cursor-pointer'>Registrate</Button>
-
+        <Flex
+          gap="3"
+          align="center"
+          className="md:text-xs lg:text-sm text-[#646464]"
+        >
+          {windowWidth > 768 ? (
+            <>
+              {data.map((item, index) => (
+                <a key={index} href={item.href} className="cursor-pointer">
+                  {item.text}
+                </a>
+              ))}
+              <DowloadButton text={"Descargar aplicación"} />
+            </>
+          ) : (
+            <button onClick={toggleMenu} className="hover:cursor-pointer">
+              <IoIosMenu size="1.5em" />
+            </button>
+          )}
         </Flex>
       </Flex>
+
+      {isMenuOpen && (
+        <Box
+          position="absolute"
+          top="100%"
+          left="0"
+          right="0"
+          py="4"
+          px="6"
+          className="bg-white"
+        >
+          <Flex direction="column" gap="2" className="text-[#646464]">
+            {data.map((item, index) => (
+              <a key={index} href={item.href}>
+                {item.text}
+              </a>
+            ))}
+            <InvitateButton text={"Entrar como invitado"} />
+            <DowloadButton text={"Descargar aplicación"} />
+          </Flex>
+        </Box>
+      )}
     </nav>
   );
 }

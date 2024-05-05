@@ -9,15 +9,15 @@ import SectionDownload from '../../components/LandingPage/SectionDownload'
 
 function LandingPage() {
   return (
-    <main>
+    <>
       <Particle/>
-        <NavbarLP/>
-        <HomeLP/>
-        <SectionDownload/>
-        <SectionsCardsLP/>
-        <SectionsNews/>
-        <Footer/>
-    </main>
+      <NavbarLP/>
+      <HomeLP/>
+      <SectionDownload/>
+      <SectionsCardsLP/>
+      <SectionsNews/>
+      <Footer/>
+    </>
   )
 }
 
