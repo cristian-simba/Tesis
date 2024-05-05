@@ -20,7 +20,7 @@ function PublicHome() {
   }, []);
 
   return (
-    <div>
+    <div className='py-20'>
       <PublicacionesList publicaciones={publicaciones} />
     </div>
   

@@ -8,7 +8,7 @@ function PublicacionesList({ publicaciones }) {
   const windowWidth = useWindowWidth();
 
   return windowWidth > 768 ? (
-    <Masonry columns={5} spacing={2} className='pt-24 px-16'>
+    <Masonry columns={5} spacing={2} className='px-16'>
       {publicaciones.map(publicacion => (
         <div key={publicacion._id} className='hover:cursor-pointer'>
           <img src={publicacion.imagen.secure_url} className='rounded-lg mb-2' />   
@@ -17,7 +17,7 @@ function PublicacionesList({ publicaciones }) {
       ))}
     </Masonry>
   ): (
-    <Masonry columns={2} spacing={2} className='pt-20 px-6'>
+    <Masonry columns={2} spacing={2} className='px-5'>
     {publicaciones.map(publicacion => (
       <div key={publicacion._id} className='bg-cover'>
         <img src={publicacion.imagen.secure_url} className='rounded-lg mb-2' />   

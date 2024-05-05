@@ -20,7 +20,7 @@ function PublicNavbar() {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-10 bg-[#FCFCFC]">
+    <nav className="fixed top-0 w-full z-10 bg-[#FCFCFC] ">
       <Flex justify="between" px={{ initial: "5", sm: "8", md: "9" }} py="4">
         <Flex justify="center" align="center" gap="5">
           <Link to="/">
