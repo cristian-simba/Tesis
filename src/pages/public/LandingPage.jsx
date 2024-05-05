@@ -6,17 +6,19 @@ import Footer from '../../components/LandingPage/Footer'
 import SectionsCardsLP from '../../components/LandingPage/SectionsCardsLP'
 import Particle from '../../components/Particle'
 import SectionDownload from '../../components/LandingPage/SectionDownload'
+import { Outlet } from 'react-router-dom'
 
 function LandingPage() {
   return (
     <>
-      <Particle/>
       <NavbarLP/>
+      <Particle/>
       <HomeLP/>
       <SectionDownload/>
       <SectionsCardsLP/>
       <SectionsNews/>
       <Footer/>
+
     </>
   )
 }

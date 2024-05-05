@@ -66,7 +66,6 @@ function PublicNavbar() {
                 {item.text}
               </a>
             ))}
-            <InvitateButton text={"Entrar como invitado"} />
             <DowloadButton text={"Descargar aplicación"} />
           </Flex>
         </Box>
