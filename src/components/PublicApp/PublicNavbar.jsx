@@ -17,6 +17,7 @@ function PublicNavbar() {
     { href: "/#info", text: "Información" },
     { href: "/#descubrir", text: "Descubrir" },
     { href: "/#noticias", text: "Noticias" },
+    { href: "/#equipo", text: "Equipo de desarrollo" },
   ];
 
   return (

@@ -45,7 +45,7 @@ function SectionGroup() {
             <Flex>
               <img src={item.imgSrc} className='w-32 rounded-full' />
             </Flex>
-            <Flex direction='column' gap='3'>
+            <Flex direction='column' gap='2'>
               <Text size='4'><Strong>{item.name}</Strong></Text>
               <Text>{item.work}</Text>
               <Text>{item.description}</Text>
