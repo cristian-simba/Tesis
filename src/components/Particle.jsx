@@ -51,7 +51,7 @@ export default function Particle() {
                   value: "#3e63dd",
                 },
                 links: {
-                  color: "#3e63dd",
+                  color: "#ffffff",
                   distance: 150,
                   enable: true,
                   opacity: 0.5,

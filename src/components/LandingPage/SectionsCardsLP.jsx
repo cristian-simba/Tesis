@@ -71,7 +71,7 @@ function SectionsCardsLP() {
     <section id="descubrir">
       <Flex
         direction="column"
-        className="min-h-96 py-20 px-8"
+        className="min-h-96 pt-20 px-8"
         justify="center"
         align="center"
         gap="2"

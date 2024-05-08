@@ -11,7 +11,7 @@ function PublicApp() {
   useEffect(() => {
     setTimeout(() => {
       setLoader(true);
-    }, 3000);
+    }, 2000);
   }, []);
   
   return (
