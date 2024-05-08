@@ -3,11 +3,11 @@ import axios from 'axios';
 export const getNoticias = async () => {
   const url = 'https://api.bing.microsoft.com/v7.0/news/search';
   const params = { 
-    q: 'moda', 
+    q: 'moda estilo fashion', 
     setLang: 'es', 
     count: 3 
   };
-  const headers = { 'Ocp-Apim-Subscription-Key': '3f23ee86f6f04626abf3a782eb204449' };
+  const headers = { 'Ocp-Apim-Subscription-Key': '3f23ee86f6f04626abf3a782eb204449x' };
 
   try {
     const response = await axios.get(url, { params, headers });

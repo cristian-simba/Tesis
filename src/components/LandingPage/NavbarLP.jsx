@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Heading, Button, Box } from "@radix-ui/themes";
-import { Link } from "react-router-dom";
+import { Flex, Heading, Box } from "@radix-ui/themes";
 import { useWindowWidth } from "../../hooks/useWindowWidth";
 import { IoIosMenu } from "react-icons/io";
 import { DowloadButton, InvitateButton } from "./Buttons/LandingBtns";
@@ -17,6 +16,7 @@ function NavbarLP() {
     { href: "/#info", text: "Información" },
     { href: "/#descubrir", text: "Descubrir" },
     { href: "/#noticias", text: "Noticias" },
+    { href: "/#equipo", text: "Equipo de desarrollo" },
   ];
 
   return (
