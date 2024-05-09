@@ -17,7 +17,7 @@ function SectionCard({image, title, text}) {
               backgroundColor: 'var(--gray-5)',
             }} />
           </Inset>
-        <Heading size={{'initial': '2', 'md':'3', 'lg': '4'}}>{title}</Heading>
+        <Heading size={{'initial': '4', 'lg': '5'}}>{title}</Heading>
         <Text size={{'sm':'1', 'md':'3'}} >{text}</Text>
 
       </Flex>

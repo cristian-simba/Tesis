@@ -38,10 +38,10 @@ function SectionGroup() {
 
   return windowWidth > 768 ? (
     <div id='equipo' className='px-28 pt-20 min-h-screen'>
-      <Heading size='8' >{headingText}</Heading>
-      <Grid rows="3" align="center" gapY='5' className="pt-10">
+      <Heading size='8' className='bg-white'>{headingText}</Heading>
+      <Grid rows="3" align="center" gapY='5' className="py-10">
         {data.map((item, index) => (
-          <Flex key={index} gap='5' align='center' className='pb-2 border-b-2 border-gray-300 rounded-lg'>
+          <Flex key={index} gap='5' align='center' className='pb-2 border-b-2  bg-white'>
             <Flex>
               <img src={item.imgSrc} className='w-32 rounded-full' />
             </Flex>
@@ -64,10 +64,10 @@ function SectionGroup() {
     </div>
   ) : (
     <div id='equipo' className='px-8 pt-20 min-h-screen'>
-    <Heading size='8' >{headingText}</Heading>
+    <Heading size='8' className='bg-white' >{headingText}</Heading>
     <Grid rows="3" align="center" gapY='5' className="pt-10">
       {data.map((item, index) => (
-        <Flex key={index} gap='4' align='center' className='pb-2 border-b-2 border-gray-300 rounded-lg'>
+        <Flex key={index} gap='4' align='center' className='pb-2 border-b-2 border-gray-300 rounded-lg bg-white'>
           <Flex>
             <img src={item.imgSrc} className='w-28 rounded-full' />
           </Flex>

@@ -7,28 +7,28 @@ import { IoIosArrowDown } from "react-icons/io";
 function SectionsCardsLP() {
   const windowWidth = useWindowWidth();
 
-  const headingText = "Descubre y comparte tu estilo ideal para cada día.";
+  const headingText = "Descubre y comparte tu estilo ideal para cada día";
   const paragraphText =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, vero. Rerum reprehenderit quidem expedita";
+  "Explora una variedad de estilos y encuentra la inspiración perfecta para cada día con nuestra aplicación.";
 
   const data = [
     {
       image:
         "https://media.gq.com.mx/photos/6165c414e1224bdb3d42c49b/3:2/w_1998,h_1332,c_limit/habitos-de-un-hombre-con-estilo-como-se-comporta.jpg",
-      title: "Registrate",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      title: "Descarga la aplicación",
+      text: "Descarga la aplicación para disfrutar de todas las funcionalidades."
     },
     {
       image:
         "https://audaces.com/wp-content/uploads/2023/08/estilo-elegante-estilos-de-moda-1024x683.jpg",
-      title: "Explora",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      title: "Registrate",
+      text: "Regístrate para interactuar con las publicaciones que te gusten.",
     },
     {
       image:
         "https://media.gq.com.mx/photos/639ab651b258d7ba43866a37/4:3/w_2421,h_1816,c_limit/habitos-de-un-hombre-con-estilo-en-2023.jpg",
-      title: "Publica",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      title: "Comparte tu estilo",
+      text: "Únete y comparte tus estilos favoritos para inspirar a otros.",
     },
   ];
 
@@ -41,8 +41,8 @@ function SectionsCardsLP() {
         align="center"
         gap="2"
       >
-        <Heading >{headingText}</Heading>
-        <Text className="mb-5 text-[#646464]">
+        <Heading className="bg-white">{headingText}</Heading>
+        <Text className="mb-5 text-[#646464] bg-white">
           {paragraphText}
         </Text>
 
@@ -76,8 +76,8 @@ function SectionsCardsLP() {
         align="center"
         gap="2"
       >
-        <Heading size="6">{headingText}</Heading>
-        <Text size="3" className="mb-5 text-[#646464]">
+        <Heading size="6" className="bg-white">{headingText}</Heading>
+        <Text size="3" className="mb-5 text-[#646464] bg-white">
           {paragraphText}
         </Text>
 

@@ -10,7 +10,10 @@ function SectionDownload() {
   const windowWidth = useWindowWidth();
 
   const headingText = "Descarga la aplicación";
-  const paragraphText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut itaque, et enim ad reiciendis mollitia doloremque maxime voluptatibus ea vitae..✨"
+  const paragraphText =
+  "Con nuestra aplicación móvil, tendrás acceso a las últimas publicaciones, podrás interactuar con ellas y compartir tus propias creaciones con la comunidad.";
+
+
 
   return windowWidth > 768 ? (
     <div id='download'>

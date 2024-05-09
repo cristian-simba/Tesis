@@ -28,7 +28,7 @@ export default function Particle() {
                 events: {
                   onClick: {
                     enable: true,
-                    mode: "push",
+                    mode: "bubble",
                   },
                   onHover: {
                     enable: true,
@@ -72,7 +72,7 @@ export default function Particle() {
                     enable: true,
                     area: 800,
                   },
-                  value: 30,
+                  value: 25,
                 },
                 opacity: {
                   value: 0.5,

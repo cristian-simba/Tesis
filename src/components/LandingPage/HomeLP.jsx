@@ -10,7 +10,7 @@ function HomeLP() {
 
   const headingText = "Haz que tus estilos luzcan perfectos";
   const paragraphText =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut itaque, et enim ad reiciendis mollitia doloremque maxime voluptatibus ea vitae..✨";
+  "Explora las últimas tendencias y encuentra tu estilo perfecto. Descubre estilos clásicos hasta las últimas novedades, nuestra aplicación ofrece una amplia gama de opciones para cada ocasión ✨";
 
   return windowWidth > 768 ? (
     <div id="info">
@@ -18,7 +18,7 @@ function HomeLP() {
         <Flex direction="column" gap="6" className="bg-white">
           <Heading size="8">{headingText}</Heading>
 
-          <Text className="text-[#646464]">
+          <Text className="text-[#646464]" >
             {paragraphText}
           </Text>
 
@@ -51,11 +51,11 @@ function HomeLP() {
 
           <img src={image} alt="" className=" rounded-md " />
 
-          <Text size="3" className="text-[#646464]">
+          <Text size="3" className="text-[#646464] bg-white">
             {paragraphText}
           </Text>
 
-          <Flex gap="3" direction="column">
+          <Flex gap="3" direction="column" className="bg-white">
             <InvitateButton text={"Entrar como invitado"} />
             <DowloadButton text={"Descargar aplicación"} />
           </Flex>
