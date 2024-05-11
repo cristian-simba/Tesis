@@ -5,9 +5,9 @@ export const getNoticias = async () => {
   const params = { 
     q: 'moda estilo fashion ropa vestir', 
     setLang: 'es', 
-    count: 5
+    count: 3
   };
-  const headers = { 'Ocp-Apim-Subscription-Key': '3f23ee86f6f04626abf3a782eb204449x' };
+  const headers = { 'Ocp-Apim-Subscription-Key': '3f23ee86f6f04626abf3a782eb20444x' };
 
   try {
     const response = await axios.get(url, { params, headers });
