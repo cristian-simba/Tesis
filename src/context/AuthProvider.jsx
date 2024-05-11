@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
 
   const login = async (data) => {
     try {
-      const response = await fetch(`https://ropdat.onrender.com/api/login/moderador`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login/moderador`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
