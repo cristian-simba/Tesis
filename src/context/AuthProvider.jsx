@@ -1,23 +1,19 @@
-import { useContext, createContext, useState, useEffect } from "react";
+import { useContext, createContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
+import NotifieError from "../components/Toasts/Notifies";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies(['auth']);
-  const [auth, setAuth] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(auth);
-  }, [auth]);
-
-  useEffect(() => {
+    console.log("Cookie")
     console.log(cookies);
   }, [cookies]);
   
-
   const login = async (data) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login/moderador`, {
@@ -29,30 +25,29 @@ const AuthProvider = ({ children }) => {
       });
 
       const res = await response.json();
-      setAuth(res);
-      setCookie('auth', JSON.stringify(res), { path: '/' });
-      navigate("/home");
+      if(res.token){
+        setCookie('auth', JSON.stringify(res), { path: '/' });
+        navigate("/home");
+      }else{
+        NotifieError(res.msg)
+        console.log(res.msg)
+      }
 
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   };
   
   const logOut = () => {
-    setAuth({});
     removeCookie('auth');
     navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ auth, login, logOut }}>
+    <AuthContext.Provider value={{ login, logOut }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 export default AuthProvider;
-
-export const useAuth = () => {
-  return useContext(AuthContext);
-};

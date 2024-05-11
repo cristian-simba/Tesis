@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../context/AuthProvider";
+import useAuth from "../../context/useAuth"
 import { Flex, Heading, Text, Button, Grid } from "@radix-ui/themes";
 import Input from "../../components/Forms/Input";
 import image from "../../assets/styleLogin.webp";
+import { ToastContainer } from 'react-toastify';
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -20,15 +21,14 @@ const Login = () => {
     <div className="grid grid-cols-2"  style={{ 
       gridTemplateColumns: '45% 55%' 
     }}>
-      {/* <Flex>
-          <img src={image} alt="" />
-        </Flex> */}
+
       <Flex
         justify="center"
         align="center"
         direction="column"
         className="min-h-screen"
       >
+        <ToastContainer position="top-left"/>
         <form onSubmit={onSubmit} className="flex flex-col gap-3 text-sm">
           <Heading className="text-center">Bienvenido</Heading>
           <Text className="text-center pb-3">Por favor ingresa tus credenciales</Text>
@@ -73,10 +73,9 @@ const Login = () => {
           </Button>
         </form>
       </Flex>
-      <Flex>
-        
-      <img src={image} alt="" />
 
+      <Flex>   
+        <img src={image} alt="" />
       </Flex>
     </div>
   );
