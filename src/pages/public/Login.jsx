@@ -86,7 +86,7 @@ const Login = () => {
 };
 
 const NotifyError = ({ message }) => (
-  <div className="block text-red-500 pt-[-5px] mt-[-15px] pb-2">{message}</div>
+  <div className="block text-red-500 pt-[-5px] mt-[-18px] pb-2 font-thin">{message}</div>
 );
 
 export default Login;

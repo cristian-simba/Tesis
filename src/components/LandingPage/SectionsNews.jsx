@@ -30,7 +30,7 @@ function SectionsNews() {
                   <img src={noticia.image.thumbnail.contentUrl} alt={noticia.name} className='rounded-lg w-max' />
                 </Flex> */}
                 <Flex direction='column' gap='2' className=''>
-                  <Heading size='4' className='uppercase'>{noticia.name}</Heading>
+                  <Heading size='4' >{noticia.name}</Heading>
                   <Text size='2'>
                     {"Fecha de publicación: "}
                     {new Date(noticia.datePublished).toISOString().split('T')[0]}

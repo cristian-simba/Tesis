@@ -4,6 +4,7 @@ import image from  '../../assets/mobile.webp'
 import { useWindowWidth } from "../../hooks/useWindowWidth";
 import { DowloadButton} from "./Buttons/LandingBtns";
 import { IoIosArrowDown } from "react-icons/io";
+import Normativa from '../Normativa';
 
 function SectionDownload() {
 
@@ -28,7 +29,7 @@ function SectionDownload() {
             {paragraphText}
           </Text>
                     
-          <Text className='text-blue-700'>Terminos y condiciones</Text>
+          <Normativa text="Revisa aqui nuestros términos y condiciones" />
 
           <Flex gap="4">
             <DowloadButton text={"Descargar aplicación"} />
@@ -49,7 +50,7 @@ function SectionDownload() {
   ): (
     <div id="info">
       <Flex align="center" gap="5" className="px-8 min-h-96 ">
-        <Flex direction="column" gap="6">
+        <Flex direction="column" gap="5">
           <Heading size="7">{headingText}</Heading>
 
           <img src={image} alt="" className=" rounded-md " />
@@ -57,6 +58,8 @@ function SectionDownload() {
           <Text size="3" className="text-[#646464]">
             {paragraphText}
           </Text>
+
+          <Normativa text="Términos y Condiciones de Uso" />
 
           <Flex gap="3" direction="column">
             <DowloadButton text={"Descargar aplicación"} />
