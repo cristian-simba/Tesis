@@ -1,7 +1,7 @@
 import { useContext, createContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
-import NotifieError from "../components/Toasts/Notifies";
+import NotifyError from "../components/Toasts/Notifies";
 
 export const AuthContext = createContext();
 
@@ -29,7 +29,7 @@ const AuthProvider = ({ children }) => {
         setCookie('auth', JSON.stringify(res), { path: '/' });
         navigate("/home");
       }else{
-        NotifieError(res.msg)
+        NotifyError(res.msg)
         console.log(res.msg)
       }
 

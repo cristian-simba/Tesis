@@ -4,14 +4,15 @@ import { Flex, Heading, Text, Button, Grid } from "@radix-ui/themes";
 import Input from "../../components/Forms/Input";
 import image from "../../assets/styleLogin.webp";
 import { ToastContainer } from 'react-toastify';
+import { codigoValidator, emailValidator, passwordValidator } from "../../validators/validators";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const auth = useAuth();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      auth.login(data);
+      await auth.login(data);
     } catch (error) {
       console.log(error);
     }
@@ -38,17 +39,19 @@ const Login = () => {
             id="codigo"
             name="codigo"
             placeholder="Ingrese el código"
-            {...register("codigo")}
+            {...register("codigo", {validate: codigoValidator})}
           />
+          {errors.codigo && <NotifyError message="El código debe tener 10 caracteres" />}
 
           <label htmlFor="email" className="font-medium">Correo Electrónico</label>
           <Input
-            type="email"
+            type="text"
             id="email"
             name="email"
             placeholder="Ingrese su correo electrónico"
-            {...register("email")}
+            {...register("email", {validate: emailValidator})}
           />
+          {errors.email && <NotifyError message="Email no válido" />}
 
           <label htmlFor="password" className="font-medium">Contraseña</label>
           <Input
@@ -56,8 +59,9 @@ const Login = () => {
             id="password"
             name="password"
             placeholder="Ingrese su contraseña"
-            {...register("password")}
+            {...register("password", {validate: passwordValidator})}
           />
+           {errors.password && <NotifyError message="Este campo es requerido" />}
 
           <a href="" 
             className="underline text-[#3358D4] mb-2.5">
@@ -80,5 +84,9 @@ const Login = () => {
     </div>
   );
 };
+
+const NotifyError = ({ message }) => (
+  <div className="block text-red-500 pt-[-5px] mt-[-15px] pb-2">{message}</div>
+);
 
 export default Login;
