@@ -37,7 +37,7 @@ function SectionsNews() {
                   </Text> 
                   <Text>{noticia.description}</Text>
                   <a href={noticia.url} target='_blank' className='w-24'>
-                    <Button className='hover:cursor-pointer'>
+                    <Button radius="none" className='hover:cursor-pointer'>
                       Leer más
                     </Button>
                   </a>
@@ -67,7 +67,7 @@ function SectionsNews() {
                   </Text> 
                   <Text>{noticia.description}</Text>
                   <a href={noticia.url} target='_blank'>
-                    <Button className='hover:cursor-pointer'>
+                    <Button radius="none" className='hover:cursor-pointer'>
                       Leer más
                     </Button>
                   </a>

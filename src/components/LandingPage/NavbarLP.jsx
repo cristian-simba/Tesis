@@ -24,7 +24,7 @@ function NavbarLP() {
       <Flex justify="between" px={{ initial: "5", sm: "8", md: "9" }} py="4">
         <Flex justify="center" align="center" gap="5">
           <a href="#info">
-            <Heading>App Logo</Heading>
+            <Heading>FashionGEC</Heading>
           </a>
         </Flex>
 

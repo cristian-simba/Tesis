@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
       const res = await response.json();
       if(res.token){
         setCookie('auth', JSON.stringify(res), { path: '/' });
-        navigate("/home");
+        navigate("/dashboard");
       }else{
         NotifyError(res.msg)
         console.log(res.msg)

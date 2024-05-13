@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../context/useAuth"
 import { Flex, Heading, Text, Button, Grid } from "@radix-ui/themes";
 import Input from "../../components/Forms/Input";
-import image from "../../assets/styleLogin.webp";
+import image from "../../assets/ImgLogin.webp";
 import { ToastContainer } from 'react-toastify';
 import { codigoValidator, emailValidator, passwordValidator } from "../../validators/validators";
 
@@ -20,7 +20,7 @@ const Login = () => {
 
   return (
     <div className="grid grid-cols-2"  style={{ 
-      gridTemplateColumns: '45% 55%' 
+      gridTemplateColumns: '1/2 1/2' 
     }}>
 
       <Flex
@@ -79,7 +79,7 @@ const Login = () => {
       </Flex>
 
       <Flex>   
-        <img src={image} alt="" />
+        <img src={image} alt=""/>
       </Flex>
     </div>
   );

@@ -7,7 +7,7 @@ function Footer() {
     <footer>
         <Flex justify='center' gap='9' className='bg-[#111111] text-white py-3 px-12'>
             <Flex direction='column' gap='1' align='center'>
-                <Heading size='3'>Logo App</Heading>
+                <Heading size='3'>FashionGEC</Heading>
                 <Text size='1'>Quito, Ecuador</Text>
                 <Text size='1'>© Derechos reservados 2024</Text>
             </Flex>

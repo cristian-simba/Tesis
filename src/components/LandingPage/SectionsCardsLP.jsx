@@ -3,6 +3,9 @@ import { Grid, Heading, Text, Flex } from "@radix-ui/themes";
 import SectionCard from "./Cards/SectionCard";
 import { useWindowWidth } from "../../hooks/useWindowWidth";
 import { IoIosArrowDown } from "react-icons/io";
+import ImgCard1 from '../../assets/ImgCards/ImgCard1.webp'
+import ImgCard2 from '../../assets/ImgCards/ImgCard2.webp'
+import ImgCard3 from '../../assets/ImgCards/ImgCard3.webp'
 
 function SectionsCardsLP() {
   const windowWidth = useWindowWidth();
@@ -13,20 +16,17 @@ function SectionsCardsLP() {
 
   const data = [
     {
-      image:
-        "https://media.gq.com.mx/photos/6165c414e1224bdb3d42c49b/3:2/w_1998,h_1332,c_limit/habitos-de-un-hombre-con-estilo-como-se-comporta.jpg",
+      image: ImgCard1,
       title: "Descarga la aplicación",
       text: "Descarga la aplicación para disfrutar de todas las funcionalidades."
     },
     {
-      image:
-        "https://audaces.com/wp-content/uploads/2023/08/estilo-elegante-estilos-de-moda-1024x683.jpg",
+      image: ImgCard2,
       title: "Registrate",
       text: "Regístrate para interactuar con las publicaciones que te gusten.",
     },
     {
-      image:
-        "https://media.gq.com.mx/photos/639ab651b258d7ba43866a37/4:3/w_2421,h_1816,c_limit/habitos-de-un-hombre-con-estilo-en-2023.jpg",
+      image: ImgCard3,
       title: "Comparte tu estilo",
       text: "Únete y comparte tus estilos favoritos para inspirar a otros.",
     },
