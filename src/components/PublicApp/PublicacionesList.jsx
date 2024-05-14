@@ -4,7 +4,7 @@ import Masonry from '@mui/lab/Masonry';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
 import { RxCross2 } from "react-icons/rx";
 import {DowloadButton} from '../LandingPage/Buttons/LandingBtns';
-import { FaDownload } from "react-icons/fa6";
+import { GrDownload } from "react-icons/gr";
 
 function PublicacionesList({ publicaciones }) {
 
@@ -15,10 +15,10 @@ function PublicacionesList({ publicaciones }) {
   return windowWidth > 768 ? (
     <Masonry columns={5} spacing={2} className='px-16'>
       {publicaciones.map(publicacion => (
-        <Dialog.Root>
+        <Dialog.Root key={publicacion._id}>
 
         <Dialog.Trigger>
-          <div key={publicacion._id} className='hover:cursor-pointer'>
+          <div className='hover:cursor-pointer'>
             <img src={publicacion.imagen.secure_url} className='rounded-lg mb-2' />   
             <Text>{publicacion.descripcion}</Text>
           </div>
@@ -34,7 +34,7 @@ function PublicacionesList({ publicaciones }) {
                 <Heading size='8'>
                   {headingText}
                 </Heading>
-                <FaDownload size='100' />
+                <GrDownload size='100' color='#202020'/>
                 <Text size='3'className='pb-4 text-center'>
                   {paragraphText}
                 </Text>
@@ -69,7 +69,7 @@ function PublicacionesList({ publicaciones }) {
               <Heading size='8'>
                 {headingText}
               </Heading>
-              <FaDownload size='100' />
+              <GrDownload size='100' color='#202020'/>
               <Text size='2' className='pb-4 text-center'>
                 {paragraphText}
               </Text>

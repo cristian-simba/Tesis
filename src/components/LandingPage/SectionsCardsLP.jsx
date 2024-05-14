@@ -57,7 +57,7 @@ function SectionsCardsLP() {
           ))}
         </Grid>
       </Flex>
-      <Flex justify='center' align='center' className='mt-[-60px] hover:cursor-pointer'>
+      <Flex justify='center' align='center' className='mt-[-70px] hover:cursor-pointer'>
           <a href="#noticias">
             <Text className="font-bold pr-2">
               Ultimas noticias de moda

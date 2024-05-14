@@ -40,7 +40,7 @@ function SectionDownload() {
       <Flex justify="center" align="center" className="mt-[-70px] py-5  hover:cursor-pointer"
       >
         <a href="#descubrir">
-          <Text size={{ sm: "2", md: "3", lg:"5" }} className="font-bold pr-2">
+          <Text className="font-bold pr-2">
             ¿Cómo funciona?
           </Text>
         </a>
