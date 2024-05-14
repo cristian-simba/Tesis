@@ -4,6 +4,8 @@ import { useWindowWidth } from "../../hooks/useWindowWidth";
 import { RxGithubLogo } from "react-icons/rx";
 import { RxLinkedinLogo } from "react-icons/rx";
 import cristianIMG from "../../assets/developers/cristian.webp"
+import erickImg from "../../assets/developers/erick.jfif"
+import gilmarImg from "../../assets/developers/gilmar.jfif"
 
 function SectionGroup() {
   const windowWidth = useWindowWidth();
@@ -12,25 +14,25 @@ function SectionGroup() {
 
   const data = [
     {
-      imgSrc: "https://www.elmueble.com/medio/2024/03/18/perro-de-raza-pitbull_62fd02b2_240318130402_900x900.jpg",
+      imgSrc: gilmarImg,
       name: "Gilmar Morales",
-      description: "Des 1",
+      description: "Estoy aprendiendo a desarrollar software e interesado en la programación. Busco colaborar con diferentes empresas para mejorar la efectividad de sus sistemas.",
       work: "Desarrollador Móvil",
-      githubLink: "/1",
-      linkedinLink: "/1"
+      githubLink: "https://github.com/Morales-Gilmar-Vladimir",
+      linkedinLink: "https://www.linkedin.com/in/gilmar-morales-b93659241/"
     },
     {
-      imgSrc: "https://www.elmueble.com/medio/2024/03/18/perro-de-raza-pitbull_62fd02b2_240318130402_900x900.jpg",
+      imgSrc: erickImg,
       name: "Erick Ruiz",
-      description: "Des 2",
+      description: "Estoy interesado en la programación, hacking y las inteligencias artificiales. Busco colaborar en empresas donde pueda aplicar todos los conocimientos aprendidos en mi carrera.",
       work: "Desarrollador Backend",
-      githubLink: "/2",
-      linkedinLink: "/2"
+      githubLink: "https://github.com/Ruizerick26",
+      linkedinLink: "https://www.linkedin.com/in/rcee0234134/"
     },
     {
       imgSrc: cristianIMG,
       name: "Cristian Simba",
-      description: "",
+      description: "Manejo diferentes lenguajes de programación y bases de datos, pero estoy aprendiendo más de este mundo. Busco colaborar con diferentes empresas para mejorar mis habilidades.",
       work: "Desarrollador Frontend",
       githubLink: "https://github.com/cristian-simba",
       linkedinLink: "https://linkedin.com/in/cristian-simba-b59739242"
@@ -42,13 +44,13 @@ function SectionGroup() {
       <Heading size='8' className='bg-white'>{headingText}</Heading>
       <Grid rows="3" align="center" gapY='5' className="py-10">
         {data.map((item, index) => (
-          <Flex key={index} gap='5' align='center' className='pb-2 border-b-2  bg-white'>
+          <Flex key={index} gap='5' align='center' className='pb-2 border-b-2 bg-white'>
             <Flex>
-              <img src={item.imgSrc} alt='img' className='w-32 rounded-full' />
+              <img src={item.imgSrc} alt='img' className='w-[200px] rounded-full' />
             </Flex>
             <Flex direction='column' gap='2'>
               <Text size='4'><Strong>{item.name}</Strong></Text>
-              <Text>{item.work}</Text>
+              <Text className='font-medium'>{item.work}</Text>
               <Text>{item.description}</Text>
               <Flex gap='3'>
                 <a href={item.githubLink} target='blank_'>

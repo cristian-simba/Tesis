@@ -9,7 +9,7 @@ import { FaDownload } from "react-icons/fa6";
 function PublicacionesList({ publicaciones }) {
 
   const windowWidth = useWindowWidth();
-  const headingText = 'APP LOGO'
+  const headingText = 'FashionGEC'
   const paragraphText = 'Explora todas las funciones disponibles en la aplicación móvil. Publica, reacciona y guarda las publicaciones que te gusten.'
 
   return windowWidth > 768 ? (
