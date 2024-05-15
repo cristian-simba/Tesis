@@ -5,6 +5,7 @@ import LandingPage from "./pages/public/LandingPage"
 import PublicApp from './pages/public/PublicApp'
 import Login from "./pages/public/Login"
 import Dashboard from "./pages/private/Dashboard"
+import Moderadores from "./pages/private/Moderadores"
 
 function App() {
 
@@ -17,7 +18,9 @@ function App() {
             <Route path="/ideas" element={<PublicApp/>} />
             <Route path="/mod/login" element={<Login/>} />
             <Route element={<PrivateRoute/>}>
-              <Route path="/dashboard" element={<Dashboard/>} />
+              <Route path="/dashboard/" element={<Dashboard/>} >
+                <Route path="moderadores" element={<Moderadores/>}/>
+              </Route>
             </Route>
             <Route path="*" element={<h1>No encontrado</h1>}/>
           </Routes>

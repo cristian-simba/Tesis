@@ -7,7 +7,7 @@ export const getNoticias = async () => {
     setLang: 'es', 
     count: 3
   };
-  const headers = { 'Ocp-Apim-Subscription-Key': '3f23ee86f6f04626abf3a782eb204449' };
+  const headers = { 'Ocp-Apim-Subscription-Key': '3f23ee86f6f04626abf3a782eb20444x' };
 
   try {
     const response = await axios.get(url, { params, headers });
