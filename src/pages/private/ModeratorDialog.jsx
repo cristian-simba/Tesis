@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from 'react-dom';
 import { useForm } from "react-hook-form";
-import { Flex, Heading, Button, Dialog, Spinner } from "@radix-ui/themes";
+import { Flex, Text, Heading, Button, Dialog, Spinner } from "@radix-ui/themes";
 import { RxCross2, RxBookmark } from "react-icons/rx";
 import Input from "../../components/Forms/Input";
 import { registerModerador } from "../../api/moderador.api";
@@ -12,12 +12,18 @@ export default function ModeratorDialog({ id, token }) {
   const { register, handleSubmit, reset } = useForm();
   const [loading, onLoading] = useState(false)
   const [open, setOpen] = useState(false);
-  
+  const [domReady, setDomReady] = useState(false);
+
   useEffect(() => {
     if (!open) {
       reset(); 
     }
   }, [open]);
+
+  useEffect(() => {
+    setDomReady(true);
+  }, []);
+  
   
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -40,43 +46,49 @@ export default function ModeratorDialog({ id, token }) {
   });
   return (
   <>
-    {createPortal(
-      <ToastContainer position="top-center" style={{ zIndex: 2000 }} />,
+    {domReady && createPortal(
+      <ToastContainer position="top-center" 
+        closeButton={false} 
+        autoClose={4000}
+        style={{ zIndex: 2000,width: '400px' }} />,
       document.body
     )}
-    <Dialog.Root open={open} onOpenChange={setOpen} style={{ zIndex: 1000 }}>
+    <Dialog.Root open={open} onOpenChange={setOpen} style={{ zIndex: 10 }}>
       <Dialog.Trigger>
-        <Button>Registrar Moderador</Button>
+        <Button radius="none">Registrar Moderador</Button>
       </Dialog.Trigger>
-      <Dialog.Content maxWidth="450px">
+      <Dialog.Content maxWidth="500px">
 
         <Flex justify="end">
           <Dialog.Close>
             <RxCross2 size="20" className="hover:cursor-pointer" />
           </Dialog.Close>
         </Flex>
-        <Heading className="text-center pb-5">Registrar Moderador</Heading>
+        <Flex align='center' direction='column'> 
+          <Heading className="pb-5">Registrar Moderador</Heading>
+          <Text  className="text-sm pb-5">Llena todos los campos para registrar un nuevo moderador</Text>
+        </Flex>
         <form onSubmit={onSubmit} className="flex flex-col gap-3 text-sm">
           <label htmlFor="nombre" className="font-medium">
             Nombre
           </label>
-          <Input {...register("nombre")} placeholder="Nombre del moderador" />
+          <Input {...register("nombre")} placeholder="Escriba el nombre del moderador" />
           <label htmlFor="apellido" className="font-medium">
             Apellido
           </label>
           <Input
             {...register("apellido")}
-            placeholder="Apellido del moderador"
+            placeholder="Escriba el apellido del moderador"
           />
           <label htmlFor="email" className="font-medium">
             Correo Electrónico
           </label>
 
-          <Input {...register("email")} placeholder="Correo Electrónico" />
+          <Input {...register("email")} placeholder="Escriba el correo electrónico del moderador" />
 
           <Flex gap="3" mt="4" justify="end">
             <Dialog.Close>
-              <Button variant="soft" color="gray">
+              <Button variant="soft" radius="none" color="gray" className="hover:cursor-pointer">
                 Cancelar
               </Button>
             </Dialog.Close>
@@ -89,7 +101,7 @@ export default function ModeratorDialog({ id, token }) {
                 Registrar Moderador
                 </Button>
             ) : (
-              <Button type="submit" radius="none">
+              <Button type="submit" radius="none" className="hover:cursor-pointer">
                 Registrar Moderador
               </Button>
             )}

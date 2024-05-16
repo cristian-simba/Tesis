@@ -14,7 +14,7 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const auth = useAuth();
 
-  const onSubmit = handleSubmit(async (data, onSend) => {
+  const onSubmit = handleSubmit(async (data) => {
     try {
       onLoading(true);
       await auth.login(data);

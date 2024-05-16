@@ -39,9 +39,14 @@ const AuthProvider = ({ children }) => {
   };
   
   const logOut = () => {
-    removeCookie('auth');
-    navigate("/login");
+    try {
+      removeCookie('auth');
+      navigate("/mod/login");
+    } catch (error) {
+      console.error(error);
+    }
   };
+  
 
   return (
     <AuthContext.Provider value={{ cookies, login, logOut }}>

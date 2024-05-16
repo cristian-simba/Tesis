@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Flex, Heading, Text, Button, Grid } from "@radix-ui/themes";
 import { getPublicaciones } from '../../api/publicaciones.api';
 import PublicacionesList from './PublicacionesList';
 

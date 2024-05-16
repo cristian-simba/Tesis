@@ -44,8 +44,8 @@ export function SidebarItem({ icon, text, active, alert }) {
       className={`
         relative flex items-center h-10 mt-3
         rounded-md cursor-pointer
-        transition-colors group
-        hover:bg-indigo-50 text-gray-600
+        transition-colors-50 group
+        hover:bg-indigo-50 hover:text-indigo-800
         ${active ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800" : ""}
       `}
     >

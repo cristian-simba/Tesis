@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useAuth from "../../context/useAuth";
 import ModeratorDialog from "./ModeratorDialog";
-import { ToastContainer } from 'react-toastify';
 
 export default function Moderadores() {
   const user = useAuth();
@@ -16,7 +15,6 @@ export default function Moderadores() {
   return (
     <div className={`transition-opacity duration-200 ${show ? 'opacity-100' : 'opacity-0'}`}>
       <ModeratorDialog id={id} token={token} />
-      <ToastContainer />
     </div>
   );
 }
