@@ -1,7 +1,7 @@
 import { useContext, createContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
-import NotifyError from "../components/Toasts/Notifies";
+import { NotifyError } from "../components/Toasts/Notifies";
 
 export const AuthContext = createContext();
 
