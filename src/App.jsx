@@ -18,7 +18,8 @@ function App() {
             <Route path="/ideas" element={<PublicApp/>} />
             <Route path="/mod/login" element={<Login/>} />
             <Route element={<PrivateRoute/>}>
-              <Route path="/dashboard/" element={<Dashboard/>} >
+              <Route path="/" element={<Dashboard/>} >
+                <Route path="dashboard" element={<h1>XD</h1>}/>
                 <Route path="moderadores" element={<Moderadores/>}/>
               </Route>
             </Route>

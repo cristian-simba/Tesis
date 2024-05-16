@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
     console.log(cookies);
   }, [cookies]);
   
-  const login = async (data) => {
+  const login = async (data, onSend) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login/moderador`, {
         method: "POST",

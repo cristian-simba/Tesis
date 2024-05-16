@@ -1,18 +1,24 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../context/useAuth"
-import { Flex, Heading, Text, Button} from "@radix-ui/themes";
+import { Flex, Heading, Text, Button, Spinner} from "@radix-ui/themes";
+import { RxBookmark } from "react-icons/rx";
 import Input from "../../components/Forms/Input";
 import image from "../../assets/ImgLogin.webp";
 import { ToastContainer } from 'react-toastify';
 import { codigoValidator, emailValidator, passwordValidator } from "../../validators/validators";
 
 const Login = () => {
+
+  const [loading, onLoading] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm();
   const auth = useAuth();
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async (data, onSend) => {
     try {
+      onLoading(true);
       await auth.login(data);
+      onLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -68,13 +74,25 @@ const Login = () => {
             ¿Olvidaste tu contraseña?
           </a>
 
-          <Button 
-            radius='none'
-            size={{ md: "3", lg: "4" }}
-            className="hover:cursor-pointer"
-          >
-            Iniciar sesión
-          </Button>
+          {loading ? (
+              <Button         
+              size={{ md: "3", lg: "4" }}
+              disabled>
+                 <Spinner loading>
+                  <RxBookmark />
+                </Spinner>
+                Iniciar Sesión
+                </Button>
+            ) : (
+              <Button           
+                size={{ md: "3", lg: "4" }}
+                radius="none"
+                className="hover:cursor-pointer">
+                Iniciar Sesión
+              </Button>
+            )}
+
+
         </form>
       </Flex>
 

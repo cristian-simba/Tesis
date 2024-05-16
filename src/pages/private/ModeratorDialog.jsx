@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from 'react-dom';
 import { useForm } from "react-hook-form";
 import { Flex, Heading, Button, Dialog, Spinner } from "@radix-ui/themes";
 import { RxCross2, RxBookmark } from "react-icons/rx";
@@ -8,19 +9,25 @@ import { ToastContainer } from 'react-toastify';
 import { NotifyError, NotifySuccess } from "../../components/Toasts/Notifies";
 
 export default function ModeratorDialog({ id, token }) {
-  const { register, handleSubmit } = useForm();
-  const [send, onSend] = useState(false)
+  const { register, handleSubmit, reset } = useForm();
+  const [loading, onLoading] = useState(false)
   const [open, setOpen] = useState(false);
+  
+  useEffect(() => {
+    if (!open) {
+      reset(); 
+    }
+  }, [open]);
   
   const onSubmit = handleSubmit(async (data) => {
     try {
-      onSend(true);
+      onLoading(true);
       await registerModerador(data, id, token);
-      onSend(false);
+      onLoading(false);
       setOpen(false);
-      NotifySuccess("Moderador registrado con éxito");
+      NotifySuccess("Moderador registrado correctamente");
     } catch (error) {
-      onSend(false);
+      onLoading(false);
       console.log(error);
       if (error.message === "Network Error") {
         NotifyError("Error del servidor");
@@ -33,13 +40,15 @@ export default function ModeratorDialog({ id, token }) {
   });
   return (
   <>
-    <Dialog.Root open={open} onOpenChange={setOpen } >
+    {createPortal(
+      <ToastContainer position="top-center" style={{ zIndex: 2000 }} />,
+      document.body
+    )}
+    <Dialog.Root open={open} onOpenChange={setOpen} style={{ zIndex: 1000 }}>
       <Dialog.Trigger>
         <Button>Registrar Moderador</Button>
       </Dialog.Trigger>
       <Dialog.Content maxWidth="450px">
-      <ToastContainer position="top-center" />
-
 
         <Flex justify="end">
           <Dialog.Close>
@@ -72,7 +81,7 @@ export default function ModeratorDialog({ id, token }) {
               </Button>
             </Dialog.Close>
 
-            {send ? (
+            {loading ? (
               <Button disabled>
                  <Spinner loading>
                   <RxBookmark />

@@ -10,7 +10,7 @@ export default function Sidebar({children}) {
 
   return (
     <aside className="h-screen">
-      <Flex direction='column' className="h-full border-r-2">
+      <Flex direction='column' className="h-full border-r ">
         <Flex justify='between' align='center' className="p-4 pb-2">
         <img
             src="https://img.logoipsum.com/243.svg"
@@ -54,7 +54,7 @@ export function SidebarItem({ icon, text, active, alert }) {
       </div>
       <span
         className={`overflow-hidden transition-all ${
-          expanded ? "w-52 ml-3" : "w-0"
+          expanded ? "w-52 ml-3 opacity-100" : "w-0 opacity-0"
         }`}
       >
         {text}
