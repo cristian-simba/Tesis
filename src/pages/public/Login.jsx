@@ -18,8 +18,8 @@ const Login = () => {
     try {
       onLoading(true);
       await auth.login(data);
-      onLoading(false);
     } catch (error) {
+      onLoading(false);
       console.log(error);
     }
   });
@@ -69,7 +69,7 @@ const Login = () => {
           />
            {errors.password && <NotifyError message="Este campo es requerido" />}
 
-          <a href="" 
+          <a href="/mod/reset-password" 
             className="underline text-[#3358D4] mb-2.5">
             ¿Olvidaste tu contraseña?
           </a>

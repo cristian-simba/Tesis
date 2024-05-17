@@ -5,6 +5,7 @@ import ProtectedRoute from "./routes/ProtectedRoute"
 import LandingPage from "./pages/public/LandingPage"
 import PublicApp from './pages/public/PublicApp'
 import Login from "./pages/public/Login"
+import ResetPassword from "./pages/public/ResetPassword"
 import Dashboard from "./pages/private/Dashboard"
 import Moderadores from "./pages/private/Moderadores"
 
@@ -18,6 +19,7 @@ function App() {
             <Route index element={<LandingPage/>}/>
             <Route path="/ideas" element={<PublicApp/>} />
             <Route path="/mod/login" element={<Login/>} />
+            <Route path="/mod/reset-password" element={<ResetPassword/>} />
             <Route element={<PrivateRoute/>}>
               <Route path="/" element={<Dashboard/>} >
                 <Route path="dashboard" element={<h1>Todos los Moderadores</h1>}/>
@@ -25,8 +27,8 @@ function App() {
                 <Route path="moderadores" element={
                   <ProtectedRoute> 
                     <Moderadores/>
-                  </ProtectedRoute>}
-                />
+                  </ProtectedRoute>
+                }/>
 
                 
               </Route>

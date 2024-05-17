@@ -72,19 +72,19 @@ export default function ModeratorDialog({ id, token }) {
           <label htmlFor="nombre" className="font-medium">
             Nombre
           </label>
-          <Input {...register("nombre")} placeholder="Escriba el nombre del moderador" />
+          <Input {...register("nombre")} placeholder="Ingrese el nombre del moderador" />
           <label htmlFor="apellido" className="font-medium">
             Apellido
           </label>
           <Input
             {...register("apellido")}
-            placeholder="Escriba el apellido del moderador"
+            placeholder="Ingrese el apellido del moderador"
           />
           <label htmlFor="email" className="font-medium">
             Correo Electrónico
           </label>
 
-          <Input {...register("email")} placeholder="Escriba el correo electrónico del moderador" />
+          <Input {...register("email")} placeholder="Ingrese el correo electrónico del moderador" />
 
           <Flex gap="3" mt="4" justify="end">
             <Dialog.Close>
