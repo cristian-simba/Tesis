@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../context/useAuth"
 import { Flex, Heading, Text, Button, Spinner} from "@radix-ui/themes";
@@ -7,12 +7,14 @@ import Input from "../../components/Forms/Input";
 import image from "../../assets/ImgLogin.webp";
 import { ToastContainer } from 'react-toastify';
 import { codigoValidator, emailValidator, passwordValidator } from "../../validators/validators";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
   const [loading, onLoading] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm();
   const auth = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -69,7 +71,7 @@ const Login = () => {
           />
            {errors.password && <NotifyError message="Este campo es requerido" />}
 
-          <a href="/mod/reset-password" 
+          <a href="/recuperar-password" 
             className="underline text-[#3358D4] mb-2.5">
             ¿Olvidaste tu contraseña?
           </a>

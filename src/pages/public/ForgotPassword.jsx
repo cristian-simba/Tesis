@@ -3,12 +3,12 @@ import { Flex, Heading, Text, Button, Spinner } from "@radix-ui/themes";
 import { RxEnvelopeClosed, RxEnvelopeOpen, RxBookmark } from "react-icons/rx";
 import Input from "../../components/Forms/Input";
 import { useForm } from "react-hook-form";
-import { resetPassword } from "../../api/moderador.api";
+import { forgotPassword } from "../../api/moderador.api";
 import { emailValidator } from "../../validators/validators";
 import { NotifyError, NotifySuccess } from "../../components/Toasts/Notifies";
 import { ToastContainer } from 'react-toastify';
 
-export default function ResetPassword() {
+export default function ForgotPassword() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
@@ -21,7 +21,7 @@ export default function ResetPassword() {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      await resetPassword(data);
+      await forgotPassword(data);
       setSend(true);
       NotifySuccess("Correo electrónico enviado")
     } catch (error) {

@@ -36,7 +36,7 @@ function HomeLP() {
       <Flex justify="center" align="center" className="mt-[-70px] py-5  hover:cursor-pointer"
       >
         <a href="#download">
-          <Text  className="font-bold pr-2">
+          <Text className="font-bold pr-2">
             Nuestra aplicación
           </Text>
         </a>

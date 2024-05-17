@@ -11,7 +11,12 @@ export const registerModerador = (data, id, token) => {
   return axios.post(url, data, options);
 }
 
-export const resetPassword = (data) => {
+export const forgotPassword = (data) => {
   const url = `${import.meta.env.VITE_BACKEND_URL}/moderador/recuperar`;
   return axios.post(url, data);
+}
+
+export const comprobarToken = (token) => {
+  const url = `${import.meta.env.VITE_BACKEND_URL}/moderador/recuperar/${token}`;
+  return axios.get(url);
 }
