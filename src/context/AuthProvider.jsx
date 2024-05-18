@@ -1,4 +1,4 @@
-import { useContext, createContext, useEffect } from "react";
+import { createContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import { NotifyError } from "../components/Toasts/Notifies";
@@ -30,7 +30,6 @@ const AuthProvider = ({ children }) => {
         navigate("/dashboard");
       }else{
         NotifyError(res.msg)
-        console.log(res.msg)
       }
 
     } catch (error) {

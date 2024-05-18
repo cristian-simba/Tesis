@@ -7,14 +7,12 @@ import Input from "../../components/Forms/Input";
 import image from "../../assets/ImgLogin.webp";
 import { ToastContainer } from 'react-toastify';
 import { codigoValidator, emailValidator, passwordValidator } from "../../validators/validators";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
   const [loading, onLoading] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm();
   const auth = useAuth();
-  const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -49,7 +47,7 @@ const Login = () => {
             placeholder="Ingrese el código"
             {...register("codigo", {validate: codigoValidator})}
           />
-          {errors.codigo && <NotifyError message="El código debe tener 10 caracteres" />}
+          {errors.codigo && <FormError message="El código debe tener 10 caracteres" />}
 
           <label htmlFor="email" className="font-medium">Correo Electrónico</label>
           <Input
@@ -59,7 +57,7 @@ const Login = () => {
             placeholder="Ingrese su correo electrónico"
             {...register("email", {validate: emailValidator})}
           />
-          {errors.email && <NotifyError message="Email no válido" />}
+          {errors.email && <FormError message="Email no válido" />}
 
           <label htmlFor="password" className="font-medium">Contraseña</label>
           <Input
@@ -69,7 +67,7 @@ const Login = () => {
             placeholder="Ingrese su contraseña"
             {...register("password", {validate: passwordValidator})}
           />
-           {errors.password && <NotifyError message="Este campo es requerido" />}
+           {errors.password && <FormError message="Este campo es requerido" />}
 
           <a href="/recuperar-password" 
             className="underline text-[#3358D4] mb-2.5">
@@ -105,7 +103,7 @@ const Login = () => {
   );
 };
 
-const NotifyError = ({ message }) => (
+const FormError = ({ message }) => (
   <div className="block text-red-500 pt-[-5px] mt-[-18px] pb-2 font-thin">{message}</div>
 );
 

@@ -65,6 +65,7 @@ export default function ForgotPassword() {
           {loading ? (
             <Button 
             disabled
+            size={{ md: "3", lg: "4" }}
             style={{ width: '100%' }}>
               <Spinner loading>
                 <RxBookmark />
@@ -74,6 +75,7 @@ export default function ForgotPassword() {
           ) : (
             <Button 
             type="submit" 
+            size={{ md: "3", lg: "4" }}
             radius="none"
             style={{ width: '100%' }} 
             className="hover:cursor-pointer">
