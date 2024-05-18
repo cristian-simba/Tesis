@@ -18,6 +18,7 @@ const Login = () => {
     try {
       onLoading(true);
       await auth.login(data);
+      onLoading(false);
     } catch (error) {
       onLoading(false);
       console.log(error);
@@ -25,16 +26,8 @@ const Login = () => {
   });
 
   return (
-    <div className="grid grid-cols-2"  style={{ 
-      gridTemplateColumns: '1/2 1/2' 
-    }}>
-
-      <Flex
-        justify="center"
-        align="center"
-        direction="column"
-        className="min-h-screen"
-      >
+    <div className="grid grid-cols-2"  style={{ gridTemplateColumns: '1/2 1/2' }}>
+      <Flex justify="center" align="center" direction="column"className="min-h-screen">
         <ToastContainer position="top-left"/>
         <form onSubmit={onSubmit} className="flex flex-col gap-3 text-sm">
           <Heading className="text-center">Bienvenido</Heading>

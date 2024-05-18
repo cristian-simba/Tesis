@@ -8,6 +8,7 @@ import Login from "./pages/public/Login"
 import ForgotPassword from "./pages/public/ForgotPassword"
 import VerifyToken from "./pages/public/VerifyToken"
 import NewPassword from "./pages/public/NewPassword"
+import UpdatePassword from "./pages/private/UpdatePassword"
 import Dashboard from "./pages/private/Dashboard"
 import Moderadores from "./pages/private/Moderadores"
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/recuperar-password/:token" element={<VerifyToken/>} />
             <Route path="/nueva-contraseña/:token" element={<NewPassword/>} />
             <Route element={<PrivateRoute/>}>
+              <Route path="/actualizar-contraseña/:id" element={<UpdatePassword/>} />
               <Route path="/" element={<Dashboard/>} >
                 <Route path="dashboard" element={<h1>Todos los Moderadores</h1>}/>
 

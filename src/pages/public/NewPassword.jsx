@@ -12,7 +12,7 @@ import { LuLock } from "react-icons/lu";
 const NewPassword = () => {
   const { token } = useParams();
   const navigate = useNavigate();
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -80,7 +80,7 @@ const NewPassword = () => {
                  <Spinner loading>
                   <RxBookmark />
                 </Spinner>
-                Actualizar contraseña
+                Restablecer contraseña
                 </Button>
             ) : (
               <Button           
