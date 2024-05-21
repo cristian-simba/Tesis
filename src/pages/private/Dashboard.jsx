@@ -5,12 +5,13 @@ import { Flex, Avatar, Heading, Text, Switch, Button } from '@radix-ui/themes';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Spinner } from '@radix-ui/themes';
 import useAuth from "../../context/useAuth"
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
 
   const auth = useAuth();
   const id = auth.cookies.auth._id;
-  console.log(auth)
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(true);
   const location = useLocation();
@@ -22,6 +23,15 @@ function Dashboard() {
     }catch(error){
       console.error(error);
     }
+  }
+
+  const handleSettings = async() => {
+    try{
+      navigate(`actualizar-contraseña/${id}`);
+    }catch(error){
+      console.error(error);
+    }
+  
   }
 
   useEffect(() => {
@@ -71,13 +81,14 @@ function Dashboard() {
               </Link>
             ) : null}
 
-          <Link to={`actualizar-contraseña/${id}`}>
+          {/* <Link to={`actualizar-contraseña/${id}`}>
             <SidebarItem 
             icon={<LuSettings size={20} />} 
             text="Configuración" 
             active={location.pathname === '/settings'} 
             />
-          </Link>
+          </Link> */}
+
         </Sidebar>
         <Flex direction="column" className="flex-1">
           <Flex gap="2" className="px-4 py-4 w-full border-b " justify="between">
@@ -91,7 +102,7 @@ function Dashboard() {
                 <div onClick={() => setOpen(!open)} role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === 'Enter') setOpen(!open); }}>
                   <Avatar fallback={auth.cookies.auth.nombre ? auth.cookies.auth.nombre[0] : "M"} size="2" />
 
-                  <div className={`transition-opacity duration-150 ${open ? 'opacity-0' : 'opacity-100'} absolute top-16 right-4 w-1/6`}>
+                  <div className={`transition-opacity duration-150 ${open ? 'opacity-0' : 'opacity-100'} absolute top-16 right-4 w-[200px]`}>
 
                     <Flex direction='column' className=' border border-[#B8BCBA] rounded-md px-3 py-2 shadow-lg'>
                       <Text size='2'className='border-b px-2 py-2 font-medium'>
@@ -103,10 +114,26 @@ function Dashboard() {
                         </Text>
                         <Switch variant="soft"/>
                       </Flex> */}
-                      <Button size='2' color="red" onClick={handleLogout}
-                        className='hover:cursor-pointer'>
-                          Cerrar Sesión
+                      <Flex direction='column' gap='1'>
+
+                        {/* <Button  color="gray" variant="outline" highContrast onClick={handleSettings}
+                          className='hover:cursor-pointer'>
+                            <LuSettings size={20} />
+                            Configuración
+                        </Button> */}
+
+                        <Flex gap='2' className='px-2 pt-2 mb-1' align='center' onClick={handleSettings}>
+                          <LuSettings size={20} />
+                          <Text size='2'>
+                            Configuración
+                          </Text>
+                        </Flex>
+
+                        <Button size='2' color="red" onClick={handleLogout}
+                          className='hover:cursor-pointer'>
+                            Cerrar Sesión
                         </Button>
+                      </Flex>
                     </Flex>
 
                   </div>

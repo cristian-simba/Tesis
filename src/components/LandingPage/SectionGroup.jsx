@@ -1,17 +1,17 @@
 import React from 'react'
-import { Grid , Flex, Heading, Text, Strong} from '@radix-ui/themes'
+import { Grid , Flex, Heading, Text, Strong, Button} from '@radix-ui/themes'
 import { useWindowWidth } from "../../hooks/useWindowWidth";
 import { RxGithubLogo } from "react-icons/rx";
 import { RxLinkedinLogo } from "react-icons/rx";
 import cristianIMG from "../../assets/developers/cristian.webp"
 import erickImg from "../../assets/developers/erick.jfif"
 import gilmarImg from "../../assets/developers/gilmar.jfif"
+import { useNavigate } from 'react-router-dom';
 
 function SectionGroup() {
+  const navigate = useNavigate();
   const windowWidth = useWindowWidth();
-
   const headingText = "Equipo de Desarrollo";
-
   const data = [
     {
       imgSrc: gilmarImg,
@@ -39,9 +39,23 @@ function SectionGroup() {
     }
   ];
 
+  const handleLogin = async() => {
+    navigate('/mod/login');
+  }
+
+
   return windowWidth > 768 ? (
     <div id='equipo' className='px-28 pt-20 min-h-screen'>
-      <Heading size='8' className='bg-white'>{headingText}</Heading>
+      <Flex justify='between'>
+
+        <Heading size='8' className='bg-white'>{headingText}</Heading>
+        <Button radius='none' 
+          onClick={handleLogin}
+          color="gray"
+          variant="soft"
+          size={{ md: "3", lg: "4" }}
+          className='hover:cursor-pointer'>Iniciar sesión como moderador</Button>
+      </Flex>
       <Grid rows="3" align="center" gapY='5' className="py-10">
         {data.map((item, index) => (
           <Flex key={index} gap='5' align='center' className='pb-2 border-b-2 bg-white'>

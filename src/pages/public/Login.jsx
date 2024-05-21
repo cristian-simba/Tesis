@@ -30,17 +30,14 @@ const Login = () => {
       <Flex justify="center" align="center" direction="column"className="min-h-screen">
         <ToastContainer position="top-left"/>
         <form onSubmit={onSubmit} className="flex flex-col gap-3 text-sm">
-          <Heading className="text-center">Bienvenido</Heading>
-          <Text className="text-center pb-3">Por favor ingresa tus credenciales</Text>
-          {/* <label htmlFor="codigo" className="font-medium">Código</label>
-          <Input
-            type="text"
-            id="codigo"
-            name="codigo"
-            placeholder="Ingrese el código"
-            {...register("codigo", {validate: codigoValidator})}
-          />
-          {errors.codigo && <FormError message="El código debe tener 10 caracteres" />} */}
+
+          <Flex direction="column" align="center" gap="1">
+
+            <Heading className="pb-3">Bienvenido</Heading>
+            <Text>Este es el inicio de sesión solo para los moderadores.</Text>
+            <Text className="pb-3">Por favor ingresa tus credenciales</Text>
+          </Flex>
+
 
           <label htmlFor="email" className="font-medium">Correo Electrónico</label>
           <Input

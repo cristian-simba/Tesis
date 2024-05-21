@@ -1,6 +1,7 @@
 import { useContext, createContext, useState } from "react"
 import { LuChevronLast, LuChevronFirst } from "react-icons/lu"
 import { Flex } from "@radix-ui/themes"
+import image from "../assets/logoText.png"
 
 const SidebarContext = createContext()
 
@@ -13,7 +14,7 @@ export default function Sidebar({children}) {
       <Flex direction='column' className="h-full border-r ">
         <Flex justify='between' align='center' className="p-4 pb-2">
         <img
-            src="https://img.logoipsum.com/243.svg"
+            src={image}
             className={`overflow-hidden transition-all ${
               expanded ? "w-32" : "w-0"
             }`}
