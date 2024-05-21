@@ -5,6 +5,7 @@ import ProtectedRoute from "./routes/ProtectedRoute"
 import LandingPage from "./pages/public/LandingPage"
 import PublicApp from './pages/public/PublicApp'
 import Login from "./pages/public/Login"
+import FirstLogin from "./pages/public/FirstLogin"
 import ForgotPassword from "./pages/public/ForgotPassword"
 import VerifyToken from "./pages/public/VerifyToken"
 import NewPassword from "./pages/public/NewPassword"
@@ -22,13 +23,14 @@ function App() {
             <Route index element={<LandingPage/>}/>
             <Route path="/ideas" element={<PublicApp/>} />
             <Route path="/mod/login" element={<Login/>} />
+            <Route path="/cambiar-contraseña" element={<FirstLogin/>} />
             <Route path="/recuperar-password" element={<ForgotPassword/>} />
             <Route path="/recuperar-password/:token" element={<VerifyToken/>} />
             <Route path="/nueva-contraseña/:token" element={<NewPassword/>} />
             <Route element={<PrivateRoute/>}>
-              <Route path="/actualizar-contraseña/:id" element={<UpdatePassword/>} />
               <Route path="/" element={<Dashboard/>} >
                 <Route path="dashboard" element={<h1>Todos los Moderadores</h1>}/>
+                <Route path="/actualizar-contraseña/:id" element={<UpdatePassword/>} />
 
                 <Route path="moderadores" element={
                   <ProtectedRoute> 

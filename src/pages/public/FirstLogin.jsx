@@ -1,24 +1,25 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import useAuth from "../../context/useAuth"
 import { Flex, Heading, Text, Button, Spinner} from "@radix-ui/themes";
 import { RxBookmark } from "react-icons/rx";
 import Input from "../../components/Forms/Input";
-import image from "../../assets/ImgLogin.webp";
 import { ToastContainer } from 'react-toastify';
 import { codigoValidator, emailValidator, passwordValidator } from "../../validators/validators";
+import { firstLogin } from "../../api/moderador.api";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const FirstLogin = () => {
 
   const [loading, onLoading] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const auth = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
       onLoading(true);
-      await auth.login(data);
+      await firstLogin(data);
       onLoading(false);
+      navigate("/dashboard");
     } catch (error) {
       onLoading(false);
       console.log(error);
@@ -26,13 +27,13 @@ const Login = () => {
   });
 
   return (
-    <div className="grid grid-cols-2"  style={{ gridTemplateColumns: '1/2 1/2' }}>
+    <div className="grid grid-cols-1"  style={{ gridTemplateColumns: '1/2 1/2' }}>
       <Flex justify="center" align="center" direction="column"className="min-h-screen">
         <ToastContainer position="top-left"/>
         <form onSubmit={onSubmit} className="flex flex-col gap-3 text-sm">
-          <Heading className="text-center">Bienvenido</Heading>
-          <Text className="text-center pb-3">Por favor ingresa tus credenciales</Text>
-          {/* <label htmlFor="codigo" className="font-medium">Código</label>
+          <Heading className="text-center">Primer Inicio de sesión</Heading>
+          <Text className="text-center pb-3">Por favor completa todos los campos</Text>
+          <label htmlFor="codigo" className="font-medium">Código</label>
           <Input
             type="text"
             id="codigo"
@@ -40,7 +41,7 @@ const Login = () => {
             placeholder="Ingrese el código"
             {...register("codigo", {validate: codigoValidator})}
           />
-          {errors.codigo && <FormError message="El código debe tener 10 caracteres" />} */}
+          {errors.codigo && <FormError message="El código debe tener 10 caracteres" />}
 
           <label htmlFor="email" className="font-medium">Correo Electrónico</label>
           <Input
@@ -52,13 +53,23 @@ const Login = () => {
           />
           {errors.email && <FormError message="Email no válido" />}
 
-          <label htmlFor="password" className="font-medium">Contraseña</label>
+          <label htmlFor="password" className="font-medium">Contraseña Actual</label>
           <Input
             type="password"
             id="password"
             name="password"
             placeholder="Ingrese su contraseña"
             {...register("password", {validate: passwordValidator})}
+          />
+           {errors.password && <FormError message="Este campo es requerido" />}
+
+          <label htmlFor="passwordNuevo " className="font-medium">Nueva Contraseña</label>
+          <Input
+            type="password"
+            id="passwordNuevo"
+            name="passwordNuevo"
+            placeholder="Ingrese su contraseña"
+            {...register("passwordNuevo", {validate: passwordValidator})}
           />
            {errors.password && <FormError message="Este campo es requerido" />}
 
@@ -89,9 +100,6 @@ const Login = () => {
         </form>
       </Flex>
 
-      <Flex>   
-        <img src={image} alt=""/>
-      </Flex>
     </div>
   );
 };
@@ -100,4 +108,4 @@ const FormError = ({ message }) => (
   <div className="block text-red-500 pt-[-5px] mt-[-18px] pb-2 font-thin">{message}</div>
 );
 
-export default Login;
+export default FirstLogin;

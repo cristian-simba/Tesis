@@ -23,15 +23,18 @@ const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify(data),
       });
-
+    
       const res = await response.json();
+      if(res.msg === "Es necesario cambiar su contraseña por primera vez"){
+        navigate("/cambiar-contraseña");
+      }
+    
       if(res.token){
         setCookie('auth', JSON.stringify(res), { path: '/' });
         navigate("/dashboard");
       }else{
         NotifyError(res.msg)
       }
-
     } catch (error) {
       console.error(error);
     }

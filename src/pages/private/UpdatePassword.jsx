@@ -27,7 +27,8 @@ export default function UpdatePassword() {
     try {
       setLoading(true);
       await updatePassword(data, id, token);
-      navigate('/dashboard'); 
+      NotifySuccess("Contraseña actualizada correctamente")
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       NotifyError(error.response.data.msg)
@@ -37,9 +38,9 @@ export default function UpdatePassword() {
 
   return (
     <div className={`transition-opacity duration-250 ${show ? 'opacity-100' : 'opacity-0'}`}>
-      <ToastContainer position="top-center" />
-       <div className="flex flex-col justify-center items-center gap-3 min-h-screen text-sm">
-        <Flex align="center" gap='3'>
+      <ToastContainer position="top-center" style={{ zIndex: 2000,width: '400px' }}  />
+       <div className="flex flex-col gap-3 w-1/2 text-sm">
+        <Flex align="center" justify='center' gap='3'>
           <Heading size="7">Actualizar contraseña</Heading>
           <LuLock size="25"/>
         </Flex>

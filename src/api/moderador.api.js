@@ -36,3 +36,8 @@ export const updatePassword = (data, id, token) => {
   }
   return axios.put(url, data, options);
 }
+
+export const firstLogin = (data) => {
+  const url = `${import.meta.env.VITE_BACKEND_URL}/moderador/password/inicial`;
+  return axios.put(url, data);
+}
