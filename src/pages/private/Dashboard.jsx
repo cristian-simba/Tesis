@@ -14,9 +14,19 @@ function Dashboard() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(true);
+  const [heading, setHeading] = useState('');
   const location = useLocation();
   const ref = useRef(null);
   
+  useEffect(() => {
+    const headings = {
+      '/dashboard': 'Dashboard',
+      '/moderadores': 'Moderadores',
+    };
+
+    setHeading(headings[location.pathname] || '');
+  }, [location.pathname]);
+
   const handleLogout = async() => {
     try{
       await auth.logOut();
@@ -67,7 +77,8 @@ function Dashboard() {
               <SidebarItem 
                 icon={<LuLayoutDashboard size={20} />} 
                 text="Dashboard" 
-                active={location.pathname === '/dashboard'} 
+                active={location.pathname === '/dashboard'}
+                onClick={() => setHeading('Dashboard')}
               />
             </Link>
 
@@ -77,6 +88,7 @@ function Dashboard() {
                   icon={<LuUsers2 size={20} />} 
                   text="Moderadores" 
                   active={location.pathname === '/moderadores'} 
+                  onClick={() => setHeading('Moderadores')}
                 />
               </Link>
             ) : null}
@@ -92,7 +104,7 @@ function Dashboard() {
         </Sidebar>
         <Flex direction="column" className="flex-1">
           <Flex gap="2" className="px-4 py-4 w-full border-b " justify="between">
-            <Heading>Dashboard</Heading>
+            <Heading>{heading}</Heading>
             <Flex gap="5" align="center">
               <button>
                 <LuBell size={20} />

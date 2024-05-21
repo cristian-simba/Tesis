@@ -58,7 +58,7 @@ const FirstLogin = () => {
             type="password"
             id="password"
             name="password"
-            placeholder="Ingrese su contraseña"
+            placeholder="Ingrese su contraseña actual"
             {...register("password", {validate: passwordValidator})}
           />
            {errors.password && <FormError message="Este campo es requerido" />}
@@ -68,15 +68,11 @@ const FirstLogin = () => {
             type="password"
             id="passwordNuevo"
             name="passwordNuevo"
-            placeholder="Ingrese su contraseña"
+            placeholder="Ingrese su nueva contraseña"
             {...register("passwordNuevo", {validate: passwordValidator})}
           />
            {errors.password && <FormError message="Este campo es requerido" />}
 
-          <a href="/recuperar-password" 
-            className="underline text-[#3358D4] mb-2.5">
-            ¿Olvidaste tu contraseña?
-          </a>
 
           {loading ? (
               <Button         
@@ -85,14 +81,14 @@ const FirstLogin = () => {
                  <Spinner loading>
                   <RxBookmark />
                 </Spinner>
-                Iniciar Sesión
+                Finalizar
                 </Button>
             ) : (
               <Button           
                 size={{ md: "3", lg: "4" }}
                 radius="none"
                 className="hover:cursor-pointer">
-                Iniciar Sesión
+                Finalizar
               </Button>
             )}
 
