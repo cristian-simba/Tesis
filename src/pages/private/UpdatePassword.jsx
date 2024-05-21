@@ -39,10 +39,10 @@ export default function UpdatePassword() {
   return (
     <div className={`transition-opacity duration-250 ${show ? 'opacity-100' : 'opacity-0'}`}>
       <ToastContainer position="top-center" style={{ zIndex: 2000,width: '400px' }}  />
-       <div className="flex flex-col gap-3 w-1/2 text-sm">
+       <div className="flex flex-col gap-3 w-1/3 text-sm">
         <Flex align="center" justify='center' gap='3'>
-          <Heading size="7">Actualizar contraseña</Heading>
-          <LuLock size="25"/>
+          <Heading>Actualizar contraseña</Heading>
+          <LuLock size="20"/>
         </Flex>
         <Flex direction='column' gap='2'>
           <Text className="text-center">Por favor ingresa tu nueva contraseña</Text>
@@ -56,7 +56,6 @@ export default function UpdatePassword() {
           {loading ? (
               <Button  
               type="submit"       
-              size={{ md: "3", lg: "4" }}
               style={{ width: '100%' }}
               disabled>
                  <Spinner loading>
@@ -67,7 +66,6 @@ export default function UpdatePassword() {
             ) : (
               <Button           
                 type="submit"
-                size={{ md: "3", lg: "4" }}
                 style={{ width: '100%' }}
                 radius="none"
                 className="hover:cursor-pointer">
