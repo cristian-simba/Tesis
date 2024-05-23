@@ -12,6 +12,7 @@ import NewPassword from "./pages/public/NewPassword"
 import UpdatePassword from "./pages/private/UpdatePassword"
 import Dashboard from "./pages/private/Dashboard"
 import Moderadores from "./pages/private/Moderadores"
+import Usuarios from "./pages/private/Usuarios"
 
 function App() {
 
@@ -30,7 +31,8 @@ function App() {
             <Route element={<PrivateRoute/>}>
               <Route path="/" element={<Dashboard/>} >
                 <Route path="dashboard" element={<h1>Todos los Moderadores</h1>}/>
-                <Route path="/actualizar-contraseña/:id" element={<UpdatePassword/>} />
+                <Route path="usuarios" element={<Usuarios/>}/>
+                <Route path="actualizar-contraseña/:id" element={<UpdatePassword/>} />
 
                 <Route path="moderadores" element={
                   <ProtectedRoute> 

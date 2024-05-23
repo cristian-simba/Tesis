@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { LuLayoutDashboard, LuUsers2, LuBell, LuSettings } from 'react-icons/lu';
+import { GrUserPolice } from "react-icons/gr";
 import Sidebar, { SidebarItem } from '../../components/Sidebar';
-import { Flex, Avatar, Heading, Text, Switch, Button } from '@radix-ui/themes';
+import { Flex, Avatar, Heading, Text, Button } from '@radix-ui/themes';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Spinner } from '@radix-ui/themes';
 import useAuth from "../../context/useAuth"
@@ -22,6 +23,7 @@ function Dashboard() {
     const headings = {
       '/dashboard': 'Dashboard',
       '/moderadores': 'Moderadores',
+      '/usuarios': 'Usuarios',
     };
 
     setHeading(headings[location.pathname] || '');
@@ -82,10 +84,19 @@ function Dashboard() {
               />
             </Link>
 
+          <Link to='usuarios'>
+              <SidebarItem 
+                icon={<LuUsers2 size={20} />}
+                text="Usuarios" 
+                active={location.pathname === '/usuarios'}
+                onClick={() => setHeading('Usuarios')}
+              />
+            </Link>
+
             {auth.cookies.auth._id === import.meta.env.VITE_MODERADOR_ID ? (
               <Link to='moderadores'>
                 <SidebarItem 
-                  icon={<LuUsers2 size={20} />} 
+                  icon={<GrUserPolice size={20} />}
                   text="Moderadores" 
                   active={location.pathname === '/moderadores'} 
                   onClick={() => setHeading('Moderadores')}
