@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const registerModerador = (data, id, token) => {
-  const url = `${import.meta.env.VITE_BACKEND_URL}/registrar/moderador/${id}`;
+export const registerModerador = (data, token) => {
+  const url = `${import.meta.env.VITE_BACKEND_URL}/registrar/moderador`;
   const options = {
     headers: {
       'Content-Type': 'application/json',
@@ -40,4 +40,26 @@ export const updatePassword = (data, id, token) => {
 export const firstLogin = (data) => {
   const url = `${import.meta.env.VITE_BACKEND_URL}/moderador/password/inicial`;
   return axios.put(url, data);
+}
+
+export const getModeradores = (token) => {
+  const url = `${import.meta.env.VITE_BACKEND_URL}/moderadores`;
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  }
+  return axios.get(url, options);
+}
+
+export const deleteModerador = (id, token) => {
+  const url = `${import.meta.env.VITE_BACKEND_URL}/moderador/eliminar/${id}`;
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  }
+  return axios.delete(url, options);
 }

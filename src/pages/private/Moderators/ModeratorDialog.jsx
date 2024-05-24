@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { createPortal } from 'react-dom';
 import { useForm } from "react-hook-form";
 import { Flex, Text, Heading, Button, Dialog, Spinner } from "@radix-ui/themes";
-import { RxCross2, RxBookmark } from "react-icons/rx";
-import Input from "../../components/Forms/Input";
-import { registerModerador } from "../../api/moderador.api";
+import { RxCross2, RxBookmark, RxPlus } from "react-icons/rx";
+import Input from "../../../components/Forms/Input";
+import { registerModerador } from "../../../api/moderador.api";
 import { ToastContainer } from 'react-toastify';
-import { NotifyError, NotifySuccess } from "../../components/Toasts/Notifies";
+import { NotifyError, NotifySuccess } from "../../../components/Toasts/Notifies";
 
-export default function ModeratorDialog({ id, token }) {
+export default function ModeratorDialog({ token }) {
   const { register, handleSubmit, reset } = useForm();
   const [loading, onLoading] = useState(false)
   const [open, setOpen] = useState(false);
@@ -24,11 +24,10 @@ export default function ModeratorDialog({ id, token }) {
     setDomReady(true);
   }, []);
   
-  
   const onSubmit = handleSubmit(async (data) => {
     try {
       onLoading(true);
-      await registerModerador(data, id, token);
+      await registerModerador(data, token);
       onLoading(false);
       setOpen(false);
       NotifySuccess("Moderador registrado correctamente");
@@ -54,8 +53,8 @@ export default function ModeratorDialog({ id, token }) {
       document.body
     )}
     <Dialog.Root open={open} onOpenChange={setOpen} style={{ zIndex: 10 }}>
-      <Dialog.Trigger>
-        <Button radius="none">Registrar Moderador</Button>
+      <Dialog.Trigger className='hover:cursor-pointer' >
+        <Button> <RxPlus /> Registrar Moderador</Button>
       </Dialog.Trigger>
       <Dialog.Content maxWidth="500px">
 
@@ -88,7 +87,7 @@ export default function ModeratorDialog({ id, token }) {
 
           <Flex gap="3" mt="4" justify="end">
             <Dialog.Close>
-              <Button variant="soft" radius="none" color="gray" className="hover:cursor-pointer">
+              <Button variant="soft" color="gray" className="hover:cursor-pointer">
                 Cancelar
               </Button>
             </Dialog.Close>
@@ -101,7 +100,7 @@ export default function ModeratorDialog({ id, token }) {
                 Registrar Moderador
                 </Button>
             ) : (
-              <Button type="submit" radius="none" className="hover:cursor-pointer">
+              <Button type="submit" className="hover:cursor-pointer">
                 Registrar Moderador
               </Button>
             )}

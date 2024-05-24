@@ -14,7 +14,7 @@ function Dashboard() {
   const id = auth.cookies.auth._id;
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);  // Inicialmente false
   const [heading, setHeading] = useState('');
   const location = useLocation();
   const ref = useRef(null);
@@ -23,7 +23,7 @@ function Dashboard() {
     const headings = {
       '/dashboard': 'Dashboard',
       '/moderadores': 'Moderadores',
-      '/usuarios': 'Usuarios',
+      '/usuarios': 'Usuarios',  
     };
 
     setHeading(headings[location.pathname] || '');
@@ -43,7 +43,6 @@ function Dashboard() {
     }catch(error){
       console.error(error);
     }
-  
   }
 
   useEffect(() => {
@@ -55,7 +54,7 @@ function Dashboard() {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
-        setOpen(true);
+        setOpen(false);  // Cambiar a false para cerrar el menú
       }
     };
   
@@ -68,14 +67,14 @@ function Dashboard() {
 
   return (
     <div>
-        {!show ? (
+      {!show ? (
         <div className='flex justify-center items-center h-screen'>
           <Spinner size='3' />
         </div>
       ) : (
-      <Flex>
-        <Sidebar>
-          <Link to='dashboard'>
+        <Flex>
+          <Sidebar>
+            <Link to='dashboard'>
               <SidebarItem 
                 icon={<LuLayoutDashboard size={20} />} 
                 text="Dashboard" 
@@ -84,7 +83,7 @@ function Dashboard() {
               />
             </Link>
 
-          <Link to='usuarios'>
+            <Link to='usuarios'>
               <SidebarItem 
                 icon={<LuUsers2 size={20} />}
                 text="Usuarios" 
@@ -104,74 +103,54 @@ function Dashboard() {
               </Link>
             ) : null}
 
-          {/* <Link to={`actualizar-contraseña/${id}`}>
-            <SidebarItem 
-            icon={<LuSettings size={20} />} 
-            text="Configuración" 
-            active={location.pathname === '/settings'} 
-            />
-          </Link> */}
+          </Sidebar>
+          <Flex direction="column" className="flex-1">
+            <Flex gap="2" className="px-4 py-4 w-full border-b " justify="between">
+              <Heading>{heading}</Heading>
+              <Flex gap="5" align="center">
+                <button>
+                  <LuBell size={20} />
+                </button>
 
-        </Sidebar>
-        <Flex direction="column" className="flex-1">
-          <Flex gap="2" className="px-4 py-4 w-full border-b " justify="between">
-            <Heading>{heading}</Heading>
-            <Flex gap="5" align="center">
-              <button>
-                <LuBell size={20} />
-              </button>
-
-              <div ref={ref} onClick={() => setOpen(!open)}>  
-                <div onClick={() => setOpen(!open)} role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === 'Enter') setOpen(!open); }}>
-                  <Avatar fallback={auth.cookies.auth.nombre ? auth.cookies.auth.nombre[0] : "M"} size="2" />
-
-                  <div className={`transition-opacity duration-150 ${open ? 'opacity-0' : 'opacity-100'} absolute top-16 right-4 w-[200px]`}>
-
-                    <Flex direction='column' className=' border border-[#B8BCBA] rounded-md px-3 py-2 shadow-lg'>
-                      <Text size='2'className='border-b px-2 py-2 font-medium'>
-                        {auth.cookies.auth.nombre} {auth.cookies.auth.apellido} 
-                      </Text>
-                      {/* <Flex gap='2' className='px-2 py-2 mb-1' align='center'>
-                        <Text size='2'>
-                          Modo obscuro
-                        </Text>
-                        <Switch variant="soft"/>
-                      </Flex> */}
-                      <Flex direction='column' gap='1'>
-
-                        {/* <Button  color="gray" variant="outline" highContrast onClick={handleSettings}
-                          className='hover:cursor-pointer'>
-                            <LuSettings size={20} />
-                            Configuración
-                        </Button> */}
-
-                        <Flex gap='2' className='px-2 pt-2 mb-1' align='center' onClick={handleSettings}>
-                          <LuSettings size={20} />
-                          <Text size='2'>
-                            Configuración
-                          </Text>
-                        </Flex>
-
-                        <Button size='2' color="red" onClick={handleLogout}
-                          className='hover:cursor-pointer'>
-                            Cerrar Sesión
-                        </Button>
-                      </Flex>
-                    </Flex>
-
+                <div ref={ref}>  
+                  <div onClick={() => setOpen(!open)} role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === 'Enter') setOpen(!open); }}>
+                    <Avatar fallback={auth.cookies.auth.nombre ? auth.cookies.auth.nombre[0] : "M"} size="2" />
                   </div>
+
+                  {open && (
+                    <div className='absolute top-16 right-4 w-[200px] transition-opacity duration-1000 opacity-100'>
+
+                  <Flex direction='column' className='bg-white border border-[#B8BCBA] rounded-md px-3 py-2 shadow-lg z-50 relative'>
+                    <Text size='2'className='border-b px-2 py-2 font-medium'>
+                      {auth.cookies.auth.nombre} {auth.cookies.auth.apellido} 
+                    </Text>
+
+                    <Flex direction='column' gap='1'>
+                      <Flex gap='2' className='px-2 pt-2 mb-1' align='center' onClick={handleSettings}>
+                        <LuSettings size={20} />
+                        <Text size='2'>
+                          Configuración
+                        </Text>
+                      </Flex>
+
+                      <Button size='2' color="red" onClick={handleLogout}
+                        className='hover:cursor-pointer'>
+                          Cerrar Sesión
+                      </Button>
+                    </Flex>
+                  </Flex>
+
+                    </div>
+                  )}
                 </div>
-              </div>
+              </Flex>
             </Flex>
 
+            <div className="px-4 py-3 flex-grow ">
+              <Outlet />
+            </div>
           </Flex>
-
-          <div className="px-4 py-3 flex-grow ">
-            <Outlet />
-          </div>
-
         </Flex>
-      </Flex>
       )}
     </div>
   );

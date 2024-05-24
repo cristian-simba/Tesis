@@ -11,8 +11,8 @@ import VerifyToken from "./pages/public/VerifyToken"
 import NewPassword from "./pages/public/NewPassword"
 import UpdatePassword from "./pages/private/UpdatePassword"
 import Dashboard from "./pages/private/Dashboard"
-import Moderadores from "./pages/private/Moderadores"
-import Usuarios from "./pages/private/Usuarios"
+import Moderadores from "./pages/private/Moderators/Moderadores"
+import Usuarios from "./pages/private/Users/Usuarios"
 
 function App() {
 
@@ -33,7 +33,7 @@ function App() {
                 <Route path="dashboard" element={<h1>Todos los Moderadores</h1>}/>
                 <Route path="usuarios" element={<Usuarios/>}/>
                 <Route path="actualizar-contraseña/:id" element={<UpdatePassword/>} />
-
+            
                 <Route path="moderadores" element={
                   <ProtectedRoute> 
                     <Moderadores/>
