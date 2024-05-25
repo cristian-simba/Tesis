@@ -1,14 +1,15 @@
 import { useEffect, useState, useRef } from 'react';
-import { LuLayoutDashboard, LuUsers2, LuBell, LuSettings, LuMoon, LuMail } from 'react-icons/lu';
+import { LuLayoutDashboard, LuUsers2, LuBell, LuSettings, LuMoon, LuMail, LuUser2 } from 'react-icons/lu';
 import { GrUserPolice } from "react-icons/gr";
 import Sidebar, { SidebarItem } from '../../components/Sidebar';
-import { Flex, Avatar, Heading, Text, Button, Switch } from '@radix-ui/themes';
+import { Flex, Avatar, Heading, Text, Button, Switch, DropdownMenu } from '@radix-ui/themes';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Spinner } from '@radix-ui/themes';
 import useAuth from "../../context/useAuth"
 import { useNavigate } from 'react-router-dom';
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
+import ProfileModerator from './Moderators/ProfileModerator';
 
 function Dashboard() {
 
@@ -16,10 +17,8 @@ function Dashboard() {
   const id = auth.cookies.auth._id;
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  const [open, setOpen] = useState(false);  
   const [heading, setHeading] = useState('');
   const location = useLocation();
-  const ref = useRef(null);
   
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
@@ -65,20 +64,6 @@ function Dashboard() {
     setTimeout(() => {
       setShow(true);
     }, 2000);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setOpen(false);  // Cambiar a false para cerrar el menú
-      }
-    };
-  
-    document.addEventListener('mousedown', handleClickOutside);
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
   }, []);
 
   return (
@@ -139,42 +124,55 @@ function Dashboard() {
                     <LuBell size={20} />
                   </button>
 
-                  <div ref={ref}>  
-                    <div onClick={() => setOpen(!open)} role="button" tabIndex={0} onKeyDown={(event) => { if (event.key === 'Enter') setOpen(!open); }}>
-                      <Avatar fallback={auth.cookies.auth.nombre ? auth.cookies.auth.nombre[0] : "M"} size="2" />
-                    </div>
+                  <Flex>
 
-                    {open && (
-                      <div className='absolute top-14 right-4 w-[200px] transition-opacity duration-1000 opacity-100'>
+                    <DropdownMenu.Root>
+                      <DropdownMenu.Trigger className='hover:cursor-pointer'>
+                        <Text>
+                          <Avatar fallback={auth.cookies.auth.nombre ? auth.cookies.auth.nombre[0] : "M"} size="2" />
+                        </Text>
+                      </DropdownMenu.Trigger>
+                      <DropdownMenu.Content variant="soft" className='mr-2'>
+                        <DropdownMenu.Item disabled>
+                          <Text size="2" className={`${theme === 'dark' ? 'text-white' : 'text-[#252525]'}`}>
+                            
+                            {auth.cookies.auth.nombre} {auth.cookies.auth.apellido}</Text>
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Separator />
 
-                    <Flex direction='column' className={`border rounded-md px-3 py-2 shadow-lg z-50 relative ${theme === 'dark' ? 'border-[#1D211C] bg-[#202020]' : 'border-[#B8BCBA] bg-[#F9F9F9]'}`}>
-                      <Text size='2'className='border-b px-2 py-2 font-medium'>
-                        {auth.cookies.auth.nombre} {auth.cookies.auth.apellido} 
-                      </Text>
-                      
-                      <Flex className='px-2 pt-2 mb-1' align='center' gap='2'>
-                       <LuMoon size={20} />
-                        <Text size='2'>Modo oscuro</Text>
-                        <Switch checked={theme === 'dark'} onCheckedChange={toggleTheme}></Switch>
-                      </Flex>
-                      <Flex direction='column' gap='1'>
-                        <Flex gap='2' className='px-2 pt-2 mb-1' align='center' onClick={handleSettings}>
-                          <LuSettings size={20} />
-                          <Text size='2'>
-                            Configuración
-                          </Text>
-                        </Flex>
+                        <DropdownMenu.Item>
+                          <Flex  align='center' onClick={handleSettings} className='hover:cursor-pointer'>
+                            <LuUser2 size='20' />
+                            <Text size='2' className='px-2'>
+                              Información del perfil
+                            </Text>
+                          </Flex>
+                        </DropdownMenu.Item>
 
-                        <Button size='2' color="red" onClick={handleLogout}
-                          className='hover:cursor-pointer'>
-                            Cerrar Sesión
-                        </Button>
-                      </Flex>
+                        <DropdownMenu.Item>
+                          <Flex align='center' gap='2'>
+                            <LuMoon size={20} />
+                            <Text size='2'>Modo oscuro</Text>
+                            <Switch 
+                              className='hover:cursor-pointer'
+                              checked={theme === 'dark'} 
+                              onCheckedChange={toggleTheme} 
+                              onClick={(event) => event.stopPropagation()}
+                            />
+                          </Flex>
+                        </DropdownMenu.Item>
+
+                        <DropdownMenu.Separator />
+                        <DropdownMenu.Item color='red'>
+                          <Button size='2' color="red" onClick={handleLogout}
+                            className='hover:cursor-pointer w-full'>
+                              Cerrar Sesión
+                          </Button>
+                        </DropdownMenu.Item>
+
+                      </DropdownMenu.Content>
+                    </DropdownMenu.Root>
                     </Flex>
-
-                      </div>
-                    )}
-                  </div>
                 </Flex>
               </Flex>
 

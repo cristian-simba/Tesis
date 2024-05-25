@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { getUsers } from '../../../api/usuarios.api'
 import useAuth from '../../../context/useAuth'
-import { Table, Flex, Heading, Text, Button, Spinner, Badge } from '@radix-ui/themes'
+import { Table, Flex, TextField, Select, Spinner, Badge } from '@radix-ui/themes'
+import { RxMagnifyingGlass } from 'react-icons/rx';
 
 export default function Usuarios() {
 
@@ -9,6 +10,8 @@ export default function Usuarios() {
   const token = auth.cookies.auth.token
   const [users, setUsers] = useState([])
   const [show, setShow] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [selectedValue, setSelectedValue] = useState('todos');
 
   useEffect(( ) => {
     const loadUsers = async () => {
@@ -26,9 +29,44 @@ export default function Usuarios() {
   useEffect(() => {
     setShow(true);
   }, []);
+  
+  const filteredUsers = users.filter(user => {
+    const matchesSearchText = `${user.nombre} ${user.apellido} ${user.email} ${user.createdAt} ${user.fechaNacimiento}`.toLowerCase().includes(searchText.toLowerCase());
+    switch (selectedValue) {
+      case 'activos':
+        return matchesSearchText && !user.bloqueo && !user.restringido;
+      case 'restringidos':
+        return matchesSearchText && user.restringido;
+      case 'bloqueados':
+        return matchesSearchText && user.bloqueo;
+      default:
+        return matchesSearchText;
+    }
+  });
+
 
   return (
     <div className={`transition-opacity duration-500 ${show ? 'opacity-100' : 'opacity-0'}`}>
+      <Flex justify='between' align='center' className='pt-2 pb-5'>
+
+        <TextField.Root placeholder="Buscar usuario" className='w-1/2' value={searchText} onChange={e => setSearchText(e.target.value)}>
+          <TextField.Slot>
+            <RxMagnifyingGlass size='20' />
+          </TextField.Slot>
+        </TextField.Root>
+        
+        <Select.Root defaultValue="todos" onValueChange={setSelectedValue}>
+          <Select.Trigger className='hover:cursor-pointer'/>
+          <Select.Content position="popper">
+            <Select.Item value="todos" className='hover:cursor-pointer'>Todos los usuarios</Select.Item>
+            <Select.Item value="activos" className='hover:cursor-pointer'>Usuarios activos</Select.Item>
+            <Select.Item value="restringidos" className='hover:cursor-pointer'>Usuarios restringidos</Select.Item>
+            <Select.Item value="bloqueados" className='hover:cursor-pointer'>Usuarios bloqueados</Select.Item>
+          </Select.Content>
+        </Select.Root>
+
+      </Flex>
+
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
@@ -41,8 +79,8 @@ export default function Usuarios() {
         </Table.Header>
 
         <Table.Body>
-          {users.length > 0 ? (
-            users.map(user => (
+          {filteredUsers.length > 0 ? (
+            filteredUsers.map(user => (
               <Table.Row align='center' key={user._id}>
                 <Table.Cell>
                   <Flex align='center' gap='4'>
@@ -68,9 +106,19 @@ export default function Usuarios() {
                 </Table.Cell>
               </Table.Row>
             ))
+          )  : users.length > 0 || show ? (
+            searchText || selectedValue !== 'todos' ? (
+              <Table.Row>
+                <Table.Cell colSpan="5" align='center'>No se encontraron usuarios</Table.Cell>
+              </Table.Row>
+            ) : (
+              <Table.Row>
+                <Table.Cell colSpan="5" align='center'><Spinner/></Table.Cell>
+              </Table.Row>
+            )
           ) : (
             <Table.Row>
-              <Table.Cell colSpan="5" align='center'><Spinner/></Table.Cell>
+              <Table.Cell colSpan="5" align='center'>No existen usuarios</Table.Cell>
             </Table.Row>
           )}
         </Table.Body>

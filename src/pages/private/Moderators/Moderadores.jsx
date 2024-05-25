@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import useAuth from "../../../context/useAuth";
 import { getModeradores, deleteModerador } from '../../../api/moderador.api';
-import { Table, Flex, Spinner} from '@radix-ui/themes'
+import { Table, Flex, Spinner, TextField} from '@radix-ui/themes'
+import { RxMagnifyingGlass } from 'react-icons/rx';
 import ModeratorDialog from "./ModeratorDialog";
 import DeleteModerator from './DeleteModerator';
 import { ToastContainer } from 'react-toastify';
@@ -15,6 +16,7 @@ export default function Moderadores() {
   const [moderadores, setModeradores] = useState([]);
   const [show, setShow] = useState(false);
   const [domReady, setDomReady] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     setShow(true);
@@ -48,6 +50,10 @@ export default function Moderadores() {
     }
   }
 
+  const filteredModeradores = moderadores.filter(moderador =>
+    `${moderador.nombre} ${moderador.apellido} ${moderador.email} ${moderador.createdAt}`.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <>
       {domReady && createPortal(
@@ -60,8 +66,13 @@ export default function Moderadores() {
     <div className={`transition-opacity duration-500 ${show ? 'opacity-100' : 'opacity-0'}`}>
       <Flex justify='between' align='center' className='pt-2 pb-5'>
 
-        <h1>XD</h1>
-        <ModeratorDialog id={id} token={token} />
+      <TextField.Root placeholder="Buscar moderador" className='w-1/2' value={searchText} onChange={e => setSearchText(e.target.value)}>
+        <TextField.Slot>
+          <RxMagnifyingGlass size='20' />
+        </TextField.Slot>
+      </TextField.Root>
+        
+        <ModeratorDialog id={id} token={token}  />
       </Flex>
 
       <Table.Root variant="surface">
@@ -75,8 +86,8 @@ export default function Moderadores() {
         </Table.Header>
 
         <Table.Body>
-          {moderadores.length > 0 ? (
-            moderadores.map(moderador => (
+          {filteredModeradores.length > 0 ? (
+            filteredModeradores.map(moderador => (
               <Table.Row align='center' key={moderador._id}>
                 <Table.Cell>
                   {moderador.nombre} {moderador.apellido}
@@ -85,7 +96,7 @@ export default function Moderadores() {
                   {moderador.email}
                 </Table.Cell>
                 <Table.Cell justify='center'>
-                 {new Date(moderador.createdAt).toISOString().split('T')[0]}
+                  {new Date(moderador.createdAt).toISOString().split('T')[0]}
                 </Table.Cell>
                 <Table.Cell justify='center'>
                   <DeleteModerator deleteModerador={() => eliminarModerador(moderador._id)}/>
@@ -93,9 +104,15 @@ export default function Moderadores() {
               </Table.Row>
             ))
           ) : (
-            <Table.Row>
-              <Table.Cell colSpan="5" align='center'><Spinner/></Table.Cell>
-            </Table.Row>
+            searchText ? (
+              <Table.Row>
+                <Table.Cell colSpan="5" align='center'>No se encontraron moderadores</Table.Cell>
+              </Table.Row>
+            ) : (
+              <Table.Row>
+                <Table.Cell colSpan="5" align='center'><Spinner/></Table.Cell>
+              </Table.Row>
+            )
           )}
         </Table.Body>
       </Table.Root>
