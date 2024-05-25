@@ -57,7 +57,7 @@ export default function Moderadores() {
           style={{ zIndex: 2000,width: '350px' }} />,
         document.body
       )}
-    <div className={`transition-opacity duration-200 ${show ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`transition-opacity duration-500 ${show ? 'opacity-100' : 'opacity-0'}`}>
       <Flex justify='between' align='center' className='pt-2 pb-5'>
 
         <h1>XD</h1>
@@ -68,7 +68,7 @@ export default function Moderadores() {
         <Table.Header>
           <Table.Row>
             <Table.Cell className="w-1/5 font-medium">Nombre</Table.Cell>
-            <Table.Cell className="w-1/5 font-medium">Correo electronico</Table.Cell>
+            <Table.Cell className="w-1/5 font-medium">Correo electrónico</Table.Cell>
             <Table.Cell className="w-1/5 font-medium" justify='center'>Creación de la cuenta</Table.Cell>
             <Table.Cell className="w-1/5 font-medium" justify='center'>Eliminar moderador</Table.Cell>
           </Table.Row>

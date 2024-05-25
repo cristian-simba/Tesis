@@ -28,7 +28,7 @@ export default function Usuarios() {
   }, []);
 
   return (
-    <div className={`transition-opacity duration-200 ${show ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`transition-opacity duration-500 ${show ? 'opacity-100' : 'opacity-0'}`}>
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>

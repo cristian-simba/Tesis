@@ -13,7 +13,7 @@ function PublicacionesList({ publicaciones }) {
   const paragraphText = 'Explora todas las funciones disponibles en la aplicación móvil. Publica, reacciona y guarda las publicaciones que te gusten.'
 
   return windowWidth > 768 ? (
-    <Masonry columns={5} spacing={2} className='px-16'>
+    <Masonry columns={5} spacing={2} className='pl-16 pr-12'>
       {publicaciones.map(publicacion => (
         <Dialog.Root key={publicacion._id}>
 

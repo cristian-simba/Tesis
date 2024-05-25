@@ -38,9 +38,7 @@ function App() {
                   <ProtectedRoute> 
                     <Moderadores/>
                   </ProtectedRoute>
-                }/>
-
-                
+                }/>                
               </Route>
             </Route>
             <Route path="*" element={<h1>No encontrado</h1>}/>

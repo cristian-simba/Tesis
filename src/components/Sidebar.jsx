@@ -11,7 +11,7 @@ export default function Sidebar({children}) {
 
   return (
     <aside className="h-screen">
-      <Flex direction='column' className="h-full border-r ">
+      <Flex direction='column' className="h-full">
         <Flex justify='between' align='center' className="p-4 pb-2">
         <img
             src={image}
@@ -43,11 +43,11 @@ export function SidebarItem({ icon, text, active, alert }) {
   return (
     <li
       className={`
-        relative flex items-center h-10 mt-3
+        relative flex items-center h-10 mt-3 z-50 
         rounded-md cursor-pointer
         transition-colors-50 group
-        hover:bg-indigo-50 hover:text-indigo-800
-        ${active ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800" : ""}
+        hover:bg-indigo-50 hover:text-indigo-800 
+        ${active ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800 " : ""}
       `}
     >
       <div className="flex items-center justify-center w-10 h-10">

@@ -63,13 +63,13 @@ const FirstLogin = () => {
           />
            {errors.password && <FormError message="Este campo es requerido" />}
 
-          <label htmlFor="passwordNuevo " className="font-medium">Nueva Contraseña</label>
+          <label htmlFor="passwordnuevo " className="font-medium">Nueva Contraseña</label>
           <Input
             type="password"
-            id="passwordNuevo"
-            name="passwordNuevo"
+            id="passwordnuevo"
+            name="passwordnuevo"
             placeholder="Ingrese su nueva contraseña"
-            {...register("passwordNuevo", {validate: passwordValidator})}
+            {...register("passwordnuevo", {validate: passwordValidator})}
           />
            {errors.password && <FormError message="Este campo es requerido" />}
 
