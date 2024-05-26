@@ -3,7 +3,7 @@ const emailValidator = (value) => {
 }
 
 const codigoValidator = (value) => {
-  return value.length === 10;
+  return value.length >= 9;
 }
 
 const passwordValidator = (value) => {
