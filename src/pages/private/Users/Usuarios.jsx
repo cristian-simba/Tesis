@@ -3,6 +3,7 @@ import { getUsers } from '../../../api/usuarios.api'
 import useAuth from '../../../context/useAuth'
 import { Table, Flex, TextField, Select, Spinner, Badge } from '@radix-ui/themes'
 import { RxMagnifyingGlass } from 'react-icons/rx';
+import { LuListFilter } from "react-icons/lu";
 
 export default function Usuarios() {
 
@@ -55,10 +56,16 @@ export default function Usuarios() {
           </TextField.Slot>
         </TextField.Root>
         
-        <Select.Root defaultValue="todos" onValueChange={setSelectedValue}>
-          <Select.Trigger className='hover:cursor-pointer'/>
+        <Select.Root defaultValue="todos" onValueChange={setSelectedValue} >
+          <Select.Trigger className='hover:cursor-pointer bg-[#3e63dd] text-white'/>
           <Select.Content position="popper">
-            <Select.Item value="todos" className='hover:cursor-pointer'>Todos los usuarios</Select.Item>
+            <Select.Item value="todos" className='hover:cursor-pointer'> 
+              <Flex align='center' >
+              <LuListFilter size='20' className='pr-2'/>
+              Todos los usuarios
+
+              </Flex>
+            </Select.Item>
             <Select.Item value="activos" className='hover:cursor-pointer'>Usuarios activos</Select.Item>
             <Select.Item value="restringidos" className='hover:cursor-pointer'>Usuarios restringidos</Select.Item>
             <Select.Item value="bloqueados" className='hover:cursor-pointer'>Usuarios bloqueados</Select.Item>
