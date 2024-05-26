@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import useAuth from "../../../context/useAuth";
 import { getModeradores, deleteModerador } from '../../../api/moderador.api';
-import { Table, Flex, Spinner, TextField} from '@radix-ui/themes'
+import { Table, Flex, Spinner, TextField, Avatar} from '@radix-ui/themes'
 import { RxMagnifyingGlass } from 'react-icons/rx';
 import ModeratorDialog from "./ModeratorDialog";
 import DeleteModerator from './DeleteModerator';
@@ -78,7 +78,7 @@ export default function Moderadores() {
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
-            <Table.Cell className="w-1/5 font-medium">Nombre</Table.Cell>
+            <Table.Cell className="w-1/5 font-medium">Moderador</Table.Cell>
             <Table.Cell className="w-1/5 font-medium">Correo electrónico</Table.Cell>
             <Table.Cell className="w-1/5 font-medium" justify='center'>Creación de la cuenta</Table.Cell>
             <Table.Cell className="w-1/5 font-medium" justify='center'>Eliminar moderador</Table.Cell>
@@ -90,6 +90,7 @@ export default function Moderadores() {
             filteredModeradores.map(moderador => (
               <Table.Row align='center' key={moderador._id}>
                 <Table.Cell>
+                <Avatar fallback={moderador.nombre ? moderador.nombre[0] : "M"} size="2" radius='full' className='mr-4'/>
                   {moderador.nombre} {moderador.apellido}
                 </Table.Cell>
                 <Table.Cell>

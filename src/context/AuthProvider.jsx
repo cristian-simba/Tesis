@@ -8,11 +8,6 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies(['auth']);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log("Cookie")
-    console.log(cookies);
-  }, [cookies]);
   
   const login = async (data) => {
     try {
@@ -40,16 +35,25 @@ const AuthProvider = ({ children }) => {
     }
   };
   
+  // const logOut = () => {
+  //   try {
+  //     document.cookie = 'auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  //     console.log("Cookie 'auth' eliminada correctamente.");
+  //     navigate("/mod/login");
+  //   } catch (error) {
+  //     console.error("Error al intentar eliminar la cookie:", error);
+  //   }
+  // };
   const logOut = () => {
     try {
-      removeCookie('auth');
+      setCookie('auth', '', { expires: new Date(0), path: '/' });
+      console.log("Cookie 'auth' eliminada correctamente.");
       navigate("/mod/login");
     } catch (error) {
-      console.error(error);
+      console.error("Error al intentar eliminar la cookie:", error);
     }
   };
   
-
   return (
     <AuthContext.Provider value={{ cookies, login, logOut }}>
       {children}

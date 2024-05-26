@@ -1,39 +1,24 @@
-import { useEffect, useState, useRef } from 'react';
+// Dashboard.js
+import React, { useEffect, useState } from 'react';
 import { LuLayoutDashboard, LuUsers2, LuBell, LuSettings, LuMoon, LuMail, LuUser2 } from 'react-icons/lu';
 import { GrUserPolice } from "react-icons/gr";
 import Sidebar, { SidebarItem } from '../../components/Sidebar';
-import { Flex, Avatar, Heading, Text, Button, Switch, DropdownMenu } from '@radix-ui/themes';
+import { Flex, Avatar, Heading, Text, Button, Switch, DropdownMenu, Spinner } from '@radix-ui/themes';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Spinner } from '@radix-ui/themes';
 import useAuth from "../../context/useAuth"
-import { useNavigate } from 'react-router-dom';
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
 import ProfileModerator from './Moderators/ProfileModerator';
+import { useTheme } from '../../context/ThemeContext';
 
 function Dashboard() {
-
   const auth = useAuth();
-  const id = auth.cookies.auth._id;
-  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [heading, setHeading] = useState('');
   const location = useLocation();
   
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const { theme, toggleTheme } = useTheme();
 
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-  
-  const toggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  };
-  
   useEffect(() => {
     const headings = {
       '/dashboard': 'Dashboard',
@@ -47,14 +32,6 @@ function Dashboard() {
   const handleLogout = async() => {
     try{
       await auth.logOut();
-    }catch(error){
-      console.error(error);
-    }
-  }
-
-  const handleSettings = async() => {
-    try{
-      navigate(`actualizar-contraseña/${id}`);
     }catch(error){
       console.error(error);
     }
@@ -85,15 +62,6 @@ function Dashboard() {
                 />
               </Link>
 
-              {/* <Link to='reportes'>
-                <SidebarItem 
-                  icon={<LuMail size={20} />}
-                  text="Reportes" 
-                  active={location.pathname === '/reportes'}
-                  onClick={() => setHeading('Reportes')}
-                />
-              </Link> */}
-
               <Link to='usuarios'>
                 <SidebarItem 
                   icon={<LuUsers2 size={20} />}
@@ -116,16 +84,14 @@ function Dashboard() {
 
             </Sidebar>
             <Flex direction="column" className="flex-1">
-            <Flex gap="2" className={`px-4 py-4 w-full ${theme === 'dark' ? 'border-b border-[#1D211C]' : 'border-b'}`} justify="between">    
-
-            <Heading>{heading}</Heading>
+              <Flex gap="2" className={`px-4 py-4 w-full ${theme === 'dark' ? 'border-b border-[#1D211C]' : 'border-b'}`} justify="between">    
+                <Heading>{heading}</Heading>
                 <Flex gap="5" align="center">
                   <button>
                     <LuBell size={20} />
                   </button>
 
                   <Flex>
-
                     <DropdownMenu.Root>
                       <DropdownMenu.Trigger className='hover:cursor-pointer'>
                         <Text>
@@ -135,20 +101,12 @@ function Dashboard() {
                       <DropdownMenu.Content variant="soft" className='mr-2'>
                         <DropdownMenu.Item disabled>
                           <Text size="2" className={`${theme === 'dark' ? 'text-white' : 'text-[#252525]'}`}>
-                            
-                            {auth.cookies.auth.nombre} {auth.cookies.auth.apellido}</Text>
+                            {auth.cookies.auth.nombre} {auth.cookies.auth.apellido}
+                          </Text>
                         </DropdownMenu.Item>
                         <DropdownMenu.Separator />
-
-                        <DropdownMenu.Item>
-                          <Flex  align='center' onClick={handleSettings} className='hover:cursor-pointer'>
-                            <LuUser2 size='20' />
-                            <Text size='2' className='px-2'>
-                              Información del perfil
-                            </Text>
-                          </Flex>
-                        </DropdownMenu.Item>
-
+                        <ProfileModerator />
+                       
                         <DropdownMenu.Item>
                           <Flex align='center' gap='2'>
                             <LuMoon size={20} />
@@ -161,7 +119,6 @@ function Dashboard() {
                             />
                           </Flex>
                         </DropdownMenu.Item>
-
                         <DropdownMenu.Separator />
                         <DropdownMenu.Item color='red'>
                           <Button size='2' color="red" onClick={handleLogout}
@@ -169,10 +126,9 @@ function Dashboard() {
                               Cerrar Sesión
                           </Button>
                         </DropdownMenu.Item>
-
                       </DropdownMenu.Content>
                     </DropdownMenu.Root>
-                    </Flex>
+                  </Flex>
                 </Flex>
               </Flex>
 
