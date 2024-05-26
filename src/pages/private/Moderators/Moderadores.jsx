@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import useAuth from "../../../context/useAuth";
 import { getModeradores, deleteModerador } from '../../../api/moderador.api';
 import { Table, Flex, Spinner, TextField, Avatar } from '@radix-ui/themes';
@@ -8,7 +7,6 @@ import ModeratorDialog from "./ModeratorDialog";
 import DeleteModerator from './DeleteModerator';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { NotifyError, NotifySuccess } from "../../../components/Toasts/Notifies";
 
 export default function Moderadores() {
   const user = useAuth();
@@ -16,22 +14,18 @@ export default function Moderadores() {
   const token = user?.cookies?.auth?.token;
   const [moderadores, setModeradores] = useState([]);
   const [show, setShow] = useState(false);
-  const [domReady, setDomReady] = useState(false);
   const [searchText, setSearchText] = useState('');
-
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  
   useEffect(() => {
     setShow(true);
-  }, []);
-
-  useEffect(() => {
-    setDomReady(true);
   }, []);
 
   useEffect(() => {
     const loadModeradores = async () => {
       try {
         const response = await getModeradores(token);
-        console.log(response);
         setModeradores(response.data);
       } catch (error) {
         console.error(error);
@@ -45,10 +39,24 @@ export default function Moderadores() {
       await deleteModerador(id, token);
       const response = await getModeradores(token);
       setModeradores(response.data);
+      setSuccessMessage('Moderador eliminado con éxito');
     } catch (error) {
-      console.error(error);
+      setErrorMessage('Error al eliminar el moderador');
     }
   };
+  
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage, { onClose: () => setSuccessMessage('') });
+    }
+  }, [successMessage]);
+  
+  useEffect(() => {
+    if (errorMessage) {
+      toast.error(errorMessage, { onClose: () => setErrorMessage('') });
+    }
+  }, [errorMessage]);
+  
 
   const filteredModeradores = moderadores.filter(moderador =>
     `${moderador.nombre} ${moderador.apellido} ${moderador.email} ${moderador.createdAt}`.toLowerCase().includes(searchText.toLowerCase())
@@ -57,6 +65,7 @@ export default function Moderadores() {
   return (
     <>
       <ToastContainer position="top-center" autoClose={3000} />
+
       <div className={`transition-opacity duration-500 ${show ? 'opacity-100' : 'opacity-0'}`}>
         <Flex justify='between' align='center' className='pt-2 pb-5'>
           <TextField.Root placeholder="Buscar moderador" className='w-1/2' value={searchText} onChange={e => setSearchText(e.target.value)}>
