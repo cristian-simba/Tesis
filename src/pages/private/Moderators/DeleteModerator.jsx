@@ -1,5 +1,7 @@
 import React from 'react';
-import { AlertDialog, Flex, Button, Spinner, RxBookmark } from '@radix-ui/themes';
+import { AlertDialog, Flex, Button, Spinner } from '@radix-ui/themes';
+import { RxBookmark } from "react-icons/rx";
+
 
 export default function DeleteModerator({ deleteModerador, loading }) {
   return (
