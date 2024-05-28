@@ -17,6 +17,7 @@ export default function Moderadores() {
   const [searchText, setSearchText] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   
   useEffect(() => {
     setShow(true);
@@ -36,11 +37,14 @@ export default function Moderadores() {
 
   const eliminarModerador = async (id) => {
     try {
+      setLoading(true);
       await deleteModerador(id, token);
       const response = await getModeradores(token);
       setModeradores(response.data);
       setSuccessMessage('Moderador eliminado con éxito');
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       setErrorMessage('Error al eliminar el moderador');
     }
   };
@@ -56,7 +60,6 @@ export default function Moderadores() {
       toast.error(errorMessage, { onClose: () => setErrorMessage('') });
     }
   }, [errorMessage]);
-  
 
   const filteredModeradores = moderadores.filter(moderador =>
     `${moderador.nombre} ${moderador.apellido} ${moderador.email} ${moderador.createdAt}`.toLowerCase().includes(searchText.toLowerCase())
@@ -87,21 +90,7 @@ export default function Moderadores() {
           </Table.Header>
 
           <Table.Body>
-            {filteredModeradores.length > 0 ? (
-              filteredModeradores.map(moderador => (
-                <Table.Row align='center' key={moderador._id}>
-                  <Table.Cell>
-                    <Avatar fallback={moderador.nombre ? moderador.nombre[0] : "M"} size="2" radius='full' className='mr-4' />
-                    {moderador.nombre} {moderador.apellido}
-                  </Table.Cell>
-                  <Table.Cell>{moderador.email}</Table.Cell>
-                  <Table.Cell justify='center'>{new Date(moderador.createdAt).toISOString().split('T')[0]}</Table.Cell>
-                  <Table.Cell justify='center'>
-                    <DeleteModerator deleteModerador={() => eliminarModerador(moderador._id)} />
-                  </Table.Cell>
-                </Table.Row>
-              ))
-            ) : (
+            {filteredModeradores.length === 0 ? (
               searchText ? (
                 <Table.Row>
                   <Table.Cell colSpan="5" align='center'>No se encontraron moderadores</Table.Cell>
@@ -110,6 +99,26 @@ export default function Moderadores() {
                 <Table.Row>
                   <Table.Cell colSpan="5" align='center'><Spinner /></Table.Cell>
                 </Table.Row>
+              )
+            ) : (
+              filteredModeradores.length === 1 ? (
+                <Table.Row>
+                  <Table.Cell colSpan="5" align='center'>No se encontraron moderadores</Table.Cell>
+                </Table.Row>
+              ) : (
+                filteredModeradores.slice(1).map(moderador => (
+                  <Table.Row align='center' key={moderador._id}>
+                    <Table.Cell>
+                      <Avatar fallback={moderador.nombre ? moderador.nombre[0] : "M"} size="2" radius='full' className='mr-4' />
+                      {moderador.nombre} {moderador.apellido}
+                    </Table.Cell>
+                    <Table.Cell>{moderador.email}</Table.Cell>
+                    <Table.Cell justify='center'>{new Date(moderador.createdAt).toISOString().split('T')[0]}</Table.Cell>
+                    <Table.Cell justify='center'>
+                      <DeleteModerator deleteModerador={() => eliminarModerador(moderador._id)} loading={loading} />
+                    </Table.Cell>
+                  </Table.Row>
+                ))
               )
             )}
           </Table.Body>
