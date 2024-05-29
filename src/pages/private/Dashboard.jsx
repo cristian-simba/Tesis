@@ -24,6 +24,7 @@ function Dashboard() {
       '/dashboard': 'Dashboard',
       '/moderadores': 'Moderadores',
       '/usuarios': 'Usuarios',  
+      '/reportes': 'Reportes',  
     };
 
     setHeading(headings[location.pathname] || '');
@@ -59,6 +60,15 @@ function Dashboard() {
                   text="Dashboard" 
                   active={location.pathname === '/dashboard'}
                   onClick={() => setHeading('Dashboard')}
+                />
+              </Link>
+
+              <Link to='reportes'>
+                <SidebarItem 
+                  icon={<LuMail size={20} />}
+                  text="Reportes" 
+                  active={location.pathname === '/reportes'}
+                  onClick={() => setHeading('Reportes')}
                 />
               </Link>
 

@@ -50,14 +50,6 @@ export default function ProfileModerator() {
             </DataList.Value>
           </DataList.Item>
           <DataList.Item>
-            <DataList.Label minWidth="88px">ID</DataList.Label>
-            <DataList.Value>
-              <Flex align="center" gap="2">
-                <Code variant="ghost">{id}</Code>
-              </Flex>
-            </DataList.Value>
-          </DataList.Item>
-          <DataList.Item>
             <DataList.Label minWidth="88px">Nombre</DataList.Label>
             <DataList.Value>{nombre}</DataList.Value>
           </DataList.Item>
