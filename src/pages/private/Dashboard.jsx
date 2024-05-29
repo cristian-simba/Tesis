@@ -4,7 +4,7 @@ import { LuLayoutDashboard, LuUsers2, LuBell, LuSettings, LuMoon, LuMail, LuUser
 import { GrUserPolice } from "react-icons/gr";
 import Sidebar, { SidebarItem } from '../../components/Sidebar';
 import { Flex, Avatar, Heading, Text, Button, Switch, DropdownMenu, Spinner } from '@radix-ui/themes';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import useAuth from "../../context/useAuth"
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
@@ -16,7 +16,8 @@ function Dashboard() {
   const [show, setShow] = useState(false);
   const [heading, setHeading] = useState('');
   const location = useLocation();
-  
+  const params = useParams();
+
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
@@ -25,10 +26,12 @@ function Dashboard() {
       '/moderadores': 'Moderadores',
       '/usuarios': 'Usuarios',  
       '/reportes': 'Reportes',  
+      '/reporte/:id': 'Reporte',
     };
 
-    setHeading(headings[location.pathname] || '');
-  }, [location.pathname]);
+    const heading = headings[location.pathname] || (params.id && 'Reporte') || 'Dashboard';
+    setHeading(heading);
+  }, [location, params]);
 
   const handleLogout = async() => {
     try{
@@ -67,7 +70,7 @@ function Dashboard() {
                 <SidebarItem 
                   icon={<LuMail size={20} />}
                   text="Reportes" 
-                  active={location.pathname === '/reportes'}
+                  active={location.pathname === '/reportes' || 'id' in params}
                   onClick={() => setHeading('Reportes')}
                 />
               </Link>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { getReportes } from "../../../api/reportes.api";
 import { Card, Text, Flex, Badge, Spinner } from "@radix-ui/themes";
+import { Link } from "react-router-dom";
 import useAuth from "../../../context/useAuth";
+import { LuMailCheck, LuMail } from "react-icons/lu";
 
 export default function Reportes() {
   const user = useAuth();
@@ -47,20 +49,24 @@ export default function Reportes() {
         reportes.map((reporte) => (
           <Flex key={reporte._id} className="pb-2">
             <Card asChild className="w-full" variant="classic">
-              <a href="#">
-                <Flex gap="2">
+              <Link to={`/reporte/${reporte._id}`}>
+                <Flex gap="2" align='center'>
+                  {reporte.estado === 'Resuelto' ?  <LuMailCheck size='20'/> : <LuMail size='20'/>}
+               
                   <Text as="div" className="font-medium">
-                    {reporte.motivo}
+                    Motivo: {reporte.motivo}
                   </Text>
-                  <Badge color="orange">{reporte.estado}</Badge>
-                </Flex>
+                  <Badge color={reporte.estado === 'Resuelto' ? 'green' : 'orange'}>
+                    {reporte.estado}
+                  </Badge>               
+                 </Flex>
                 <Text size="1" className="font-thin">
                   {new Date(reporte.createdAt).toISOString().split("T")[0]}
                 </Text>
                 <Text as="div" color="gray" size="2">
                   {reporte.detalle}
                 </Text>
-              </a>
+              </Link>
             </Card>
           </Flex>
         ))
