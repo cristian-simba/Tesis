@@ -117,6 +117,7 @@ export default function Moderadores() {
               filteredModeradores.map((moderador) => (
                 <Table.Row align="center" key={moderador._id}>
                   <Table.Cell>
+                  <Avatar fallback={moderador.nombre ? moderador.nombre[0] : "M"} size="2" radius='full' className='mr-4'/>
                     {moderador.nombre} {moderador.apellido}
                   </Table.Cell>
                   <Table.Cell>{moderador.email}</Table.Cell>

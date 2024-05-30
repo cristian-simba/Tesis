@@ -3,7 +3,7 @@ import { getReportes } from "../../../api/reportes.api";
 import { Card, Text, Flex, Badge, Spinner, Select, TextField } from "@radix-ui/themes";
 import { Link } from "react-router-dom";
 import useAuth from "../../../context/useAuth";
-import { LuMailCheck, LuMail, LuListFilter } from "react-icons/lu";
+import { LuMailCheck, LuMail, LuMailX } from "react-icons/lu";
 import { RxMagnifyingGlass } from "react-icons/rx";
 
 export default function Reportes() {
@@ -14,7 +14,6 @@ export default function Reportes() {
   const [searchText, setSearchText] = useState("");
   const [selectedValue, setSelectedValue] = useState("todos");
 
-  const id = user?.cookies?.auth?._id;
   const token = user?.cookies?.auth?.token;
 
   useEffect(() => {
@@ -25,8 +24,9 @@ export default function Reportes() {
     const loadReportes = async () => {
       setLoading(true);
       try {
-        const response = await getReportes(token, id);
+        const response = await getReportes(token);
         setReportes(response.data);
+        console.log(response.data)
       } catch (error) {
         console.error(error);
       } finally {
@@ -34,10 +34,10 @@ export default function Reportes() {
       }
     };
     loadReportes();
-  }, [token, id]);
+  }, [token]);
 
   const filteredReports = reportes.filter((reporte) => {
-    const matchesSearchText = 
+    const matchesSearchText =
       `${reporte.motivo} ${reporte.detalle} ${reporte.createdAt}`
         .toLowerCase()
         .includes(searchText.toLowerCase());
@@ -46,6 +46,8 @@ export default function Reportes() {
         return matchesSearchText && reporte.estado === "Resuelto";
       case "No resueltos":
         return matchesSearchText && reporte.estado === "No resuelto";
+      case "Borrados":
+        return matchesSearchText && reporte.estado === "Borrado";
       default:
         return matchesSearchText;
     }
@@ -73,19 +75,21 @@ export default function Reportes() {
           <Select.Trigger className="hover:cursor-pointer bg-[#3e63dd] text-white">
             {selectedValue === "todos" ? (
               <Flex align="center">
-                <LuListFilter size="20" className="pr-2" />
+                {/* <LuListFilter size="20" className="pr-2" /> */}
                 Todos los reportes
               </Flex>
             ) : selectedValue === "Resueltos" ? (
               <Flex align="center">Resueltos</Flex>
-            ) : (
+            ) : selectedValue === "No resueltos" ? (
               <Flex align="center">No resueltos</Flex>
-            )}
+            )
+            : selectedValue === "Borrados" ? (
+              <Flex align="center">Borrados</Flex>
+            ) : null}
           </Select.Trigger>
           <Select.Content position="popper">
             <Select.Item value="todos" className="hover:cursor-pointer">
               <Flex align="center">
-                <LuListFilter size="20" className="pr-2" />
                 Todos los reportes
               </Flex>
             </Select.Item>
@@ -94,6 +98,9 @@ export default function Reportes() {
             </Select.Item>
             <Select.Item value="No resueltos" className="hover:cursor-pointer">
               No resueltos
+            </Select.Item>
+            <Select.Item value="Borrados" className="hover:cursor-pointer">
+              Borrados
             </Select.Item>
           </Select.Content>
         </Select.Root>
@@ -111,13 +118,13 @@ export default function Reportes() {
             <Card asChild className="w-full" variant="classic">
               <Link to={`/reporte/${reporte._id}`}>
                 <Flex gap="2" align='center'>
-                  {reporte.estado === 'Resuelto' ? <LuMailCheck size='20' /> : <LuMail size='20' />}
+                  {reporte.estado === 'Resuelto' ? <LuMailCheck size='20' /> : 'Borrado' ? <LuMailX size='20'/> : <LuMail size='20' />}
                   <Text as="div" className="font-medium">
                     Motivo: {reporte.motivo}
                   </Text>
-                  <Badge color={reporte.estado === 'Resuelto' ? 'green' : 'orange'}>
+                  <Badge color={reporte.estado === 'Resuelto' ? 'green' : 'Borrado' ? 'orange' : 'red'}>
                     {reporte.estado}
-                  </Badge>               
+                  </Badge>
                  </Flex>
                 <Text size="1" className="font-thin">
                   {new Date(reporte.createdAt).toISOString().split("T")[0]}

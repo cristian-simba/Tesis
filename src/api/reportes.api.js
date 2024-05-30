@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-export const getReportes = (token, id) => {
-  const url = `${import.meta.env.VITE_BACKEND_URL}/notificaciones/moderador/${id}`;
+export const getReportes = (token) => {
+  const url = `${import.meta.env.VITE_BACKEND_URL}/moderador/reportes`;
   const options = {
     headers: {
       'Content-Type': 'application/json',

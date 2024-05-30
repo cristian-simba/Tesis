@@ -81,7 +81,6 @@ export default function Usuarios() {
           <Select.Content position="popper">
             <Select.Item value="todos" className="hover:cursor-pointer">
               <Flex align="center">
-                <LuListFilter size="20" className="pr-2" />
                 Todos los usuarios
               </Flex>
             </Select.Item>
