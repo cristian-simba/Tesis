@@ -1,6 +1,6 @@
 // Dashboard.js
 import React, { useEffect, useState } from 'react';
-import { LuLayoutDashboard, LuUsers2, LuBell, LuSettings, LuMoon, LuMail, LuUser2 } from 'react-icons/lu';
+import { LuLayoutDashboard, LuUsers2, LuBell, LuSettings, LuMoon, LuMail } from 'react-icons/lu';
 import { GrUserPolice } from "react-icons/gr";
 import Sidebar, { SidebarItem } from '../../components/Sidebar';
 import { Flex, Avatar, Heading, Text, Button, Switch, DropdownMenu, Spinner } from '@radix-ui/themes';
