@@ -130,22 +130,31 @@ export default function Reportes() {
     loadReportes();
   }, [token]);
 
+  // const filteredReports = reportes.filter((reporte) => {
+  //   const matchesSearchText =
+  //     `${reporte.motivo} ${reporte.detalle} ${reporte.createdAt}`
+  //       .toLowerCase()
+  //       .includes(searchText.toLowerCase());
+  //   switch (selectedValue) {
+  //     case "Resueltos":
+  //       return matchesSearchText && reporte.estado === "Resuelto";
+  //     case "No resueltos":
+  //       return matchesSearchText && reporte.estado === "No resuelto";
+  //     case "Borrados":
+  //       return matchesSearchText && reporte.estado === "Borrado";
+  //     default:
+  //       return matchesSearchText;
+  //   }
+  // });
+
   const filteredReports = reportes.filter((reporte) => {
     const matchesSearchText =
       `${reporte.motivo} ${reporte.detalle} ${reporte.createdAt}`
         .toLowerCase()
         .includes(searchText.toLowerCase());
-    switch (selectedValue) {
-      case "Resueltos":
-        return matchesSearchText && reporte.estado === "Resuelto";
-      case "No resueltos":
-        return matchesSearchText && reporte.estado === "No resuelto";
-      case "Borrados":
-        return matchesSearchText && reporte.estado === "Borrado";
-      default:
-        return matchesSearchText;
-    }
+    return matchesSearchText && reporte.estado === "No resuelto";
   });
+  
 
   return (
     <div
@@ -165,11 +174,11 @@ export default function Reportes() {
           </TextField.Slot>
         </TextField.Root>
 
-        <Select.Root value={selectedValue} onValueChange={setSelectedValue}>
+       {/*  <Select.Root value={selectedValue} onValueChange={setSelectedValue}>
           <Select.Trigger className="hover:cursor-pointer bg-[#3e63dd] text-white">
             {selectedValue === "todos" ? (
               <Flex align="center">
-                {/* <LuListFilter size="20" className="pr-2" /> */}
+                <LuListFilter size="20" className="pr-2" /> 
                 Todos los reportes
               </Flex>
             ) : selectedValue === "Resueltos" ? (
@@ -197,7 +206,15 @@ export default function Reportes() {
               Borrados
             </Select.Item>
           </Select.Content>
-        </Select.Root>
+        </Select.Root> */}
+
+      {/* <Select.Root value={selectedValue} onValueChange={setSelectedValue}>
+        <Select.Trigger className="hover:cursor-pointer bg-[#3e63dd] text-white">
+          {selectedValue === "No resueltos" && (
+            <Flex align="center">No resueltos</Flex>
+          )}
+        </Select.Trigger>
+      </Select.Root> */}
       </Flex>
 
       {loading && reportes.length === 0 ? (
