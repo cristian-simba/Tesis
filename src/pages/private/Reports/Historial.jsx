@@ -6,7 +6,7 @@ import { RxCross2 } from "react-icons/rx";
 
 const ITEMS_PER_PAGE = 1; // Número de reportes por página
 
-export default function Historial({ idUsuario }) {
+export default function Historial({ idUsuario, text }) {
   const user = useAuth();
   const [reportes, setReportes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,7 +42,7 @@ export default function Historial({ idUsuario }) {
   return (
     <Dialog.Root>
       <Dialog.Trigger className="cursor-pointer">
-        <Button color="gray" variant="soft">Ver historial del usuario</Button>
+        <Button color="gray" variant="soft">{text}</Button>
       </Dialog.Trigger>
       <Dialog.Content maxWidth='400px'>
       <Flex justify="end">

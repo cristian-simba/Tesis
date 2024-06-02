@@ -17,6 +17,7 @@ export default function Acciones({idReporte, idUsuario}) {
     try {
       await deletePublicacion(idReporte, token);
       console.log("Eliminar")
+      navigate("/dashboard")
     } catch (error) {
       console.log(error);
     }
@@ -25,6 +26,7 @@ export default function Acciones({idReporte, idUsuario}) {
   const restringir = async () => {
     try{
       await restringirUsuario(idUsuario, token, data)
+      navigate("/dashboard")
       console.log("Restringido")
     }catch(error){
       console.log(error)
@@ -34,6 +36,7 @@ export default function Acciones({idReporte, idUsuario}) {
   const bloquear = async () => {
     try{
       await bloquearUsuario(idUsuario, token, data)
+      navigate("/dashboard")
       console.log("Bloqueado")
     }catch(error){
       console.log(error)
@@ -64,15 +67,14 @@ export default function Acciones({idReporte, idUsuario}) {
         <Button>Acciones</Button>
       </Dialog.Trigger>
       <Dialog.Content maxWidth="300px">
-           <Flex justify="end">
-              <Dialog.Close>
-                <RxCross2 size="20" className="hover:cursor-pointer" />
-              </Dialog.Close>
-            </Flex>
-            <Flex className="pb-5">
-            <Text className="font-bold">Escoge una opción</Text>
-
-            </Flex>
+        <Flex justify="end">
+          <Dialog.Close>
+            <RxCross2 size="20" className="hover:cursor-pointer" />
+          </Dialog.Close>
+        </Flex>
+        <Flex className="pb-5">
+          <Text className="font-bold">Escoge una opción</Text>
+        </Flex>
         <Flex align="start" direction="column" gap="4">
           <Flex asChild gap="2">
 

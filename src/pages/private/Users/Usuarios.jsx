@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "../../../api/usuarios.api";
 import useAuth from "../../../context/useAuth";
-import {
-  Table,
-  Flex,
-  TextField,
-  Select,
-  Spinner,
-  Badge,
-} from "@radix-ui/themes";
+import { Table,  Flex,  TextField,  Select,  Spinner,  Badge, Button} from "@radix-ui/themes";
 import { RxMagnifyingGlass } from "react-icons/rx";
+import Acciones from "./Acciones";
 import { LuListFilter } from "react-icons/lu";
+import Historial from "../Reports/Historial";
 
 export default function Usuarios() {
   const auth = useAuth();
@@ -48,9 +43,9 @@ export default function Usuarios() {
         .includes(searchText.toLowerCase());
     switch (selectedValue) {
       case "activos":
-        return matchesSearchText && !user.bloqueo && !user.restringido;
+        return matchesSearchText && !user.bloqueo && !user.restriccion;
       case "restringidos":
-        return matchesSearchText && user.restringido;
+        return matchesSearchText && user.restriccion;
       case "bloqueados":
         return matchesSearchText && user.bloqueo;
       default:
@@ -113,6 +108,9 @@ export default function Usuarios() {
             <Table.Cell className="w-1/5 font-medium" justify="center">
               Estado de la cuenta
             </Table.Cell>
+            <Table.Cell className="w-1/5 font-medium" justify="center">
+              Acciones
+            </Table.Cell>
           </Table.Row>
         </Table.Header>
 
@@ -146,11 +144,25 @@ export default function Usuarios() {
                 <Table.Cell justify="center">
                   {user.bloqueo ? (
                     <Badge color="red">Bloqueado</Badge>
-                  ) : user.restringido ? (
+                  ) : user.restriccion ? (
                     <Badge color="orange">Restringido</Badge>
                   ) : (
                     <Badge color="green">Activo</Badge>
                   )}
+                </Table.Cell>
+                <Table.Cell>
+                  <Flex gap='2'>
+                    <Historial idUsuario={user._id} text={"Historia"}/>
+                    {user.bloqueo ? (
+                    <Acciones text={"Desbloquear"} color={"red"} textT={"Desbloquear usuario"} textP={"desbloquear"}  idUsuario={user._id} option={"2"}/>
+
+                  ) : user.restriccion ? (
+                    <Acciones text={"Desbloquear"} color={"orange"} textT={"Quitar restricción al usuario"}  textP={"quitar la restricción"}  idUsuario={user._id} option={"1"}/>
+                    
+                  ) : (
+                    <Acciones text={"Inactivo"} disabled={true} />
+                  )}
+                  </Flex>
                 </Table.Cell>
               </Table.Row>
             ))

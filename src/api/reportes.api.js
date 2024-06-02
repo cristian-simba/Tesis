@@ -80,3 +80,27 @@ export const bloquearUsuario = (id, token, data) =>{
   }
   return axios.put(url, data, options);
 }
+
+export const desrestringirUsuario = (id, token, data) =>{
+  const url = `${import.meta.env.VITE_BACKEND_URL}/desrestringir/usuario/${id}`;
+  data = {}
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  }
+  return axios.put(url, data, options);
+}
+
+export const desbloquearUsuario = (id, token, data) =>{
+  const url = `${import.meta.env.VITE_BACKEND_URL}/desbloquear/usuario/${id}`;
+  data = {}
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  }
+  return axios.put(url, data, options);
+}

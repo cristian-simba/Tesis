@@ -58,7 +58,7 @@ export default function Reporte(props) {
             <Card asChild className="w-full" variant="classic">
               <Flex to={`/reporte/${props.reporte._id}`}>
                 <Flex gap="2" align='center'>
-                  {props.reporte.estado === 'Resuelto' ? <LuMailCheck size='20' /> : 'Borrado' ? <LuMailX size='20'/> : <LuMail size='20' />}
+                  {props.reporte.estado === 'Resuelto' ? <LuMailCheck size='20' /> : 'Borrado' ? <LuMail size='20'/> : <LuMail size='20' />}
                   <Text as="div" className="font-medium">
                     Motivo: {props.reporte.motivo}
                   </Text>
@@ -137,7 +137,7 @@ export default function Reporte(props) {
                     </DataList.Item>
                   </DataList.Root>
                   
-                  <Historial idUsuario={data.reporte.usuarioId}/>
+                  <Historial idUsuario={data.reporte.usuarioId} text={"Ver historial del usuario"}/>
 
                   <Flex gap="3" mt="4" justify="end">
                     <Dialog.Close>
