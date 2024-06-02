@@ -11,7 +11,7 @@ import { RxCross2 } from "react-icons/rx";
 import Acciones from "./Acciones";
 import Historial from "./Historial";
 
-export default function Reporte(props) {
+export default function Reporte(props, {refresh}) {
   const user = useAuth();
   const { reporte } = props; // Extraer 'id' de props correctamente
   const [data, setData] = useState([]);
@@ -150,8 +150,11 @@ export default function Reporte(props) {
                 </Flex>
               </Flex>
             ) : (
-              <Flex align='center' justify='center' className="min-h-96">
+              <Flex direction={'column'}  align='center' justify='center' className="min-h-96">
                 <Text size='4' color='red'>La publicación ya no existe.</Text>
+                <Dialog.Close>
+                  <Button onClick={cambioPublicacion}>Finalizar</Button>
+                </Dialog.Close>
               </Flex>
             )}
           </Dialog.Content>

@@ -94,7 +94,6 @@
 import { useEffect, useState } from "react";
 import { getReportes } from "../../../api/reportes.api";
 import { Card, Text, Flex, Badge, Spinner, Select, TextField } from "@radix-ui/themes";
-import { Link } from "react-router-dom";
 import useAuth from "../../../context/useAuth";
 import { LuMailCheck, LuMail, LuMailX } from "react-icons/lu";
 import { RxMagnifyingGlass } from "react-icons/rx";
@@ -130,6 +129,14 @@ export default function Reportes() {
     loadReportes();
   }, [token]);
 
+  const refresh = async() => {
+    try{
+      const response = await getReportes(token);
+      setUsers(response.data);
+    }catch(error){
+      console.log(error)
+    }
+  }
   // const filteredReports = reportes.filter((reporte) => {
   //   const matchesSearchText =
   //     `${reporte.motivo} ${reporte.detalle} ${reporte.createdAt}`
@@ -225,7 +232,7 @@ export default function Reportes() {
         </Card>
       ) : filteredReports.length > 0 ? (
             filteredReports.map((reporte) => (
-              <Reporte key={reporte._id} reporte={reporte}/>
+              <Reporte key={reporte._id} reporte={reporte} />
         ))
       ) : (
         <Card asChild className="w-full flex justify-center">

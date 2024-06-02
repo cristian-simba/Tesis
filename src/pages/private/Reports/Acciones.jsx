@@ -104,7 +104,7 @@ export default function Acciones({idReporte, idUsuario}) {
               Regresar
             </Button>
           </Dialog.Close>
-          <Button  className="cursor-pointer" onClick={handleSubmit}>Enviar</Button>
+          <Button  className="cursor-pointer" onClick={handleSubmit}>Finalizar</Button>
         </Flex>
       </Dialog.Content>
     </Dialog.Root>

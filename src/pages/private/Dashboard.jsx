@@ -1,6 +1,6 @@
 // Dashboard.js
 import React, { useEffect, useState } from 'react';
-import { LuLayoutDashboard, LuUsers2, LuBell, LuSettings, LuMoon, LuMail } from 'react-icons/lu';
+import { LuLayoutDashboard, LuUsers2, LuBell, LuMoon, LuMail } from 'react-icons/lu';
 import { GrUserPolice } from "react-icons/gr";
 import Sidebar, { SidebarItem } from '../../components/Sidebar';
 import { Flex, Avatar, Heading, Text, Button, Switch, DropdownMenu, Spinner } from '@radix-ui/themes';
@@ -10,6 +10,7 @@ import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
 import ProfileModerator from './Moderators/ProfileModerator';
 import { useTheme } from '../../context/ThemeContext';
+import Notificaciones from './Notificaciones';
 
 function Dashboard() {
   const auth = useAuth();
@@ -99,10 +100,9 @@ function Dashboard() {
             <Flex direction="column" className="flex-1">
               <Flex gap="2" className={`px-4 py-4 w-full ${theme === 'dark' ? 'border-b border-[#1D211C]' : 'border-b'}`} justify="between">    
                 <Heading>{heading}</Heading>
-                <Flex gap="5" align="center">
-                  <button>
-                    <LuBell size={20} />
-                  </button>
+                <Flex gap="2" align="center">
+                  
+                  <Notificaciones/>
 
                   <Flex>
                     <DropdownMenu.Root>

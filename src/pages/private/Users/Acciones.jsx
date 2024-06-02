@@ -5,20 +5,20 @@ import { desbloquearUsuario, desrestringirUsuario } from "../../../api/reportes.
 import useAuth from "../../../context/useAuth";
 import { useNavigate } from "react-router-dom";
 
-export default function Acciones({text, color, disabled, textT, textP, idUsuario, option}) {
+export default function Acciones( {text, color, disabled, textT, textP, idUsuario, option, refresh}) {
 
   const user = useAuth();
+  // const { refresh } = props
   const token = user?.cookies?.auth?.token;
   const data = {}
-  console.log(idUsuario)
-
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate()
 
   const desrestringir = async () => {
     try{
       await desrestringirUsuario(idUsuario, token, data)
-      navigate("/dashboard")
-      console.log("DesRestringido")
+      setOpen(false);
+
     }catch(error){
       console.log(error)
     }
@@ -27,8 +27,8 @@ export default function Acciones({text, color, disabled, textT, textP, idUsuario
   const desbloquear = async () => {
     try{
       await desbloquearUsuario(idUsuario, token, data)
-      navigate("/dashboard")
-      console.log("DesBloqueado")
+      setOpen(false);
+      refresh()
     }catch(error){
       console.log(error)
     }
@@ -48,7 +48,7 @@ export default function Acciones({text, color, disabled, textT, textP, idUsuario
   };
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open} onOpenChange={setOpen} >
       <Dialog.Trigger className="cursor-pointer">
         <Button disabled={disabled} variant="soft" color={color}>{text}</Button>
       </Dialog.Trigger>
