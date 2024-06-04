@@ -26,7 +26,6 @@ export default function Acciones({idReporte, idUsuario}) {
   const restringir = async () => {
     try{
       await restringirUsuario(idUsuario, token, data)
-      navigate("/dashboard")
       console.log("Restringido")
     }catch(error){
       console.log(error)
@@ -36,7 +35,6 @@ export default function Acciones({idReporte, idUsuario}) {
   const bloquear = async () => {
     try{
       await bloquearUsuario(idUsuario, token, data)
-      navigate("/dashboard")
       console.log("Bloqueado")
     }catch(error){
       console.log(error)
@@ -48,11 +46,13 @@ export default function Acciones({idReporte, idUsuario}) {
       case "1":
         eliminarPublicacion();
         break;
-      case "2":
-        restringir();
+        case "2":
+          restringir();
+          eliminarPublicacion();
         break;
-      case "3":
-        bloquear();
+        case "3":
+          bloquear();
+          eliminarPublicacion();
         break;
       default:
         break;
