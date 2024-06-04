@@ -4,6 +4,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import LandingPage from "./pages/public/LandingPage";
 import PublicApp from './pages/public/PublicApp';
+import ConfirmarCuenta from "./pages/public/ConfirmarCuenta";
 import Login from "./pages/public/Login";
 import FirstLogin from "./pages/public/FirstLogin";
 import ForgotPassword from "./pages/public/ForgotPassword";
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route index element={<LandingPage />} />
           <Route path="/ideas" element={<PublicApp />} />
+          <Route path="/confirmar/:token" element={<ConfirmarCuenta/>}/>
           <Route path="/mod/login" element={<Login />} />
           <Route path="/cambiar-contraseña" element={<FirstLogin />} />
           <Route path="/recuperar-password" element={<ForgotPassword />} />
