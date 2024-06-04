@@ -17,7 +17,7 @@ export default function Acciones({idReporte, idUsuario}) {
     try {
       await deletePublicacion(idReporte, token);
       console.log("Eliminar")
-      navigate("/dashboard")
+      navigate("/usuarios")
     } catch (error) {
       console.log(error);
     }
