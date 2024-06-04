@@ -18,7 +18,7 @@ export default function Acciones( {text, color, disabled, textT, textP, idUsuari
     try{
       await desrestringirUsuario(idUsuario, token, data)
       setOpen(false);
-
+      refresh()
     }catch(error){
       console.log(error)
     }

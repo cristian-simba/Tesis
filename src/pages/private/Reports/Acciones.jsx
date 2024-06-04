@@ -27,6 +27,7 @@ export default function Acciones({idReporte, idUsuario}) {
     try{
       await restringirUsuario(idUsuario, token, data)
       console.log("Restringido")
+      navigate("/usuarios")
     }catch(error){
       console.log(error)
     }
@@ -36,6 +37,7 @@ export default function Acciones({idReporte, idUsuario}) {
     try{
       await bloquearUsuario(idUsuario, token, data)
       console.log("Bloqueado")
+      navigate("/usuarios")
     }catch(error){
       console.log(error)
     }
@@ -48,11 +50,9 @@ export default function Acciones({idReporte, idUsuario}) {
         break;
         case "2":
           restringir();
-          eliminarPublicacion();
         break;
         case "3":
           bloquear();
-          eliminarPublicacion();
         break;
       default:
         break;
