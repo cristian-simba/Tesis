@@ -3,17 +3,8 @@ import axios from 'axios';
 import { LineChart, CartesianGrid, XAxis, YAxis, Line, Tooltip } from "recharts";
 import { Spinner } from '@radix-ui/themes';
 import useAuth from "../../../context/useAuth";
-
-const getReportes = (token) => {
-  const url = `${import.meta.env.VITE_BACKEND_URL}/moderador/reportes`;
-  const options = {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    }
-  };
-  return axios.get(url, options);
-};
+import { useTheme } from '../../../context/ThemeContext';
+import { getReportes } from '../../../api/reportes.api';
 
 export default function ReportesTiempo() {
   const [data, setData] = useState([]);
@@ -61,18 +52,40 @@ export default function ReportesTiempo() {
       });
   }, [token]);
 
+  const CustomTooltip = ({ active, payload, label }) => {
+    const { theme } = useTheme();
+  
+    if (active && payload && payload.length) {
+      const tooltipStyle = theme === 'dark'
+        ? { backgroundColor: '#191919', border: '1px solid #333333', padding: '10px', fontSize: '14px' }
+        : { backgroundColor: '#FCFDFC', border: '1px solid #ccc', padding: '10px', fontSize: '14px' };
+  
+      return (
+        <div style={tooltipStyle}>
+          <p>{`Fecha: ${label}`}</p>
+          <p>{`Número de Reportes: ${payload[0].value}`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div>
       {loading ? (
-        <Spinner />
+        <div className='flex flex-col justify-center items-center h-[200px]'>
+         <Spinner />
+       </div>
       ) : data.length > 0 ? (
-        <LineChart width={700} height={200} data={data}>
-          <CartesianGrid strokeDasharray="3 2" />
-          <XAxis dataKey="name" axisLine={{ stroke: '#000000' }} tick={{ fontFamily: 'Arial', fontSize: 14 }} />
-          <YAxis axisLine={{ stroke: '#000000' }} tick={{ fontFamily: 'Arial', fontSize: 14 }} />
-          <Tooltip />
-          <Line type="monotone" dataKey="reportes" stroke="#8884d8" />
-        </LineChart>
+        <div className="flex flex-col items-center justify-center h-full pr-10">
+          <LineChart width={650} height={200} data={data}>
+            <CartesianGrid strokeDasharray="3 2" />
+            <XAxis dataKey="name"  tick={{ fontFamily: 'Arial', fontSize: 14 }} />
+            <YAxis tick={{ fontFamily: 'Arial', fontSize: 14 }} />
+            <Tooltip content={<CustomTooltip />}/>
+            <Line type="monotone" dataKey="reportes" stroke="#8884d8" />
+          </LineChart>
+        </div>
       ) : (
         <div>No hay datos disponibles</div>
       )}

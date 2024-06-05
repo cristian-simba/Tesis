@@ -21,6 +21,7 @@ export default function Usuarios() {
       setLoading(true);
       try {
         const response = await getUsers(token);
+        console.log(response.data)
         setUsers(response.data);
       } catch (error) {
         console.error(error);

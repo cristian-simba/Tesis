@@ -5,13 +5,12 @@ import useAuth from "../../../context/useAuth";
 import { Spinner, Text, Badge } from "@radix-ui/themes";
 import { useTheme } from '../../../context/ThemeContext'
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const COLORS = ["#0088FE", "#00C49F", "#443eab"];
 
 export default function UserPublicaciones() {
   const [data, setData] = useState([]);
   const user = useAuth();
   const token = user?.cookies?.auth?.token;
-  const { theme, toggleTheme } = useTheme();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -61,8 +60,27 @@ export default function UserPublicaciones() {
     });
   }, [token]);
   
+  const CustomTooltip = ({ active, payload }) => {
+    const { theme } = useTheme();
+  
+    if (active && payload && payload.length) {
+      const tooltipStyle = theme === 'dark'
+        ? { backgroundColor: '#191919', border: '1px solid #333333', padding: '10px', fontSize: '14px' }
+        : { backgroundColor: '#FCFDFC', border: '1px solid #ccc', padding: '10px', fontSize: '14px'};
+  
+      const { name, value } = payload[0];
+      
+      return (
+        <div style={tooltipStyle}>
+          <p>{name}</p>
+          <p>{`Cantidad: ${value}`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+  
 
-  console.log(data);
   return (
     <div className="flex flex-col justify-center items-center h-full">
       {loading ? ( // Muestra el spinner si está cargando
@@ -84,7 +102,7 @@ export default function UserPublicaciones() {
             ))}
             
           </Pie>
-          <Tooltip />
+          <Tooltip content={<CustomTooltip />}/>
         </PieChart>
       ) : ( // Muestra un mensaje si no hay datos disponibles
         <Text>No hay datos disponibles</Text>

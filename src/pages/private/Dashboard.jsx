@@ -98,7 +98,12 @@ function Dashboard() {
 
             </Sidebar>
             <Flex direction="column" className="flex-1">
-              <Flex gap="2" className={`px-4 py-4 w-full   ${theme === 'dark' ? 'border-b border-[#1D211C]' : 'border-b'}`} justify="between">    
+            <Flex
+              gap="2"
+              className={`px-4 py-4 w-full ${theme === 'dark' ? 'bg-[#111111] border-b border-[#1D211C]' : 'border-b bg-white'}`}
+              justify="between"
+              style={{ position: 'sticky', top: 0, zIndex: 999 }}
+            >  
                 <Heading>{heading}</Heading>
                 <Flex gap="2" align="center">
                   

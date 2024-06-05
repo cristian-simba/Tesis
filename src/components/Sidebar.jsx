@@ -10,13 +10,13 @@ export default function Sidebar({children}) {
   const [expanded, setExpanded] = useState(true)
 
   return (
-    <aside className="h-screen">
-      <Flex direction='column' className="h-full">
-        <Flex justify='between' align='center' className="p-4 pb-2">
+    <aside className="h-screen" style={{ position: 'sticky', top: 0, zIndex: 999 }} >
+      <Flex direction='column' className="h-full" >
+        <Flex justify='between' align='center' className="p-4 pb-2" >
         <img
             src={image}
             className={`overflow-hidden transition-all ${
-              expanded ? "w-32" : "w-0"
+              expanded ? "w-44" : "w-0"
             }`}
             alt=""
           />
@@ -55,7 +55,7 @@ export function SidebarItem({ icon, text, active, alert }) {
       </div>
       <span
         className={`overflow-hidden transition-all ${
-          expanded ? "w-52 ml-3 opacity-100" : "w-0 opacity-0"
+          expanded ? "w-36 ml-3 opacity-100" : "w-0 opacity-0"
         }`}
       >
         {text}
