@@ -17,6 +17,7 @@ import Moderadores from "./pages/private/Moderators/Moderadores";
 import Usuarios from "./pages/private/Users/Usuarios";
 import Reportes from "./pages/private/Reports/Reportes";
 import Reporte from "./pages/private/Reports/Reporte";
+import Graficas from "./pages/private/Graphics/Graficas";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
                 </ThemeProvider>
               }
             >
-              <Route path="dashboard" element={<h1>Todos los Moderadores</h1>} />
+              <Route path="dashboard" element={<Graficas/>} />
               <Route path="usuarios" element={<Usuarios />} />
               <Route path="actualizar-contraseña/:id" element={<UpdatePassword />} />
               <Route path="reportes" element={<Reportes/>} />
