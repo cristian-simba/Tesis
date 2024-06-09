@@ -21,7 +21,6 @@ export default function Usuarios() {
       setLoading(true);
       try {
         const response = await getUsers(token);
-        console.log(response.data)
         setUsers(response.data);
       } catch (error) {
         console.error(error);
@@ -163,10 +162,10 @@ export default function Usuarios() {
                   <Flex gap='2'>
                     <Historial idUsuario={user._id} text={"Historia"}/>
                     {user.bloqueo ? (
-                    <Acciones text={"Desbloquear"} color={"red"} textT={"Desbloquear usuario"} textP={"desbloquear"}  idUsuario={user._id} option={"2"} refresh={refresh}/>
+                    <Acciones text={"Desbloquear"} color={"red"} textT={"Desbloquear usuario"} textP={"desbloquear"}  idUsuario={user._id} option={"2"} refresh={refresh} textBtn={"Desbloquear usuario"}/>
 
                   ) : user.restriccion ? (
-                    <Acciones text={"Desbloquear"} color={"orange"} textT={"Quitar restricción al usuario"}  textP={"quitar la restricción"}  idUsuario={user._id} option={"1"} refresh={refresh}/>
+                    <Acciones text={"Desbloquear"} color={"orange"} textT={"Quitar restricción al usuario"}  textP={"quitar la restricción"}  idUsuario={user._id} option={"1"} refresh={refresh} textBtn={"Quitar restricción al usuario"}/>
                     
                   ) : (
                     <Acciones text={"Inactivo"} disabled={true} />

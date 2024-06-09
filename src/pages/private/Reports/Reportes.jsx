@@ -119,7 +119,6 @@ export default function Reportes() {
       try {
         const response = await getReportes(token);
         setReportes(response.data);
-        console.log(response.data)
       } catch (error) {
         console.error(error);
       } finally {
@@ -132,7 +131,7 @@ export default function Reportes() {
   const refresh = async() => {
     try{
       const response = await getReportes(token);
-      setUsers(response.data);
+      setReportes(response.data);
     }catch(error){
       console.log(error)
     }
@@ -169,8 +168,8 @@ export default function Reportes() {
         show ? "opacity-100" : "opacity-0"
       }`}
     >
-      <Flex justify="between" align="center" className="pt-2 pb-5">
-        <TextField.Root
+      <Flex justify="between" align="center" className="pt-2 ">
+        {/* <TextField.Root
           placeholder="Buscar reporte"
           className="w-1/2"
           value={searchText}
@@ -179,7 +178,7 @@ export default function Reportes() {
           <TextField.Slot>
             <RxMagnifyingGlass size="20" />
           </TextField.Slot>
-        </TextField.Root>
+        </TextField.Root> */}
 
        {/*  <Select.Root value={selectedValue} onValueChange={setSelectedValue}>
           <Select.Trigger className="hover:cursor-pointer bg-[#3e63dd] text-white">
@@ -225,17 +224,17 @@ export default function Reportes() {
       </Flex>
 
       {loading && reportes.length === 0 ? (
-        <Card asChild className="w-full flex justify-center">
+        <Card asChild className="w-full flex justify-center h-16 items-center">
           <Flex>
             <Spinner />
           </Flex>
         </Card>
       ) : filteredReports.length > 0 ? (
             filteredReports.map((reporte) => (
-              <Reporte key={reporte._id} reporte={reporte} />
+              <Reporte key={reporte._id} reporte={reporte} refresh={refresh} />
         ))
       ) : (
-        <Card asChild className="w-full flex justify-center">
+        <Card asChild className="w-full flex justify-center h-16 items-center">
           <Text as="div" className="font-medium">
             No existen reportes
           </Text>

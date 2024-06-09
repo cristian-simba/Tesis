@@ -70,6 +70,17 @@ export default function ReportesTiempo() {
     return null;
   };
 
+  const CustomXAxis = (props) => {
+    const defaultTick = { fontFamily: 'Arial', fontSize: 14 };
+    return <XAxis tick={defaultTick} {...props} />;
+  };
+  
+  const CustomYAxis = (props) => {
+    const defaultTick = { fontFamily: 'Arial', fontSize: 14 };
+    return <YAxis tick={defaultTick} {...props} />;
+  };
+
+
   return (
     <div>
       {loading ? (

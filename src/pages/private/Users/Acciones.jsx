@@ -5,7 +5,7 @@ import { desbloquearUsuario, desrestringirUsuario } from "../../../api/reportes.
 import useAuth from "../../../context/useAuth";
 import { useNavigate } from "react-router-dom";
 
-export default function Acciones( {text, color, disabled, textT, textP, idUsuario, option, refresh}) {
+export default function Acciones( {text, color, disabled, textT, textP, idUsuario, option, textBtn, refresh}) {
 
   const user = useAuth();
   // const { refresh } = props
@@ -59,7 +59,7 @@ export default function Acciones( {text, color, disabled, textT, textP, idUsuari
             <RxCross2 size="20" className="hover:cursor-pointer" />
           </Dialog.Close>
         </Flex>
-        <Flex className="py-2">
+        <Flex className="pb-2">
           <Text className="font-bold">{textT}</Text>
         </Flex>
 
@@ -70,7 +70,7 @@ export default function Acciones( {text, color, disabled, textT, textP, idUsuari
               Regresar
             </Button>
           </Dialog.Close>
-          <Button  className="cursor-pointer" color="red" onClick={handleSubmit}>Finalizar</Button>
+          <Button  className="cursor-pointer" color="red" onClick={handleSubmit}>{textBtn}</Button>
         </Flex>
       </Dialog.Content>
     </Dialog.Root>

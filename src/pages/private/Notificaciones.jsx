@@ -42,8 +42,9 @@ export default function Notificaciones() {
           {hayReporte ? <LuBellDot  size='15'/>: <LuBell size='15'/> }
         </Button>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="w-60">
-        {loading ? (
+      <DropdownMenu.Content className="w-72 origin-top-left transform -translate-x-16 transition-transform duration-300">
+
+      {loading ? (
           <Flex justify='center' items='center' className='h-full'>
             <Spinner />
           </Flex>
@@ -51,7 +52,7 @@ export default function Notificaciones() {
           reportes.length > 0 ? (
             reportes.map((reporte, index) => (
               <Flex direction='column' className="h-full border-b-[1px] px-2 py-1" key={index}>
-                <Text size='2' className="">Reporte</Text>
+                <Text size='2' className="font-medium pb-1">Reporte recibido</Text>
                 <Flex align={'center'} gap='2' pt='1'>
                   <LuMail size='20'/>
                   <Flex direction='column'>

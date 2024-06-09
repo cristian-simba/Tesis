@@ -10,24 +10,23 @@ import { BiSolidDislike } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
 import Acciones from "./Acciones";
 import Historial from "./Historial";
+import { RiFileShield2Line } from "react-icons/ri";
 
-export default function Reporte(props, {refresh}) {
+export default function Reporte(props) {
   const user = useAuth();
-  const { reporte } = props; // Extraer 'id' de props correctamente
+  const { reporte, refresh } = props; // Extraer 'id' de props correctamente
   const [data, setData] = useState([]);
   const token = user?.cookies?.auth?.token;
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const dataApi = {}
-  console.log(token)
+
   useEffect(() => {
     const loadReporte = async () => {
       try {
-        console.log(reporte._id)
         const response = await getReporte(token, reporte._id); 
         setData(response.data);
         setLoading(false);
-        console.log(response.data);
       } catch (error) {
         console.error(error);
         setLoading(false);
@@ -84,12 +83,12 @@ export default function Reporte(props, {refresh}) {
               </Dialog.Close>
             </Flex>
             <Dialog.Title>Publicación Reportada</Dialog.Title>
-            <Dialog.Description size="2" mb="4">
+            <Dialog.Description size="2" >
               Detalles de la publicación y el reporte.
             </Dialog.Description>
 
             {data?.publicacion ? (
-              <Flex gap="6" align="start">
+              <Flex gap="6" align="start" className="pt-4">
                 <Flex direction="column" align="center">
                   <img src={data?.publicacion?.imagen?.secure_url} alt="" className="w-96 h-96 rounded-t-md" />
                   <Badge size="2" radius="small" color="gray" className="w-full p-2 cursor-not-allowed mt-2">
@@ -150,10 +149,16 @@ export default function Reporte(props, {refresh}) {
                 </Flex>
               </Flex>
             ) : (
-              <Flex direction={'column'}  align='center' justify='center' className="min-h-96">
-                <Text size='4' color='red'>La publicación ya no existe.</Text>
+              <Flex direction={'column'}  align='center' justify='center' className="min-h-96" gap="5">
+                <RiFileShield2Line className="size-36"/>
+
+                <Text size='4' color='red'>Otro moderador ya resolvió el reporte</Text>
                 <Dialog.Close>
-                  <Button onClick={cambioPublicacion}>Finalizar</Button>
+                  <Button onClick={() => { 
+                    cambioPublicacion(); 
+                    refresh()
+                  }} className="w-32 cursor-pointer">
+                  Finalizar</Button>
                 </Dialog.Close>
               </Flex>
             )}

@@ -57,9 +57,9 @@ export const deletePublicacion = (id, token) => {
   return axios.delete(url, options);
 }
 
-export const restringirUsuario = (id, token, data) =>{
+export const restringirUsuario = (id, token, tiempo) => {
   const url = `${import.meta.env.VITE_BACKEND_URL}/restringir/usuario/${id}`;
-  data = {}
+  const data = { tiempo };
   const options = {
     headers: {
       'Content-Type': 'application/json',
@@ -68,6 +68,7 @@ export const restringirUsuario = (id, token, data) =>{
   }
   return axios.put(url, data, options);
 }
+
 
 export const bloquearUsuario = (id, token, data) =>{
   const url = `${import.meta.env.VITE_BACKEND_URL}/bloquear/usuario/${id}`;

@@ -17,7 +17,6 @@ export default function Historial({ idUsuario, text }) {
       try {
         const response = await getReporteUsuario(token, idUsuario);
         setReportes(response.data); // Asegúrate de que `response.data` contiene los reportes
-        console.log(response.data)
       } catch (error) {
         console.log(error);
       }
