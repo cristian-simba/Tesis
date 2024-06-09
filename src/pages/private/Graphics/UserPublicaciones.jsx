@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import useAuth from "../../../context/useAuth";
 import { Spinner, Text, Badge } from "@radix-ui/themes";
 import { useTheme } from '../../../context/ThemeContext'
@@ -86,7 +86,7 @@ export default function UserPublicaciones() {
       {loading ? ( // Muestra el spinner si está cargando
         <Spinner />
       ) : data.length > 0 ? ( // Muestra el gráfico si hay datos disponibles
-        <PieChart width={300} height={500}>
+        <PieChart width={300} height={270}>
           <Pie
             data={data}
             innerRadius={50}
@@ -103,6 +103,8 @@ export default function UserPublicaciones() {
             
           </Pie>
           <Tooltip content={<CustomTooltip />}/>
+          <Legend wrapperStyle={{ fontSize: "14px" }}/>
+
         </PieChart>
       ) : ( // Muestra un mensaje si no hay datos disponibles
         <Text>No hay datos disponibles</Text>

@@ -14,7 +14,7 @@ import Notificaciones from './Notificaciones';
 
 function Dashboard() {
   const auth = useAuth();
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [heading, setHeading] = useState('');
   const location = useLocation();
   const params = useParams();

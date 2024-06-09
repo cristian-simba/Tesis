@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { LineChart, CartesianGrid, XAxis, YAxis, Line, Tooltip } from "recharts";
+import { LineChart, CartesianGrid, XAxis, YAxis, Line, Tooltip, Legend } from "recharts";
 import { Spinner } from '@radix-ui/themes';
 import useAuth from "../../../context/useAuth";
 import { useTheme } from '../../../context/ThemeContext';
@@ -78,11 +78,12 @@ export default function ReportesTiempo() {
        </div>
       ) : data.length > 0 ? (
         <div className="flex flex-col items-center justify-center h-full pr-10">
-          <LineChart width={650} height={200} data={data}>
+          <LineChart width={630} height={230} data={data}>
             <CartesianGrid strokeDasharray="3 2" />
             <XAxis dataKey="name"  tick={{ fontFamily: 'Arial', fontSize: 14 }} />
             <YAxis tick={{ fontFamily: 'Arial', fontSize: 14 }} />
             <Tooltip content={<CustomTooltip />}/>
+            <Legend/>
             <Line type="monotone" dataKey="reportes" stroke="#8884d8" />
           </LineChart>
         </div>

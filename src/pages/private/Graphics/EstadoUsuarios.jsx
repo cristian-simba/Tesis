@@ -64,11 +64,12 @@ export default function EstadoUsuarios() {
         </div>
       ) : userData.length > 0 ? (
       <div className="flex flex-col justify-center items-center h-full pr-14">
-      <BarChart width={350} height={200} data={userData}>
+      <BarChart width={350} height={275} data={userData}>
         <CartesianGrid strokeDasharray="" />
         <XAxis dataKey="estado" tick={{ fontFamily: 'Arial', fontSize: 14 }}/>
         <YAxis tick={{ fontFamily: 'Arial', fontSize: 14 }}/>
         <Tooltip content={<CustomTooltip />}/>
+        <Legend wrapperStyle={{ fontSize: "14px" }}/>
         <Bar
           dataKey="Cantidad"
           fill="#8884d8"

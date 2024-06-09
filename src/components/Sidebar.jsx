@@ -1,25 +1,27 @@
 import { useContext, createContext, useState } from "react"
 import { LuChevronLast, LuChevronFirst } from "react-icons/lu"
-import { Flex } from "@radix-ui/themes"
-import image from "../assets/logoText.png"
+import { Flex, Heading } from "@radix-ui/themes"
+import image  from '/logo.png'
 
 const SidebarContext = createContext()
 
 export default function Sidebar({children}) {
 
-  const [expanded, setExpanded] = useState(true)
+  const [expanded, setExpanded] = useState(false)
 
   return (
     <aside className="h-screen" style={{ position: 'sticky', top: 0, zIndex: 999 }} >
       <Flex direction='column' className="h-full" >
         <Flex justify='between' align='center' className="p-4 pb-2" >
-        <img
-            src={image}
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-44" : "w-0"
-            }`}
-            alt=""
-          />
+          <Flex gap='2' className={`overflow-hidden transition-all ${
+              expanded ? "w-44 h-8 opacity-100" : "w-0 h-8 opacity-0"
+              }`}>
+
+            <img src={image} alt="" />
+            <Heading size={'5'} >FashionGEC
+            </Heading>
+            </Flex>
+
           <button
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg "

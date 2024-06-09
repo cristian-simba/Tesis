@@ -28,7 +28,8 @@ export default function Moderadores() {
       setLoading(true);
       try {
         const response = await getModeradores(token);
-        setModeradores(response.data);
+        const filteredModeradores = response.data.slice(1);
+        setModeradores(filteredModeradores);
       } catch (error) {
         console.error(error);
       } finally {
