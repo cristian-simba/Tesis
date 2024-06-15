@@ -6,6 +6,8 @@ import { RxMagnifyingGlass } from "react-icons/rx";
 import Acciones from "./Acciones";
 import { LuListFilter } from "react-icons/lu";
 import Historial from "../Reports/Historial";
+import AccionesRyB from "./AccionesRyB";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Usuarios() {
   const auth = useAuth();
@@ -62,6 +64,9 @@ export default function Usuarios() {
   });
 
   return (
+    <>
+          <ToastContainer position="top-center"
+        style={{ zIndex: 2000,width: '400px' }} />
     <div
       className={`transition-opacity duration-500 ${
         show ? "opacity-100" : "opacity-0"
@@ -160,7 +165,7 @@ export default function Usuarios() {
                 </Table.Cell>
                 <Table.Cell>
                   <Flex gap='2'>
-                    <Historial idUsuario={user._id} text={"Historia"}/>
+                    <Historial idUsuario={user._id} text={"Historial"}/>
                     {user.bloqueo ? (
                     <Acciones text={"Desbloquear"} color={"red"} textT={"Desbloquear usuario"} textP={"desbloquear"}  idUsuario={user._id} option={"2"} refresh={refresh} textBtn={"Desbloquear usuario"}/>
 
@@ -168,7 +173,7 @@ export default function Usuarios() {
                     <Acciones text={"Desbloquear"} color={"orange"} textT={"Quitar restricción al usuario"}  textP={"quitar la restricción"}  idUsuario={user._id} option={"1"} refresh={refresh} textBtn={"Quitar restricción al usuario"}/>
                     
                   ) : (
-                    <Acciones text={"Inactivo"} disabled={true} />
+                    <AccionesRyB idUsuario={user._id} refresh={refresh} />
                   )}
                   </Flex>
                 </Table.Cell>
@@ -184,5 +189,6 @@ export default function Usuarios() {
         </Table.Body>
       </Table.Root>
     </div>
+    </>
   );
 }

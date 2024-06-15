@@ -47,9 +47,11 @@ export default function Reporte(props) {
   return (
     <div>
       {loading ? (
-        <Flex align='center' justify='center' className="min-h-96">
-          <Spinner />
-        </Flex>
+        <Card asChild className="w-full flex justify-center h-16 items-center mb-2">
+          <Flex>
+            <Spinner />
+          </Flex>
+        </Card>
       ) : (
         <Dialog.Root>
           <Dialog.Trigger className="cursor-pointer">

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Dialog, Radio, Text, Flex, Button, Spinner } from "@radix-ui/themes";
-import { deletePublicacion, restringirUsuario, bloquearUsuario } from "../../../api/reportes.api";
+import { restringirUsuario, bloquearUsuario } from "../../../api/reportes.api";
 import useAuth from "../../../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
@@ -8,31 +8,19 @@ import { createPortal } from 'react-dom';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Acciones({ idReporte, idUsuario }) {
+export default function AccionesRyB({ idUsuario, refresh }) {
   const user = useAuth();
   const token = user?.cookies?.auth?.token;
   const [checked, setChecked] = useState("");
   const [diasRestriccion, setDiasRestriccion] = useState("");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const [domReady, setDomReady] = useState(false);
 
   useEffect(() => {
     setDomReady(true);
   }, []);
-
-  const eliminarPublicacion = async () => {
-    try {
-      await deletePublicacion(idReporte, token);
-      toast.success("Publicación eliminada correctamente");
-      navigate("/usuarios");
-    } catch (error) {
-      toast.error("Error al eliminar la publicación");
-      console.log(error);
-    }
-  };
-
+  
   const restringir = async () => {
     try {
       const dias = parseInt(diasRestriccion);
@@ -42,8 +30,10 @@ export default function Acciones({ idReporte, idUsuario }) {
         return;
       }
       await restringirUsuario(idUsuario, token, dias);
+      setOpen(false);
+      refresh();
       toast.success("Usuario restringido correctamente");
-      eliminarPublicacion();
+
     } catch (error) {
       toast.error("Error al restringir al usuario");
       console.log(error);
@@ -55,8 +45,9 @@ export default function Acciones({ idReporte, idUsuario }) {
   const bloquear = async () => {
     try {
       await bloquearUsuario(idUsuario, token);
+      setOpen(false);
+      refresh();
       toast.success("Usuario bloqueado correctamente");
-      eliminarPublicacion();
     } catch (error) {
       toast.error("Error al bloquear al usuario");
       console.log(error);
@@ -73,13 +64,9 @@ export default function Acciones({ idReporte, idUsuario }) {
     setLoading(true);
     switch (checked) {
       case "1":
-        eliminarPublicacion();
-        setLoading(false);
-        break;
-      case "2":
         restringir();
         break;
-      case "3":
+      case "2":
         bloquear();
         break;
       default:
@@ -113,17 +100,17 @@ export default function Acciones({ idReporte, idUsuario }) {
           <Flex align="start" direction="column" gap="4">
             <Flex asChild gap="2">
               <Text as="label" size="2">
-                <Radio className="hover:cursor-pointer" name="example" value="1" checked={checked === "1"} onChange={() => setChecked("1")} />
-                Eliminar Publicación
-              </Text>
-            </Flex>
-            <Flex asChild gap="2">
-              <Text as="label" size="2">
-                <Radio className="hover:cursor-pointer" name="example" value="2" checked={checked === "2"} onChange={() => setChecked("2")} />
+                <Radio
+                  className="hover:cursor-pointer"
+                  name="example"
+                  value="1"
+                  checked={checked === "1"}
+                  onChange={() => setChecked("1")}
+                />
                 Restringir al usuario por un número de días
               </Text>
             </Flex>
-            {checked === "2" && (
+            {checked === "1" && (
               <input
                 type="number"
                 placeholder="Ingrese el número de días"
@@ -134,7 +121,13 @@ export default function Acciones({ idReporte, idUsuario }) {
             )}
             <Flex asChild gap="2">
               <Text as="label" size="2">
-                <Radio className="hover:cursor-pointer" name="example" value="3" checked={checked === "3"} onChange={() => setChecked("3")} />
+                <Radio
+                  className="hover:cursor-pointer"
+                  name="example"
+                  value="2"
+                  checked={checked === "2"}
+                  onChange={() => setChecked("2")}
+                />
                 Bloquear al usuario
               </Text>
             </Flex>
@@ -151,7 +144,10 @@ export default function Acciones({ idReporte, idUsuario }) {
                 Cargando
               </Button>
             ) : (
-              <Button className="hover:cursor-pointer" onClick={handleSubmit}>
+              <Button
+                className="hover:cursor-pointer"
+                onClick={handleSubmit}
+              >
                 Finalizar
               </Button>
             )}
