@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Dialog, Radio, Text, Flex, Button, Spinner } from "@radix-ui/themes";
 import { restringirUsuario, bloquearUsuario } from "../../../api/reportes.api";
 import useAuth from "../../../context/useAuth";
-import { useNavigate } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { createPortal } from 'react-dom';
 import { ToastContainer, toast } from "react-toastify";

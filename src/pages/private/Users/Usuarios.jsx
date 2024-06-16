@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { getUsers } from "../../../api/usuarios.api";
+import { getUsers, getUnconfirmedUsers } from "../../../api/usuarios.api";
 import useAuth from "../../../context/useAuth";
-import { Table,  Flex,  TextField,  Select,  Spinner,  Badge, Button} from "@radix-ui/themes";
+import { Table,  Flex,  TextField,  Select,  Spinner,  Badge } from "@radix-ui/themes";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import Acciones from "./Acciones";
-import { LuListFilter } from "react-icons/lu";
 import Historial from "../Reports/Historial";
 import AccionesRyB from "./AccionesRyB";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,8 +21,10 @@ export default function Usuarios() {
     const loadUsers = async () => {
       setLoading(true);
       try {
-        const response = await getUsers(token);
-        setUsers(response.data);
+        const confirmedUsersResponse = await getUsers(token);
+        const unconfirmedUsersResponse = await getUnconfirmedUsers(token); 
+        const allUsers = [...confirmedUsersResponse.data, ...unconfirmedUsersResponse.data]; 
+        setUsers(allUsers);
       } catch (error) {
         console.error(error);
       } finally {
@@ -53,7 +54,9 @@ export default function Usuarios() {
         .includes(searchText.toLowerCase());
     switch (selectedValue) {
       case "activos":
-        return matchesSearchText && !user.bloqueo && !user.restriccion;
+        return matchesSearchText && !user.bloqueo && !user.restriccion && user.confirmar;
+      case "sin confirmar":
+        return matchesSearchText && !user.confirmar;
       case "restringidos":
         return matchesSearchText && user.restriccion;
       case "bloqueados":
@@ -94,6 +97,9 @@ export default function Usuarios() {
             </Select.Item>
             <Select.Item value="activos" className="hover:cursor-pointer">
               Usuarios activos
+            </Select.Item>
+            <Select.Item value="sin confirmar" className="hover:cursor-pointer">
+              Usuarios sin confirmar
             </Select.Item>
             <Select.Item value="restringidos" className="hover:cursor-pointer">
               Usuarios restringidos
@@ -139,11 +145,11 @@ export default function Usuarios() {
               <Table.Row align="center" key={user._id}>
                 <Table.Cell>
                   <Flex align="center" gap="4">
-                    <img
-                      src={user.fotoperfil.secure_url}
-                      alt=""
-                      className="w-[40px] h-[40px] rounded-full"
-                    />
+                  <img
+                    src={user.fotoperfil?.secure_url || 'url_por_defecto_si_no_hay_imagen'}
+                    alt=""
+                    className="w-[40px] h-[40px] rounded-full"
+                  />
                     {user.nombre} {user.apellido}
                   </Flex>
                 </Table.Cell>
@@ -159,8 +165,10 @@ export default function Usuarios() {
                     <Badge color="red">Bloqueado</Badge>
                   ) : user.restriccion ? (
                     <Badge color="orange">Restringido</Badge>
-                  ) : (
+                  ) : user.confirmar ?(
                     <Badge color="green">Activo</Badge>
+                  ) : (
+                    <Badge color="blue">Sin confirmar</Badge>
                   )}
                 </Table.Cell>
                 <Table.Cell>
