@@ -4,9 +4,9 @@ import { Flex, Heading, Text, Button, Spinner} from "@radix-ui/themes";
 import { RxBookmark } from "react-icons/rx";
 import Input from "../../components/Forms/Input";
 import { ToastContainer } from 'react-toastify';
-import { codigoValidator, emailValidator, passwordValidator } from "../../validators/validators";
 import { firstLogin } from "../../api/moderador.api";
 import { useNavigate } from "react-router-dom";
+import { NotifyError } from "../../components/Toasts/Notifies";
 
 const FirstLogin = () => {
 
@@ -22,26 +22,34 @@ const FirstLogin = () => {
       navigate("/dashboard");
     } catch (error) {
       onLoading(false);
+      NotifyError(error.response.data.msg)
       console.log(error);
     }
   });
 
   return (
     <div className="grid grid-cols-1"  style={{ gridTemplateColumns: '1/2 1/2' }}>
+
+      <ToastContainer position="top-center" style={{ zIndex: 2000, width: '400px' }} />
       <Flex justify="center" align="center" direction="column"className="min-h-screen">
-        <ToastContainer position="top-left"/>
         <form onSubmit={onSubmit} className="flex flex-col gap-3 text-sm">
-          <Heading className="text-center">Primer Inicio de sesión</Heading>
-          <Text className="text-center pb-3">Por favor completa todos los campos</Text>
+        <Heading className="text-center">Primer Inicio de Sesión</Heading>
+        <Text className="text-center">Bienvenido. Por motivos de seguridad, le recomendamos cambiar </Text>
+        <Text className="text-center pb-3 mt-[-10px]">
+          su contraseña en este primer inicio de sesión
+        </Text>
+
+
           <label htmlFor="codigo" className="font-medium">Código</label>
           <Input
             type="text"
             id="codigo"
             name="codigo"
             placeholder="Ingrese el código"
-            {...register("codigo", {validate: codigoValidator})}
+            {...register("codigo", { required: true })}
           />
-          {errors.codigo && <FormError message="El código debe tener 10 caracteres" />}
+          {errors.codigo && <FormError message="Este campo es requerido" />}
+
 
           <label htmlFor="email" className="font-medium">Correo Electrónico</label>
           <Input
@@ -49,29 +57,47 @@ const FirstLogin = () => {
             id="email"
             name="email"
             placeholder="Ingrese su correo electrónico"
-            {...register("email", {validate: emailValidator})}
+            {...register("email", {
+              required: true,
+              pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // Patrón para validar formato de correo electrónico
+            })}
           />
-          {errors.email && <FormError message="Email no válido" />}
+          {errors.email?.type === "required" && (
+            <FormError message="El correo electrónico es requerido" />
+          )}
+          {errors.email?.type === "pattern" && (
+            <FormError message="Ingrese un correo electrónico válido" />
+          )}
 
-          <label htmlFor="password" className="font-medium">Contraseña Actual</label>
-          <Input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Ingrese su contraseña actual"
-            {...register("password", {validate: passwordValidator})}
-          />
-           {errors.password && <FormError message="Este campo es requerido" />}
+           <label className="font-medium">Contraseña actual</label>
+              <Input
+                {...register("password", { required: true })}
+                type="password"
+                placeholder="Ingresa tu contraseña actual"
+              />
+              {errors.password?.type === "required" && (
+                <FormError message="La contraseña actual es requerida" />
+              )}
 
-          <label htmlFor="passwordnuevo " className="font-medium">Nueva Contraseña</label>
-          <Input
-            type="password"
-            id="passwordnuevo"
-            name="passwordnuevo"
-            placeholder="Ingrese su nueva contraseña"
-            {...register("passwordnuevo", {validate: passwordValidator})}
-          />
-           {errors.password && <FormError message="Este campo es requerido" />}
+           <label className="font-medium">Nueva contraseña</label>
+              <Input
+                {...register("passwordnuevo", {
+                  required: true,
+                  minLength: 10,
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/ 
+                })}
+                type="password"
+                placeholder="Ingresa tu nueva contraseña"
+              />
+              {errors.passwordnuevo?.type === "required" && (
+                <FormError message="La nueva contraseña es requerida" />
+              )}
+              {errors.passwordnuevo?.type === "minLength" && (
+                <FormError message="La contraseña debe tener al menos 10 caracteres" />
+              )}
+              {errors.passwordnuevo?.type === "pattern" && (
+                <FormError message="La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número" />
+              )}
 
 
           {loading ? (

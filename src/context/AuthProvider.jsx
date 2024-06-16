@@ -47,7 +47,6 @@ const AuthProvider = ({ children }) => {
   const logOut = () => {
     try {
       setCookie('auth', '', { expires: new Date(0), path: '/' });
-      console.log("Cookie 'auth' eliminada correctamente.");
       navigate("/mod/login");
     } catch (error) {
       console.error("Error al intentar eliminar la cookie:", error);

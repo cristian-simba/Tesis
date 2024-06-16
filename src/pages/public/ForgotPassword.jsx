@@ -34,7 +34,7 @@ export default function ForgotPassword() {
 
   return (
     <div className={`transition-opacity duration-200 ${show ? 'opacity-100' : 'opacity-0'}`}>
-      <ToastContainer position="top-center" />
+      <ToastContainer position="top-center" style={{ zIndex: 2000,width: '400px' }} />
       <div className="flex flex-col justify-center items-center gap-3 min-h-screen">
         <Heading size="7">Recuperar contraseña</Heading>
         {send ? (

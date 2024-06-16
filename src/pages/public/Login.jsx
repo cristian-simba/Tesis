@@ -66,9 +66,18 @@ const Login = () => {
               id="email"
               name="email"
               placeholder="Ingrese su correo electrónico"
-              {...register("email", {validate: emailValidator})}
+              {...register("email", {
+                required: true,
+                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // Patrón para validar formato de correo electrónico
+              })}
             />
-            {errors.email && <FormError message="Email no válido" />}
+            {errors.email?.type === "required" && (
+              <FormError message="El correo electrónico es requerido" />
+            )}
+            {errors.email?.type === "pattern" && (
+              <FormError message="Ingrese un correo electrónico válido" />
+            )}
+
 
             <label htmlFor="password" className="font-medium">Contraseña</label>
             <Input

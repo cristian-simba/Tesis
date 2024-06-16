@@ -31,7 +31,6 @@ export default function UserPubliTodos() {
     .then(axios.spread((res1, res2) => {
       const data1 = res1.data;
       const data2 = res2.data;
-      console.log(data1, data2);
       if (Array.isArray(data1) && Array.isArray(data2)) {
         const totalData1 = data1.length;
         const totalData2 = data2.length;

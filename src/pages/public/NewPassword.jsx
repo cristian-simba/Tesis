@@ -56,12 +56,24 @@ const NewPassword = () => {
         <form onSubmit={handleSubmit(onSubmit)}  className="flex flex-col gap-3 text-sm">
           
           <label className="font-medium">Nueva contraseña</label>
-          <Input 
-            {...register("password", { required: true })} 
-            type="password" 
-            placeholder="Ingrese la nueva contraseña" 
-          />
-          {errors.password && <FormError message='La contraseña es requerida'/>}
+          <Input
+                {...register("password", {
+                  required: true,
+                  minLength: 10,
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/ 
+                })}
+                type="password"
+                placeholder="Ingresa tu nueva contraseña"
+              />
+              {errors.password?.type === "required" && (
+                <FormError message="La nueva contraseña es requerida" />
+              )}
+              {errors.password?.type === "minLength" && (
+                <FormError message="La contraseña debe tener al menos 10 caracteres" />
+              )}
+              {errors.password?.type === "pattern" && (
+                <FormError message="La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número" />
+              )}
 
           <label className="font-medium">Confirmar contraseña</label>
           <Input 

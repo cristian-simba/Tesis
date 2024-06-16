@@ -11,7 +11,7 @@ import useAuth from "../../../context/useAuth";
 import { NotifyError, NotifySuccess } from "../../../components/Toasts/Notifies";
 
 export default function UpdatePassword() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors }  } = useForm();
   const { id } = useParams();
   const auth = useAuth();
   const token = auth.cookies.auth.token;
@@ -53,10 +53,36 @@ export default function UpdatePassword() {
               <Text className="text-center pb-3">Recuerda que tu contraseña debe tener al menos 10 caracteres e incluir letras mayúsculas y números.</Text>
             </Flex>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 text-sm">
-              <label className="font-medium">Contraseña actual</label>
-              <Input {...register('passwordactual')} type="password" placeholder="Ingresa tu contraseña actual" />
+            <label className="font-medium">Contraseña actual</label>
+              <Input
+                {...register("passwordactual", { required: true })}
+                type="password"
+                placeholder="Ingresa tu contraseña actual"
+              />
+              {errors.passwordactual?.type === "required" && (
+                <FormError message="La contraseña actual es requerida" />
+              )}
+
               <label className="font-medium">Nueva contraseña</label>
-              <Input {...register('passwordnuevo')} type="password" placeholder="Ingresa tu nueva contraseña" />
+              <Input
+                {...register("passwordnuevo", {
+                  required: true,
+                  minLength: 10,
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/ 
+                })}
+                type="password"
+                placeholder="Ingresa tu nueva contraseña"
+              />
+              {errors.passwordnuevo?.type === "required" && (
+                <FormError message="La nueva contraseña es requerida" />
+              )}
+              {errors.passwordnuevo?.type === "minLength" && (
+                <FormError message="La contraseña debe tener al menos 10 caracteres" />
+              )}
+              {errors.passwordnuevo?.type === "pattern" && (
+                <FormError message="La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número" />
+              )}
+
               <Flex gap="3" mt="4" justify="end">
               <Dialog.Close>
                 <Button variant="soft" color="gray" className="hover:cursor-pointer">
@@ -93,3 +119,4 @@ export default function UpdatePassword() {
 const FormError = ({ message }) => (
   <div className="block text-red-500 pt-[-5px] pb-2 font-thin">{message}</div>
 );
+

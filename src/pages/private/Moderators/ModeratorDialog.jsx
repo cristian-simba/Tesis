@@ -7,9 +7,10 @@ import Input from "../../../components/Forms/Input";
 import { registerModerador } from "../../../api/moderador.api";
 import { ToastContainer } from 'react-toastify';
 import { NotifyError, NotifySuccess } from "../../../components/Toasts/Notifies";
+import { emailValidator } from "../../../validators/validators";
 
 export default function ModeratorDialog({ token }) {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [loading, onLoading] = useState(false)
   const [open, setOpen] = useState(false);
   const [domReady, setDomReady] = useState(false);
@@ -36,9 +37,15 @@ export default function ModeratorDialog({ token }) {
       console.log(error);
       if (error.message === "Network Error") {
         NotifyError("Error del servidor");
-      } else if (error.response && error.response.data && error.response.data.msg) {
+      } else if(error.response && error.response.data){
         NotifyError(error.response.data.msg);
-      } else {
+      }else if (error.response.data.errors) {
+        const errors = error.response.data.errors;
+        errors.forEach(err => {
+          NotifyError(err.msg);
+        });
+      } 
+       else {
         NotifyError("Ocurrió un error desconocido");
       }
     }
@@ -71,19 +78,46 @@ export default function ModeratorDialog({ token }) {
           <label htmlFor="nombre" className="font-medium">
             Nombre
           </label>
-          <Input {...register("nombre")} placeholder="Ingrese el nombre del moderador" />
+          <Input
+            {...register("nombre", { required: true, minLength: 3, maxLength: 12, pattern: /^[A-Za-z]+$/ })}
+              placeholder="Ingrese el nombre del moderador"
+            />
+            {errors.nombre?.type === "required" && <FormError message="El nombre es requerido" />}
+            {errors.nombre?.type === "minLength" && <FormError message="El nombre debe tener al menos 3 caracteres" />}
+            {errors.nombre?.type === "maxLength" && <FormError message="El nombre debe tener máximo 12 caracteres" />}
+            {errors.nombre?.type === "pattern" && <FormError message="El nombre solo puede contener letras" />}
           <label htmlFor="apellido" className="font-medium">
             Apellido
           </label>
           <Input
-            {...register("apellido")}
-            placeholder="Ingrese el apellido del moderador"
-          />
+            {...register("apellido", { required: true, minLength: 3, maxLength: 12, pattern: /^[A-Za-z]+$/ })}
+              placeholder="Ingrese el apellido del moderador"
+            />
+            {errors.apellido?.type === "required" && <FormError message="El apellido es requerido" />}
+            {errors.apellido?.type === "minLength" && <FormError message="El apellido debe tener al menos 3 caracteres" />}
+            {errors.apellido?.type === "maxLength" && <FormError message="El apellido debe tener máximo 12 caracteres" />}
+            {errors.apellido?.type === "pattern" && <FormError message="El apellido solo puede contener letras" />}
           <label htmlFor="email" className="font-medium">
             Correo Electrónico
           </label>
 
-          <Input {...register("email")} placeholder="Ingrese el correo electrónico del moderador" />
+          <Input
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Ingrese su correo electrónico"
+              {...register("email", {
+                required: true,
+                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // Patrón para validar formato de correo electrónico
+              })}
+            />
+            {errors.email?.type === "required" && (
+              <FormError message="El correo electrónico es requerido" />
+            )}
+            {errors.email?.type === "pattern" && (
+              <FormError message="Ingrese un correo electrónico válido" />
+            )}
+
 
           <Flex gap="3" mt="4" justify="end">
             <Dialog.Close>
@@ -112,3 +146,7 @@ export default function ModeratorDialog({ token }) {
   </>
   );
 }
+
+const FormError = ({ message }) => (
+  <div className="block text-red-500 pt-[-5px] mt-[-18px] pb-2 font-thin">{message}</div>
+);
