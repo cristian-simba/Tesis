@@ -13,7 +13,7 @@ const PublicacionesTop = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/publicaciones/`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/publicacionesF/`);
         const publicaciones = response.data;
 
         if (publicaciones.length > 0) {

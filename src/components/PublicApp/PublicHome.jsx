@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getPublicaciones } from '../../api/publicaciones.api';
 import PublicacionesList from './PublicacionesList';
-import { Spinner } from '@radix-ui/themes';
+import { Spinner, Flex, Text } from '@radix-ui/themes';
 
 function PublicHome() {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -25,12 +25,17 @@ function PublicHome() {
   return (
     <div className='py-20'>
       {loading ? (
-        <Spinner />
+        <div className='flex justify-center items-center h-screen'>
+          <Spinner />
+        </div>
       ) : (
         publicaciones.length > 0 ? (
           <PublicacionesList publicaciones={publicaciones} />
         ) : (
-          <div>No hay publicaciones disponibles.</div>
+          <div className='flex justify-center items-center h-screen'>
+            <Text>No hay publicaciones disponibles.</Text>
+          </div>
+
         )
       )}
     </div>

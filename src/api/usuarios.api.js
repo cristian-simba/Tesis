@@ -22,13 +22,13 @@ export const getUnconfirmedUsers = (token) => {
   return axios.get(url, options)
 }
 
-export const deleteUser = (token) => {
-  const url = `${import.meta.env.VITE_BACKEND_URL}/borrar/usuario/No`
+export const deleteUser = (token, id) => {
+  const url = `${import.meta.env.VITE_BACKEND_URL}/borrar/usuario/No/${id}`
   const options = {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
     }
   }
-  return axios.get(url, options)
+  return axios.delete(url, options)
 }

@@ -19,7 +19,6 @@ export default function Reporte(props) {
   const token = user?.cookies?.auth?.token;
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const dataApi = {}
 
   useEffect(() => {
     const loadReporte = async () => {
@@ -37,7 +36,6 @@ export default function Reporte(props) {
 
   const cambioPublicacion = async() => {
     try{
-      console.log("Cambiado")
       await cambioEstado(reporte._id, token, data)
     }catch(error){
       console.log(error)

@@ -17,15 +17,7 @@ function PublicApp() {
   return (
     <>
       <PublicNavbar/>
-      {!loader ? (
-        <div className='flex justify-center items-center h-screen'>
-          <Spinner size='3' />
-        </div>
-      ) : (
-        <div>
-          <PublicHome/>
-        </div>
-      )}
+      <PublicHome/>
     </>
   );
 }

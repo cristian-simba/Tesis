@@ -20,7 +20,7 @@ export default function UserPubliTodos() {
     }
   
     axios.all([
-      axios.get('https://ropdat.onrender.com/api/publicaciones'),
+      axios.get('https://ropdat.onrender.com/api/publicacionesF'),
       axios.get('https://ropdat.onrender.com/api/listar/usuarios', {
         headers: {
           'Content-Type': 'application/json',

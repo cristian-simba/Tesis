@@ -20,7 +20,7 @@ export default function UserPublicaciones() {
     }
   
     axios.all([
-      axios.get('https://ropdat.onrender.com/api/publicaciones'),
+      axios.get('https://ropdat.onrender.com/api/publicacionesF'),
       axios.get('https://ropdat.onrender.com/api/moderadores', {
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +38,6 @@ export default function UserPublicaciones() {
       const data1 = res1.data;
       const data2 = res2.data;
       const data3 = res3.data;
-      console.log(data1, data2, data3);
       if (Array.isArray(data1) && Array.isArray(data2) && Array.isArray(data3)) {
         const totalData1 = data1.length;
         const totalData2 = data2.length;

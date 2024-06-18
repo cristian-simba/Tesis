@@ -6,7 +6,7 @@ import { RxMagnifyingGlass } from "react-icons/rx";
 import Acciones from "./Acciones";
 import Historial from "../Reports/Historial";
 import AccionesRyB from "./AccionesRyB";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 export default function Usuarios() {
   const auth = useAuth();
@@ -36,12 +36,17 @@ export default function Usuarios() {
 
   const refresh = async() => {
     try{
-      const response = await getUsers(token);
-      setUsers(response.data);
+      setLoading(true); // Comenzar cargando
+      const confirmedUsersResponse = await getUsers(token);
+      const unconfirmedUsersResponse = await getUnconfirmedUsers(token); 
+      const allUsers = [...confirmedUsersResponse.data, ...unconfirmedUsersResponse.data]; 
+      setUsers(allUsers);
+      setLoading(false); // Detener el estado de carga
     }catch(error){
       console.log(error)
     }
   }
+  
 
   useEffect(() => {
     setShow(true);
@@ -68,13 +73,13 @@ export default function Usuarios() {
 
   return (
     <>
-          <ToastContainer position="top-center"
+      <ToastContainer position="top-center"
         style={{ zIndex: 2000,width: '400px' }} />
-    <div
-      className={`transition-opacity duration-500 ${
-        show ? "opacity-100" : "opacity-0"
-      }`}
-    >
+      <div
+        className={`transition-opacity duration-500 ${
+          show ? "opacity-100" : "opacity-0"
+        }`}
+      >
       <Flex justify="between" align="center" className="pt-2 pb-5">
         <TextField.Root
           placeholder="Buscar usuario"
@@ -181,7 +186,7 @@ export default function Usuarios() {
                     <Acciones text={"Desbloquear"} color={"orange"} textT={"Quitar restricción al usuario"}  textP={"quitar la restricción"}  idUsuario={user._id} option={"1"} refresh={refresh} textBtn={"Quitar restricción al usuario"}/>
                     
                   ) : (
-                    <AccionesRyB idUsuario={user._id} refresh={refresh} />
+                    <AccionesRyB idUsuario={user._id} refresh={refresh} confirmar={user.confirmar}/>
                   )}
                   </Flex>
                 </Table.Cell>

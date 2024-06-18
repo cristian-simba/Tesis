@@ -2,25 +2,24 @@ import { useEffect, useState } from "react";
 import { Dialog, Radio, Text, Flex, Button, DropdownMenu } from "@radix-ui/themes";
 import { LuBell, LuMail, LuBellDot } from 'react-icons/lu';
 import useAuth from '../../context/useAuth';
-import { getReportes } from "../../api/reportes.api";
+import { getNotificaciones } from "../../api/reportes.api";
 import { Link } from "react-router-dom";
 import { Spinner } from "@radix-ui/themes";
 
 export default function Notificaciones() {
   const user = useAuth();
-  const [reportes, setReportes] = useState([]);
+  const [notificaciones, setNotificaciones] = useState([]);
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false); 
-  const [hayReporte, setHayReporte] = useState(false); 
+  const [hayNotificaciones, setHayNotificaciones] = useState(false); 
   const token = user?.cookies?.auth?.token;
 
-  const loadReportes = async () => {
+  const loadNotificaciones = async () => {
     setLoading(true);
     try {
-      const response = await getReportes(token);
-      const reportesNoResueltos = response.data.filter(reporte => reporte.estado === "No resuelto");
-      setReportes(reportesNoResueltos);
-      setHayReporte(reportesNoResueltos.length > 0);
+      const response = await getNotificaciones(token);
+      setNotificaciones(response.data);
+      setHayNotificaciones(response.data.length > 0);
     } catch (error) {
       console.error(error);
     } finally {
@@ -28,10 +27,14 @@ export default function Notificaciones() {
     }
   };
 
+  useEffect(() => {
+    loadNotificaciones();
+  }, []); // Esto se ejecutará solo una vez al montar el componente
+
   const handleMenuOpenChange = (isOpen) => {
     setMenuOpen(isOpen);
     if (isOpen) {
-      loadReportes();
+      loadNotificaciones();
     }
   };
 
@@ -39,7 +42,7 @@ export default function Notificaciones() {
     <DropdownMenu.Root open={menuOpen} onOpenChange={handleMenuOpenChange}>
       <DropdownMenu.Trigger className="cursor-pointer">
         <Button variant="soft" color='gray'>
-          {hayReporte ? <LuBellDot  size='15'/>: <LuBell size='15'/> }
+          {hayNotificaciones ? <LuBellDot  size='15'/>: <LuBell size='15'/> }
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content className="w-72 origin-top-left transform -translate-x-16 transition-transform duration-300">
@@ -49,15 +52,19 @@ export default function Notificaciones() {
             <Spinner />
           </Flex>
         ) : (
-          reportes.length > 0 ? (
-            reportes.map((reporte, index) => (
+          notificaciones.length > 0 ? (
+            notificaciones.map((notificacion, index) => (
               <Flex direction='column' className="h-full border-b-[1px] px-2 py-1" key={index}>
-                <Text size='2' className="font-medium pb-1">Reporte recibido</Text>
+                <Text size='2' className="font-medium pb-1">Notificación</Text>
                 <Flex align={'center'} gap='2' pt='1'>
-                  <LuMail size='20'/>
+                  <LuMail size='25'/>
                   <Flex direction='column'>
-                    <Text size='2'>Motivo: {reporte.motivo}</Text>
+                    <Text size='2' className="font-medium">{notificacion.mensaje}</Text>
                   </Flex>
+                </Flex>
+                <Flex direction='column'>
+                  <Text size='2'>Reportante: {notificacion.Reportante}</Text>
+                  <Text size='2'>Reportado: {notificacion.Reportado}</Text>
                 </Flex>
                 <Flex align='end' justify='end'>
                   <Text size='2' color="blue" className="underline cursor-pointer" onClick={() => setMenuOpen(false)}>

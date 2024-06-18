@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, Text, Flex, Button, Spinner } from "@radix-ui/themes";
 import { RxCross2 } from "react-icons/rx";
 import { desbloquearUsuario, desrestringirUsuario } from "../../../api/reportes.api";
@@ -20,7 +20,6 @@ export default function Acciones({ text, color, disabled, textT, textP, idUsuari
       await desrestringirUsuario(idUsuario, token, data);
       setOpen(false);
       refresh();
-      toast.success("Usuario desrestringido correctamente");
     } catch (error) {
       toast.error("Error al desrestringir al usuario");
       console.log(error);
@@ -34,7 +33,6 @@ export default function Acciones({ text, color, disabled, textT, textP, idUsuari
       await desbloquearUsuario(idUsuario, token, data);
       setOpen(false);
       refresh();
-      toast.success("Usuario desbloqueado correctamente");
     } catch (error) {
       toast.error("Error al desbloquear al usuario");
       console.log(error);
@@ -44,7 +42,6 @@ export default function Acciones({ text, color, disabled, textT, textP, idUsuari
   };
 
   const handleSubmit = () => {
-    setLoading(true);
     switch (option) {
       case "1":
         desrestringir();
@@ -53,7 +50,6 @@ export default function Acciones({ text, color, disabled, textT, textP, idUsuari
         desbloquear();
         break;
       default:
-        toast.error("Por favor selecciona una opción válida");
         setLoading(false);
         break;
     }

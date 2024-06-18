@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Dialog, Radio, Text, Flex, Button, Spinner } from "@radix-ui/themes";
-import { deletePublicacion, restringirUsuario, bloquearUsuario } from "../../../api/reportes.api";
+import { deletePublicacion, restringirUsuario, bloquearUsuario, falsoReporte } from "../../../api/reportes.api";
 import useAuth from "../../../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
@@ -15,6 +15,7 @@ export default function Acciones({ idReporte, idUsuario }) {
   const [diasRestriccion, setDiasRestriccion] = useState("");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
   const [domReady, setDomReady] = useState(false);
 
@@ -25,10 +26,8 @@ export default function Acciones({ idReporte, idUsuario }) {
   const eliminarPublicacion = async () => {
     try {
       await deletePublicacion(idReporte, token);
-      toast.success("Publicación eliminada correctamente");
-      navigate("/usuarios");
+      navigate("/dashboard");
     } catch (error) {
-      toast.error("Error al eliminar la publicación");
       console.log(error);
     }
   };
@@ -42,10 +41,8 @@ export default function Acciones({ idReporte, idUsuario }) {
         return;
       }
       await restringirUsuario(idUsuario, token, dias);
-      toast.success("Usuario restringido correctamente");
       eliminarPublicacion();
     } catch (error) {
-      toast.error("Error al restringir al usuario");
       console.log(error);
     } finally {
       setLoading(false);
@@ -55,15 +52,24 @@ export default function Acciones({ idReporte, idUsuario }) {
   const bloquear = async () => {
     try {
       await bloquearUsuario(idUsuario, token);
-      toast.success("Usuario bloqueado correctamente");
       eliminarPublicacion();
     } catch (error) {
-      toast.error("Error al bloquear al usuario");
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
+
+  const falso = async () => {
+    try {
+      await falsoReporte(idReporte, token, data);
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const handleSubmit = () => {
     if (!checked) {
@@ -81,6 +87,9 @@ export default function Acciones({ idReporte, idUsuario }) {
         break;
       case "3":
         bloquear();
+        break;
+      case "4":
+        falso();
         break;
       default:
         setLoading(false);
@@ -111,6 +120,12 @@ export default function Acciones({ idReporte, idUsuario }) {
             <Text className="font-bold">Escoge una opción</Text>
           </Flex>
           <Flex align="start" direction="column" gap="4">
+          <Flex asChild gap="2">
+              <Text as="label" size="2">
+                <Radio className="hover:cursor-pointer" name="example" value="4" checked={checked === "4"} onChange={() => setChecked("4")} />
+                Es un reporte falso
+              </Text>
+            </Flex>
             <Flex asChild gap="2">
               <Text as="label" size="2">
                 <Radio className="hover:cursor-pointer" name="example" value="1" checked={checked === "1"} onChange={() => setChecked("1")} />
