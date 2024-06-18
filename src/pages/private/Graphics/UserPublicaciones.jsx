@@ -14,49 +14,58 @@ export default function UserPublicaciones() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!token) {
-      console.error('Token no disponible');
-      return;
-    }
-  
-    axios.all([
-      axios.get('https://ropdat.onrender.com/api/publicacionesF'),
-      axios.get('https://ropdat.onrender.com/api/moderadores', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+    const fetchData = async () => {
+      try {
+        if (!token) {
+          console.error('Token no disponible');
+          return;
         }
-      }),
-      axios.get('https://ropdat.onrender.com/api/listar/usuarios', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        }
-      }),
-    ])
-    .then(axios.spread((res1, res2, res3) => {
-      const data1 = res1.data;
-      const data2 = res2.data;
-      const data3 = res3.data;
-      if (Array.isArray(data1) && Array.isArray(data2) && Array.isArray(data3)) {
-        const totalData1 = data1.length;
-        const totalData2 = data2.length;
-        const totalData3 = data3.length;
-        setData([
-          { name: 'Publicaciones', value: totalData1 },
-          { name: 'Moderadores', value: totalData2 },
-          { name: 'Usuarios', value: totalData3 },
+      
+        const [res1, res2, res3] = await axios.all([
+          axios.get('https://ropdat.onrender.com/api/publicacionesF'),
+          axios.get('https://ropdat.onrender.com/api/moderadores', {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          }),
+          axios.get('https://ropdat.onrender.com/api/listar/usuarios', {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          }),
         ]);
-        setLoading(false); // Cambia el estado de carga a falso cuando se reciben los datos
-      } else {
-        console.error('Los datos devueltos por las APIs no son arrays');
-        setLoading(false); // Cambia el estado de carga a falso si hay un error
+  
+        const data1 = res1.data;
+        const data2 = res2.data;
+        const data3 = res3.data;
+        
+        if (Array.isArray(data1) && Array.isArray(data2) && Array.isArray(data3)) {
+          const totalData1 = data1.length;
+          const totalData2 = data2.length;
+          const totalData3 = data3.length;
+          setData([
+            { name: 'Publicaciones', value: totalData1 },
+            { name: 'Moderadores', value: totalData2 },
+            { name: 'Usuarios', value: totalData3 },
+          ]);
+          setLoading(false);
+        } else {
+          console.error('Los datos devueltos por las APIs no son arrays');
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
       }
-    }))
-    .catch(err => {
-      console.error(err);
-      setLoading(false); // Cambia el estado de carga a falso si hay un error
-    });
+    };
+    
+    fetchData(); // Llamada inicial al montar el componente
+    
+    const interval = setInterval(fetchData, 5000); // Llamada cada minuto
+    
+    return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonta
   }, [token]);
   
   const CustomTooltip = ({ active, payload }) => {
@@ -78,13 +87,12 @@ export default function UserPublicaciones() {
     }
     return null;
   };
-  
 
   return (
     <div className="flex flex-col justify-center items-center h-full">
-      {loading ? ( // Muestra el spinner si está cargando
+      {loading ? (
         <Spinner />
-      ) : data.length > 0 ? ( // Muestra el gráfico si hay datos disponibles
+      ) : data.length > 0 ? (
         <PieChart width={300} height={270}>
           <Pie
             data={data}
@@ -99,13 +107,11 @@ export default function UserPublicaciones() {
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
-            
           </Pie>
-          <Tooltip content={<CustomTooltip />}/>
+          <Tooltip content={<CustomTooltip />} />
           <Legend wrapperStyle={{ fontSize: "14px" }}/>
-
         </PieChart>
-      ) : ( // Muestra un mensaje si no hay datos disponibles
+      ) : (
         <Text>No hay datos disponibles</Text>
       )}
     </div>

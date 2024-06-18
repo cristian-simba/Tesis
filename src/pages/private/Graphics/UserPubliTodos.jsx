@@ -14,40 +14,49 @@ export default function UserPubliTodos() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!token) {
-      console.error('Token no disponible');
-      return;
-    }
-  
-    axios.all([
-      axios.get('https://ropdat.onrender.com/api/publicacionesF'),
-      axios.get('https://ropdat.onrender.com/api/listar/usuarios', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+    const fetchData = async () => {
+      try {
+        if (!token) {
+          console.error('Token no disponible');
+          return;
         }
-      }),
-    ])
-    .then(axios.spread((res1, res2) => {
-      const data1 = res1.data;
-      const data2 = res2.data;
-      if (Array.isArray(data1) && Array.isArray(data2)) {
-        const totalData1 = data1.length;
-        const totalData2 = data2.length;
-        setData([
-          { name: 'Publicaciones', value: totalData1 },
-          { name: 'Usuarios', value: totalData2 },
+      
+        const [res1, res2] = await axios.all([
+          axios.get('https://ropdat.onrender.com/api/publicacionesF'),
+          axios.get('https://ropdat.onrender.com/api/listar/usuarios', {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          }),
         ]);
-        setLoading(false); // Cambia el estado de carga a falso cuando se reciben los datos
-      } else {
-        console.error('Los datos devueltos por las APIs no son arrays');
-        setLoading(false); // Cambia el estado de carga a falso si hay un error
+  
+        const data1 = res1.data;
+        const data2 = res2.data;
+        
+        if (Array.isArray(data1) && Array.isArray(data2)) {
+          const totalData1 = data1.length;
+          const totalData2 = data2.length;
+          setData([
+            { name: 'Publicaciones', value: totalData1 },
+            { name: 'Usuarios', value: totalData2 },
+          ]);
+          setLoading(false);
+        } else {
+          console.error('Los datos devueltos por las APIs no son arrays');
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
       }
-    }))
-    .catch(err => {
-      console.error(err);
-      setLoading(false); // Cambia el estado de carga a falso si hay un error
-    });
+    };
+    
+    fetchData(); // Llamada inicial al montar el componente
+    
+    const interval = setInterval(fetchData, 5000); // Llamada cada minuto
+    
+    return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonta
   }, [token]);
   
   const CustomTooltip = ({ active, payload }) => {
@@ -69,13 +78,12 @@ export default function UserPubliTodos() {
     }
     return null;
   };
-  
 
   return (
     <div className="flex flex-col justify-center items-center h-full">
-      {loading ? ( // Muestra el spinner si está cargando
+      {loading ? (
         <Spinner />
-      ) : data.length > 0 ? ( // Muestra el gráfico si hay datos disponibles
+      ) : data.length > 0 ? (
         <PieChart width={300} height={270}>
           <Pie
             data={data}
@@ -94,7 +102,7 @@ export default function UserPubliTodos() {
           <Tooltip content={<CustomTooltip />} />
           <Legend wrapperStyle={{ fontSize: "14px" }} />
         </PieChart>
-      ) : ( // Muestra un mensaje si no hay datos disponibles
+      ) : (
         <Text>No hay datos disponibles</Text>
       )}
     </div>

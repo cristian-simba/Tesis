@@ -13,8 +13,9 @@ export default function EstadoUsuarios() {
   const token = user?.cookies?.auth?.token;
 
   useEffect(() => {
-    getUsers(token)
-      .then(response => {
+    const fetchData = async () => {
+      try {
+        const response = await getUsers(token);
         const userStates = {
           Activos: 0,
           Restringidos: 0,
@@ -31,12 +32,17 @@ export default function EstadoUsuarios() {
         }));
         setUserData(userDataArray);
         setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error al obtener los datos de usuarios:', error.message);
         setLoading(false);
-      });
-  }, []);
+      }
+    };
+
+    const interval = setInterval(fetchData, 5000); // Actualiza cada minuto
+    fetchData(); // Llamada inicial al montar el componente
+
+    return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonta
+  }, [token]);
 
   const CustomTooltip = ({ active, payload, label }) => {
     const { theme } = useTheme();
@@ -84,4 +90,3 @@ export default function EstadoUsuarios() {
   </div>
   );
 }
-  

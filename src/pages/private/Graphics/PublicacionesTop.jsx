@@ -46,7 +46,10 @@ const PublicacionesTop = () => {
       }
     };
 
-    fetchData();
+    const interval = setInterval(fetchData, 5000); // Actualiza cada minuto
+    fetchData(); // Llamada inicial al montar el componente
+
+    return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonta
   }, []);
 
   const CustomTooltip = ({ active, payload, label }) => {
@@ -80,7 +83,6 @@ const PublicacionesTop = () => {
             fill="#8884d8"
             dataKey="value"
             stroke="transparent"
-            
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

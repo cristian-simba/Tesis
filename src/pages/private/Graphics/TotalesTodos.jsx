@@ -41,8 +41,12 @@ export default function Totales() {
       }
     };
 
+    const interval = setInterval(fetchData, 5000); // Actualiza cada minuto
+
     if (token) {
-      fetchData();
+      fetchData(); // Llamada inicial al montar el componente
+
+      return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonta
     }
   }, [token]);
 

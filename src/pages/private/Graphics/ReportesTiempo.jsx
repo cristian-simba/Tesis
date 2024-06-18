@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { LineChart, CartesianGrid, XAxis, YAxis, Line, Tooltip, Legend } from "recharts";
 import { Spinner } from '@radix-ui/themes';
 import useAuth from "../../../context/useAuth";
@@ -13,14 +12,9 @@ export default function ReportesTiempo() {
   const token = user?.cookies?.auth?.token;
 
   useEffect(() => {
-    if (!token) {
-      console.error('Token no disponible');
-      setLoading(false);
-      return;
-    }
-
-    getReportes(token)
-      .then(response => {
+    const fetchData = async () => {
+      try {
+        const response = await getReportes(token);
         const reportes = response.data;
 
         // Agrupar reportes por día
@@ -45,11 +39,19 @@ export default function ReportesTiempo() {
 
         setData(formattedData);
         setLoading(false);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error fetching data:', error);
         setLoading(false);
-      });
+      }
+    };
+
+    const interval = setInterval(fetchData, 5000); // Actualiza cada minuto
+
+    if (token) {
+      fetchData(); // Llamada inicial al montar el componente
+
+      return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonta
+    }
   }, [token]);
 
   const CustomTooltip = ({ active, payload, label }) => {
