@@ -10,7 +10,8 @@ function HomeLP() {
 
   const headingText = "Haz que tus estilos luzcan perfectos";
   const paragraphText =
-  "Explora las últimas tendencias y encuentra tu estilo perfecto. Descubre estilos clásicos hasta las últimas novedades, nuestra aplicación ofrece una amplia gama de opciones para cada ocasión ✨";
+  
+  "Explora las últimas tendencias y encuentra tu estilo perfecto. Descubre estilos clásicos hasta las últimas novedades. Nuestra aplicación ofrece una amplia gama de opciones para cada ocasión. Además, ¡ahora puedes acceder como invitado y explorar todas nuestras publicaciones sin necesidad de registrarte! ✨"
 
   return windowWidth > 768 ? (
     <div id="info">

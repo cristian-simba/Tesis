@@ -10,14 +10,14 @@ function SectionsNews() {
 
   useEffect(() => {
     const loadNoticias = async () => {
-      const response = await getNoticias()
-      setNoticias(response.value)
-      
-    }
-    loadNoticias()
-    console.log(noticias)
-  }, [])
-
+      const response = await getNoticias();
+      if (response && response.value) {
+        setNoticias(response.value);
+      }
+    };
+    loadNoticias();
+  }, []);
+  
   return  windowWidth > 768 ? (
     <section id='noticias'>
       <Grid align='center' justify='center' className='px-28 pt-20 min-h-screen'>

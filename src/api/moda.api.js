@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getNoticias = async () => {
   const url = 'https://api.bing.microsoft.com/v7.0/news/search';
   const params = { 
-    q: 'moda estilo fashion ropa vestir prendas tendencias', 
+    q: 'moda estilo', 
     setLang: 'es', 
     count: 3
   };
