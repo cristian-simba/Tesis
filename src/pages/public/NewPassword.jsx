@@ -50,7 +50,7 @@ const NewPassword = () => {
         </Flex>
         <Flex direction='column' gap='2'>
           <Text className="text-center">Por favor ingresa tu nueva contraseña</Text>
-          <Text className="text-center pb-3">Recuerda que tu contraseña debe tener al menos 8 caracteres</Text>
+          <Text className="text-center pb-3">Recuerda que tu contraseña debe tener al menos 10 caracteres e incluir letras mayúsculas y números.</Text>
         </Flex>
 
         <form onSubmit={handleSubmit(onSubmit)}  className="flex flex-col gap-3 text-sm">
