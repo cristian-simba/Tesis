@@ -30,7 +30,7 @@ function App() {
           <Route path="/mod/login" element={<Login />} />
           <Route path="/cambiar-contraseña" element={<FirstLogin />} />
           <Route path="/recuperar-password" element={<ForgotPassword />} />
-          <Route path="/recuperar-password/:token" element={<VerifyToken />} />
+          <Route path="/moderador/recuperar/:token" element={<VerifyToken />} />
           <Route path="/nueva-contraseña/:token" element={<NewPassword />} />
           <Route element={<PrivateRoute />}>
             <Route
