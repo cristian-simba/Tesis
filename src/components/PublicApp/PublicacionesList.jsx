@@ -1,8 +1,8 @@
 import React from 'react';
-import { Dialog, Text, Flex, Heading } from "@radix-ui/themes";
+import { Dialog, Text, Flex, Heading, Card, Inset } from "@radix-ui/themes";
 import Masonry from '@mui/lab/Masonry';
 import { useWindowWidth } from '../../hooks/useWindowWidth';
-import { RxCross2 } from "react-icons/rx";
+import { RxCross2, RxHeartFilled } from "react-icons/rx";
 import {DowloadButton} from '../LandingPage/Buttons/LandingBtns';
 import { GrDownload } from "react-icons/gr";
 
@@ -19,8 +19,24 @@ function PublicacionesList({ publicaciones }) {
 
         <Dialog.Trigger>
           <div className='hover:cursor-pointer'>
-            <img src={publicacion.imagen.secure_url} className='rounded-lg mb-2' />   
-            <Text>{publicacion.descripcion}</Text>
+            <Card>         
+           <Inset>
+
+            <img src={publicacion.imagen.secure_url} className='rounded-lg mb-5' style={{
+            display: 'block',
+            objectFit: 'cover',
+            width: '100%',
+            height: 140,
+            backgroundColor: 'var(--gray-5)',
+            }}/>   
+            </Inset>
+            <Text size={'2'}>Descripción: {publicacion.descripcion}</Text>
+            <Flex>
+              <RxHeartFilled size="20" color="red" />
+              <Text>{publicacion.likes}</Text>
+            </Flex>
+            </Card>
+
           </div>
         </Dialog.Trigger>
 
@@ -54,8 +70,24 @@ function PublicacionesList({ publicaciones }) {
 
       <Dialog.Trigger>
         <div key={publicacion._id} className='hover:cursor-pointer'>
-          <img src={publicacion.imagen.secure_url} className='rounded-lg mb-2' />   
-          <Text>{publicacion.descripcion}</Text>
+          <Card>
+          <Inset>
+
+          <img src={publicacion.imagen.secure_url} className='rounded-lg mb-5' style={{
+          display: 'block',
+          objectFit: 'cover',
+          width: '100%',
+          height: 140,
+          backgroundColor: 'var(--gray-5)',
+        }}/>   
+          </Inset>
+          <Text size={'2'}>Descripción: {publicacion.descripcion}</Text>
+
+          <Flex>
+              <RxHeartFilled size="20" color="red" />
+              <Text>{publicacion.likes}</Text>
+            </Flex>
+          </Card>
         </div>
       </Dialog.Trigger>
 

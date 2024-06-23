@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getPublicaciones } from '../../api/publicaciones.api';
 import PublicacionesList from './PublicacionesList';
 import { Spinner, Flex, Text } from '@radix-ui/themes';
+import { RiFileShield2Line } from "react-icons/ri";
 
 function PublicHome() {
   const [publicaciones, setPublicaciones] = useState([]);
@@ -13,6 +14,7 @@ function PublicHome() {
         const response = await getPublicaciones();
         console.log(response);
         setPublicaciones(response.data);
+        console.log(response.data)
       } catch (error) {
         console.error(error);
       } finally {
