@@ -5,10 +5,9 @@ import Input from "../../../components/Forms/Input";
 import { RxBookmark, RxCross2 } from "react-icons/rx";
 import { useForm } from "react-hook-form";
 import { ToastContainer } from 'react-toastify';
-import { LuLock } from "react-icons/lu";
 import { updatePassword } from "../../../api/moderador.api";
 import useAuth from "../../../context/useAuth";
-import { NotifyError, NotifySuccess } from "../../../components/Toasts/Notifies";
+import { useToast } from '../../../context/ToastContext';
 
 export default function UpdatePassword() {
   const { register, handleSubmit, formState: { errors }  } = useForm();
@@ -16,16 +15,17 @@ export default function UpdatePassword() {
   const auth = useAuth();
   const token = auth.cookies.auth.token;
   const [loading, setLoading] = useState(false);
+  const { showToast } = useToast(); // Usa el contexto de Toast
 
   const onSubmit = async (data) => {
     try {
       setLoading(true);
       await updatePassword(data, id, token);
-      NotifySuccess("Contraseña actualizada correctamente");
+      showToast("Contraseña actualizada correctamente");
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      NotifyError(error.response.data.msg || error.response.data.errors[0].msg);
+      showToast(error.response.data.msg || error.response.data.errors[0].msg);
       console.log(error);
     }
   };

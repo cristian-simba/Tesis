@@ -5,7 +5,7 @@ import { Table, Flex, Spinner, TextField, Avatar } from "@radix-ui/themes";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import ModeratorDialog from "./ModeratorDialog";
 import DeleteModerator from "./DeleteModerator";
-import { ToastContainer, toast } from "react-toastify";
+import { useToast } from '../../../context/ToastContext';
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Moderadores() {
@@ -15,9 +15,8 @@ export default function Moderadores() {
   const [moderadores, setModeradores] = useState([]);
   const [show, setShow] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const { showToast } = useToast(); // Usa el contexto de Toast
 
   useEffect(() => {
     setShow(true);
@@ -40,27 +39,19 @@ export default function Moderadores() {
   }, [token]);
 
   const eliminarModerador = async (id) => {
+    setLoading(true)
     try {
       await deleteModerador(id, token);
       const response = await getModeradores(token);
       setModeradores(response.data);
-      setSuccessMessage("Moderador eliminado con éxito");
+      showToast("Moderador eliminado exitosamente");
     } catch (error) {
-      setErrorMessage("Error al eliminar el moderador");
+      showToast("Error al eliminar el moderador");
+    } finally {
+      setLoading(false)
     }
   };
 
-  useEffect(() => {
-    if (successMessage) {
-      toast.success(successMessage, { onClose: () => setSuccessMessage("") });
-    }
-  }, [successMessage]);
-
-  useEffect(() => {
-    if (errorMessage) {
-      toast.error(errorMessage, { onClose: () => setErrorMessage("") });
-    }
-  }, [errorMessage]);
 
   const filteredModeradores = moderadores.filter((moderador) =>
     `${moderador.nombre} ${moderador.apellido} ${moderador.email} ${moderador.createdAt}`
@@ -70,8 +61,6 @@ export default function Moderadores() {
 
   return (
     <>
-      <ToastContainer position="top-center" autoClose={3000} />
-
       <div
         className={`transition-opacity duration-500 ${
           show ? "opacity-100" : "opacity-0"
@@ -128,6 +117,7 @@ export default function Moderadores() {
                   <Table.Cell justify="center">
                     <DeleteModerator
                       deleteModerador={() => eliminarModerador(moderador._id)}
+                      loading={loading}
                     />
                   </Table.Cell>
                 </Table.Row>

@@ -12,6 +12,7 @@ import VerifyToken from "./pages/public/VerifyToken";
 import NewPassword from "./pages/public/NewPassword";
 import UpdatePassword from "./pages/private/Moderators/UpdatePassword";
 import { ThemeProvider } from "./context/ThemeContext";
+import { ToastProvider } from "./context/ToastContext"
 import Dashboard from "./pages/private/Dashboard";
 import Moderadores from "./pages/private/Moderators/Moderadores";
 import Usuarios from "./pages/private/Users/Usuarios";
@@ -37,7 +38,9 @@ function App() {
               path="/"
               element={
                 <ThemeProvider>
-                  <Dashboard />
+                  <ToastProvider>
+                    <Dashboard />
+                  </ToastProvider>
                 </ThemeProvider>
               }
             >

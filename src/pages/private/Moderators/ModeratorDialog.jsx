@@ -5,15 +5,13 @@ import { Flex, Text, Heading, Button, Dialog, Spinner } from "@radix-ui/themes";
 import { RxCross2, RxBookmark, RxPlus } from "react-icons/rx";
 import Input from "../../../components/Forms/Input";
 import { registerModerador } from "../../../api/moderador.api";
-import { ToastContainer } from 'react-toastify';
-import { NotifyError, NotifySuccess } from "../../../components/Toasts/Notifies";
-import { emailValidator } from "../../../validators/validators";
+import { useToast } from '../../../context/ToastContext';
 
 export default function ModeratorDialog({ token }) {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [loading, onLoading] = useState(false)
   const [open, setOpen] = useState(false);
-  const [domReady, setDomReady] = useState(false);
+  const { showToast } = useToast(); // Usa el contexto de Toast
 
   useEffect(() => {
     if (!open) {
@@ -21,44 +19,35 @@ export default function ModeratorDialog({ token }) {
     }
   }, [open]);
 
-  useEffect(() => {
-    setDomReady(true);
-  }, []);
-  
   const onSubmit = handleSubmit(async (data) => {
     try {
       onLoading(true);
       await registerModerador(data, token);
       onLoading(false);
       setOpen(false);
-      NotifySuccess("Moderador registrado correctamente");
+      showToast("Moderador registrado exitosamente");
+      //
     } catch (error) {
       onLoading(false);
       console.log(error);
       if (error.message === "Network Error") {
-        NotifyError("Error del servidor");
+        showToast("Error del servidor");
       } else if(error.response && error.response.data){
-        NotifyError(error.response.data.msg);
+        showToast(error.response.data.msg);
       }else if (error.response.data.errors) {
         const errors = error.response.data.errors;
         errors.forEach(err => {
-          NotifyError(err.msg);
+          showToast(err.msg);
         });
       } 
        else {
-        NotifyError("Ocurrió un error desconocido");
+        showToast("Ocurrió un error desconocido");
       }
     }
   });
   return (
   <>
-    {domReady && createPortal(
-      <ToastContainer position="top-center" 
-        closeButton={false} 
-        autoClose={4000}
-        style={{ zIndex: 2000,width: '400px' }} />,
-      document.body
-    )}
+    
     <Dialog.Root open={open} onOpenChange={setOpen} style={{ zIndex: 10 }}>
       <Dialog.Trigger className='hover:cursor-pointer' >
         <Button> <RxPlus /> Registrar Moderador</Button>

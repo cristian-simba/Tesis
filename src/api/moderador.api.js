@@ -43,7 +43,8 @@ export const firstLogin = (data) => {
 }
 
 export const getModeradores = (token) => {
-  const url = `${import.meta.env.VITE_BACKEND_URL}/moderadores`;
+  // const url = `${import.meta.env.VITE_BACKEND_URL}/moderadores`;
+  const url = `${import.meta.env.VITE_BACKEND_URL}/moderador/sin/verificar`;
   const options = {
     headers: {
       'Content-Type': 'application/json',

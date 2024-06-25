@@ -89,6 +89,7 @@ export const restringirUsuario = (id, token, tiempo) => {
       Authorization: `Bearer ${token}`
     }
   };
+  console.log("data", data)
   return axios.put(url, data, options);
 };
 

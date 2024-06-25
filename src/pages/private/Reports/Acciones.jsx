@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Dialog, Radio, Text, Flex, Button, Spinner } from "@radix-ui/themes";
-import { deletePublicacion, restringirUsuario, bloquearUsuario, falsoReporte } from "../../../api/reportes.api";
+import { restringirUsuario, bloquearUsuario, falsoReporte, deletePublicacion } from "../../../api/reportes.api";
 import useAuth from "../../../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
-import { createPortal } from 'react-dom';
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import { useToast } from '../../../context/ToastContext';
+
 
 export default function Acciones({ idReporte, idUsuario }) {
   const user = useAuth();
@@ -16,33 +15,32 @@ export default function Acciones({ idReporte, idUsuario }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const { showToast } = useToast(); // Usa el contexto de Toast
   const navigate = useNavigate();
-  const [domReady, setDomReady] = useState(false);
-
-  useEffect(() => {
-    setDomReady(true);
-  }, []);
 
   const eliminarPublicacion = async () => {
     try {
       await deletePublicacion(idReporte, token);
+      showToast("Publicación eliminada");
       navigate("/dashboard");
     } catch (error) {
+      showToast("Error al eliminar la publicación");
       console.log(error);
     }
   };
 
   const restringir = async () => {
     try {
-      const dias = parseInt(diasRestriccion);
-      if (isNaN(dias) || dias <= 0) {
-        toast.error("Por favor ingresa un número válido de días");
+      if (!diasRestriccion) {
+        showToast("Por favor ingresa el número de días para restringir al usuario");
         setLoading(false);
         return;
       }
+      showToast("Cuenta de usuario restringida");
       await restringirUsuario(idUsuario, token, dias);
       eliminarPublicacion();
     } catch (error) {
+      showToast("Error al restringir al usuario");
       console.log(error);
     } finally {
       setLoading(false);
@@ -52,8 +50,10 @@ export default function Acciones({ idReporte, idUsuario }) {
   const bloquear = async () => {
     try {
       await bloquearUsuario(idUsuario, token);
+      showToast("Cuenta de usuario bloqueada");
       eliminarPublicacion();
     } catch (error) {
+      showToast("Error al bloquear usuario");
       console.log(error);
     } finally {
       setLoading(false);
@@ -63,8 +63,10 @@ export default function Acciones({ idReporte, idUsuario }) {
   const falso = async () => {
     try {
       await falsoReporte(idReporte, token, data);
+      showToast("Reporte resuelto");
       navigate("/dashboard");
     } catch (error) {
+      showToast("Error. No se resolvió el reporte");
       console.log(error);
     } finally {
       setLoading(false);
@@ -73,7 +75,7 @@ export default function Acciones({ idReporte, idUsuario }) {
 
   const handleSubmit = () => {
     if (!checked) {
-      toast.error("Por favor selecciona una opción");
+        showToast("Tienes que seleccionar una opción")
       return;
     }
     setLoading(true);
@@ -92,6 +94,7 @@ export default function Acciones({ idReporte, idUsuario }) {
         falso();
         break;
       default:
+        showToast("Tienes que seleccionar una opción");
         setLoading(false);
         break;
     }
@@ -99,13 +102,6 @@ export default function Acciones({ idReporte, idUsuario }) {
 
   return (
     <>
-      {domReady && createPortal(
-        <ToastContainer position="top-center" 
-          closeButton={false} 
-          autoClose={4000}
-          style={{ zIndex: 2000, width: '400px' }} />,
-        document.body
-      )}
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger className="cursor-pointer">
           <Button>Acciones</Button>
@@ -120,7 +116,7 @@ export default function Acciones({ idReporte, idUsuario }) {
             <Text className="font-bold">Escoge una opción</Text>
           </Flex>
           <Flex align="start" direction="column" gap="4">
-          <Flex asChild gap="2">
+            <Flex asChild gap="2">
               <Text as="label" size="2">
                 <Radio className="hover:cursor-pointer" name="example" value="4" checked={checked === "4"} onChange={() => setChecked("4")} />
                 Es un reporte falso
@@ -139,13 +135,16 @@ export default function Acciones({ idReporte, idUsuario }) {
               </Text>
             </Flex>
             {checked === "2" && (
-              <input
-                type="number"
-                placeholder="Ingrese el número de días"
+              <select
                 value={diasRestriccion}
-                className="w-full block rounded-md p-2.5 text-sm border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 onChange={(e) => setDiasRestriccion(e.target.value)}
-              />
+                className="w-full block rounded-md p-2.5 text-sm border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="">Seleccione los días</option>
+                <option value="3">3 días</option>
+                <option value="5">7 días</option>
+                <option value="15">15 días</option>
+              </select>
             )}
             <Flex asChild gap="2">
               <Text as="label" size="2">
