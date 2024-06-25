@@ -4,6 +4,7 @@ import UserPubliTodos from './UserPubliTodos'
 import ReportesTiempo from './ReportesTiempo'
 import EstadoUsuarios from './EstadoUsuarios'
 import PublicacionesTop from './PublicacionesTop'
+import TemporadasTop from './TemporadasTop'
 import { Flex, Text, Badge } from '@radix-ui/themes'
 import { useTheme } from '../../../context/ThemeContext'
 import Totales from './Totales'
@@ -34,13 +35,13 @@ export default function Graficas() {
  
       {auth.cookies.auth._id === import.meta.env.VITE_MODERADOR_ID ? (
         <>
-          <Text className=' font-medium pb-5'>Publicaciones, Usuarios y Moderadores</Text>
-          <UserPublicaciones />
+          <Text className=' font-medium pb-5'>Temporadas con más publicaciones</Text>
+          <TemporadasTop />
         </>
       ) :
       <>
         <Text className=' font-medium pb-5'>Usuarios y Publicaciones</Text>
-        <UserPubliTodos/>
+        <TemporadasTop />
       </> 
       }
 

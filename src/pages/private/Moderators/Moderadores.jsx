@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAuth from "../../../context/useAuth";
-import { getModeradores, deleteModerador } from "../../../api/moderador.api";
-import { Table, Flex, Spinner, TextField, Avatar } from "@radix-ui/themes";
+import { getModeradores, deleteModerador, getModeradoresSinVerificar } from "../../../api/moderador.api";
+import { Table, Flex, Spinner, TextField, Avatar, Badge } from "@radix-ui/themes";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import ModeratorDialog from "./ModeratorDialog";
 import DeleteModerator from "./DeleteModerator";
@@ -26,8 +26,22 @@ export default function Moderadores() {
     const loadModeradores = async () => {
       setLoading(true);
       try {
-        const response = await getModeradores(token);
-        const filteredModeradores = response.data.slice(1);
+        const responseModeradores = await getModeradoresSinVerificar(token);
+        const responseModeradoresVerificados = await getModeradores(token);
+  
+        // Combina las listas de moderadores, evitando duplicados por el ID del moderador
+        const combinedModeradores = [
+          ...responseModeradores.data,
+          ...responseModeradoresVerificados.data.filter(
+            moderadorVerificado => !responseModeradores.data.some(
+              moderadorSinVerificar => moderadorSinVerificar._id === moderadorVerificado._id
+            )
+          )
+        ];
+  
+        // Filtra los moderadores que no tienen el atributo "super"
+        const filteredModeradores = combinedModeradores.filter(moderador => !moderador.super);
+  
         setModeradores(filteredModeradores);
       } catch (error) {
         console.error(error);
@@ -37,13 +51,29 @@ export default function Moderadores() {
     };
     loadModeradores();
   }, [token]);
+  
 
   const eliminarModerador = async (id) => {
     setLoading(true)
     try {
       await deleteModerador(id, token);
-      const response = await getModeradores(token);
-      setModeradores(response.data);
+      const responseModeradores = await getModeradoresSinVerificar(token);
+      const responseModeradoresVerificados = await getModeradores(token);
+
+      // Combina las listas de moderadores, evitando duplicados por el ID del moderador
+      const combinedModeradores = [
+        ...responseModeradores.data,
+        ...responseModeradoresVerificados.data.filter(
+          moderadorVerificado => !responseModeradores.data.some(
+            moderadorSinVerificar => moderadorSinVerificar._id === moderadorVerificado._id
+          )
+        )
+      ];
+
+      // Filtra los moderadores que no tienen el atributo "super"
+      const filteredModeradores = combinedModeradores.filter(moderador => !moderador.super);
+
+      setModeradores(filteredModeradores);
       showToast("Moderador eliminado exitosamente");
     } catch (error) {
       showToast("Error al eliminar el moderador");
@@ -91,6 +121,9 @@ export default function Moderadores() {
                 Creación de la cuenta
               </Table.Cell>
               <Table.Cell className="w-1/5 font-medium" justify="center">
+                Estado de la cuenta
+              </Table.Cell>
+              <Table.Cell className="w-1/5 font-medium" justify="center">
                 Eliminar moderador
               </Table.Cell>
             </Table.Row>
@@ -114,6 +147,14 @@ export default function Moderadores() {
                   <Table.Cell justify="center">
                     {new Date(moderador.createdAt).toISOString().split("T")[0]}
                   </Table.Cell>
+                  <Table.Cell className="w-1/5 font-medium" justify="center">
+                    {moderador.token ? (
+                      <Badge color="green">Verificado</Badge>
+                    ) : (
+                      <Badge>No verificado</Badge>
+                    )}
+                  </Table.Cell>
+
                   <Table.Cell justify="center">
                     <DeleteModerator
                       deleteModerador={() => eliminarModerador(moderador._id)}

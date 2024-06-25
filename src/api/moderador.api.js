@@ -43,7 +43,17 @@ export const firstLogin = (data) => {
 }
 
 export const getModeradores = (token) => {
-  // const url = `${import.meta.env.VITE_BACKEND_URL}/moderadores`;
+  const url = `${import.meta.env.VITE_BACKEND_URL}/moderadores`;
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  }
+  return axios.get(url, options);
+}
+
+export const getModeradoresSinVerificar = (token) => {
   const url = `${import.meta.env.VITE_BACKEND_URL}/moderador/sin/verificar`;
   const options = {
     headers: {

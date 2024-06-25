@@ -11,6 +11,7 @@ export default function ModeratorDialog({ token }) {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [loading, onLoading] = useState(false)
   const [open, setOpen] = useState(false);
+  const [domReady, setDomReady] = useState(false);
   const { showToast } = useToast(); // Usa el contexto de Toast
 
   useEffect(() => {
