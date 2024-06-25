@@ -32,7 +32,7 @@ export default function Acciones({ idReporte, idUsuario }) {
   const restringir = async () => {
     try {
       if (!diasRestriccion) {
-        showToast("Por favor ingresa el número de días para restringir al usuario");
+        showToast("Por favor selecciona el número de días para restringir al usuario");
         setLoading(false);
         return;
       }

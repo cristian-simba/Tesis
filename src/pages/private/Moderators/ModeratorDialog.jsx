@@ -95,7 +95,7 @@ export default function ModeratorDialog({ token }) {
               type="text"
               id="email"
               name="email"
-              placeholder="Ingrese su correo electrónico"
+              placeholder="Ingrese el correo electrónico del moderador"
               {...register("email", {
                 required: true,
                 pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // Patrón para validar formato de correo electrónico

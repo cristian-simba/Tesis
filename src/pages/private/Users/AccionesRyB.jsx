@@ -19,7 +19,7 @@ export default function AccionesRyB({ idUsuario, refresh, confirmar }) {
     setLoading(true);
     try {
       if (!diasRestriccion) {
-        showToast("Por favor ingresa el número de días para restringir al usuario");
+        showToast("Por favor selecciona el número de días para restringir al usuario");
         setLoading(false);
         return;
       }

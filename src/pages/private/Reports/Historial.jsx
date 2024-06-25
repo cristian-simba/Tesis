@@ -88,7 +88,7 @@ export default function Historial({ idUsuario, text }) {
             )}
           </>
         ) : (
-          <Text>No hay reportes anteriores para este usuario.</Text>
+          <Text size="2">No existen reportes de este usuario.</Text>
         )}
       </Dialog.Content>
     </Dialog.Root>
