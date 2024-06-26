@@ -46,7 +46,7 @@ function HomeLP() {
     </div>
   ) : (
     <div id="info">
-      <Flex align="center" gap="5" className="px-8 min-h-screen ">
+      <Flex align="center" gap="5" className="px-8 min-h-screen pt-20">
         <Flex direction="column" gap="6">
           <Heading size="8">{headingText}</Heading>
 
