@@ -8,9 +8,12 @@ import image from "../../assets/ImgLogin.webp";
 import { ToastContainer } from 'react-toastify';
 import { emailValidator, passwordValidator } from "../../validators/validators";
 import { useNavigate } from "react-router-dom";
+import { useWindowWidth } from "../../hooks/useWindowWidth";
+import { MdDevices } from "react-icons/md";
 
 const Login = () => {
 
+  const windowWidth = useWindowWidth();
   const [loading, onLoading] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [show, setShow] = useState(false);
@@ -40,7 +43,7 @@ const Login = () => {
     }
   });
 
-  return (
+  return windowWidth > 768 ? (
     <>
     {!show ? (
       <div className='flex justify-center items-center h-screen'>
@@ -122,7 +125,12 @@ const Login = () => {
       </div>
       )}
     </>
-  );
+  ):(
+    <Flex className="min-h-screen px-5" align='center' justify='center' direction="column">
+      <MdDevices size="100"/>
+      <Text className="text-center">El Panel Administrativo solo está disponible en vista de ordenadores</Text>
+    </Flex>
+  )
 };
 
 const FormError = ({ message }) => (

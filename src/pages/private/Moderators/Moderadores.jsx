@@ -132,7 +132,7 @@ export default function Moderadores() {
           <Table.Body>
             {loading && filteredModeradores.length === 0 ? (
               <Table.Row>
-                <Table.Cell colSpan="4" align="center">
+                <Table.Cell colSpan="5" align="center">
                   <Spinner />
                 </Table.Cell>
               </Table.Row>
