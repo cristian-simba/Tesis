@@ -11,6 +11,8 @@ import { Theme } from '@radix-ui/themes';
 import ProfileModerator from './Moderators/ProfileModerator';
 import { useTheme } from '../../context/ThemeContext';
 import Notificaciones from './Notificaciones';
+import { useWindowWidth } from "../../hooks/useWindowWidth";
+import { MdDevices } from "react-icons/md";
 
 function Dashboard() {
   const auth = useAuth();
@@ -18,6 +20,7 @@ function Dashboard() {
   const [heading, setHeading] = useState('');
   const location = useLocation();
   const params = useParams();
+  const windowWidth = useWindowWidth();
 
   const { theme, toggleTheme } = useTheme();
 
@@ -48,7 +51,7 @@ function Dashboard() {
     }, 2000);
   }, []);
 
-  return (
+  return windowWidth > 768 ?  (
     <Theme appearance={theme}>
       <div>
         {!show ? (
@@ -158,7 +161,12 @@ function Dashboard() {
         )}
       </div>
     </Theme>
-  );
+  ):(
+    <Flex className="min-h-screen px-5" align='center' justify='center' direction="column">
+      <MdDevices size="100"/>
+      <Text className="text-center">El Panel Administrativo solo está disponible en vista de ordenadores</Text>
+    </Flex>
+  )
 }
 
 export default Dashboard;
