@@ -37,7 +37,7 @@ export default function Acciones({ idReporte, idUsuario }) {
         return;
       }
       showToast("Cuenta de usuario restringida");
-      await restringirUsuario(idUsuario, token, dias);
+      await restringirUsuario(idUsuario, token, diasRestriccion);
       eliminarPublicacion();
     } catch (error) {
       showToast("Error al restringir al usuario");
