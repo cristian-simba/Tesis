@@ -1,6 +1,6 @@
 # DESARROLLO DE UNA APLICACIÓN TIPO RED SOCIAL DE “ESTILOS DE ROPA” - FRONTEND
 ## Enlace del despliegue
-El enlace le llevará a versión desplegada del proyecto: </br> </br>
+El enlace redirige a la versión desplegada de la aplicación: </br> </br>
 https://fashiongec.vercel.app/
 ## Manual de usuario
 El manual de usuario nos dirige a un video donde se explica como usar la aplicación: </br> </br>
