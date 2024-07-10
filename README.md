@@ -14,7 +14,7 @@ https://youtu.be/dbGKBHpgtoc
 >   </br> https://nodejs.org/es
 </br>
 
-> [!TIP]
+> [!IMPORTANT]
 ### Credenciales del moderador
 > Correo electrónico: moderador_super@hotmail.com
 > Contraseña: lg1961s37w
