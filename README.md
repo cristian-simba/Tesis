@@ -10,7 +10,6 @@ https://youtu.be/dbGKBHpgtoc  </br> </br>
 > ### Credenciales del moderador
 > Correo electrónico: moderador_super@hotmail.com </br>
 > Contraseña: lg1961s37w
-</br>
 
 ## Manual de instalación
 > [!IMPORTANT]
@@ -20,7 +19,6 @@ https://youtu.be/dbGKBHpgtoc  </br> </br>
 >   </br> https://git-scm.com/downloads
 > - NodeJS
 >   </br> https://nodejs.org/es
-</br>
 
 ### Instalación de la aplicación
 Instalar el proyecto localmente con el siguiente comando en el CMD
