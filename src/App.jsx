@@ -19,6 +19,7 @@ import Usuarios from "./pages/private/Users/Usuarios";
 import Reportes from "./pages/private/Reports/Reportes";
 import Reporte from "./pages/private/Reports/Reporte";
 import Graficas from "./pages/private/Graphics/Graficas";
+import NoEncontrado from "./pages/public/NoEncontrado";
 
 function App() {
   return (
@@ -60,7 +61,7 @@ function App() {
               />
             </Route>
           </Route>
-          <Route path="*" element={<h1>No encontrado</h1>} />
+          <Route path="*" element={<NoEncontrado/>} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
