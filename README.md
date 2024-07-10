@@ -18,11 +18,11 @@ Instalar el proyecto localmente con el siguiente comando en el CMD
 ```
 git clone https://github.com/cristian-simba/Tesis
 ```
-Ir a la carpeta del proyecto y ejecutar el siguiente comando en el CMD
+Ir a la carpeta del proyecto y escibir el siguiente comando en el CMD
 ```
-npm i
+npm install
 ```
-Finalmente, ejecutar el proyecto con el siguiente comando en el CMD
+Finalmente, para ejecutar el proyecto se debe escribir el siguiente comando en el CMD
 ```
 npm run dev
 ```
