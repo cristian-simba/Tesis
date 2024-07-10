@@ -6,6 +6,7 @@ https://youtu.be/dbGKBHpgtoc
 ## Manual de instalación
 > [!IMPORTANT]
 > Debe tener instalado git y nodejs
+</br>
 Instalar el proyecto localmente con el comando
 ```
 git clone https://github.com/cristian-simba/Tesis
