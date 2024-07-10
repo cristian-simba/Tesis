@@ -4,7 +4,14 @@ El enlace le llevará a versión desplegada del proyecto: </br>
 https://fashiongec.vercel.app/
 ## Manual de usuario
 El manual de usuario nos dirige a un video donde se explica como usar la aplicación: </br>
-https://youtu.be/dbGKBHpgtoc
+https://youtu.be/dbGKBHpgtoc  </br>
+
+> [!TIP]
+> ### Credenciales del moderador
+> Correo electrónico: moderador_super@hotmail.com </br>
+> Contraseña: lg1961s37w
+</br>
+
 ## Manual de instalación
 > [!IMPORTANT]
 > ### Instalaciones previas
@@ -13,12 +20,6 @@ https://youtu.be/dbGKBHpgtoc
 >   </br> https://git-scm.com/downloads
 > - NodeJS
 >   </br> https://nodejs.org/es
-</br>
-
-> [!TIP]
-> ### Credenciales del moderador
-> Correo electrónico: moderador_super@hotmail.com </br>
-> Contraseña: lg1961s37w
 </br>
 
 ### Instalación de la aplicación
