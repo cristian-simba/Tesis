@@ -16,7 +16,7 @@ https://youtu.be/dbGKBHpgtoc
 
 > [!TIP]
 > ### Credenciales del moderador
-> Correo electrónico: moderador_super@hotmail.com
+> Correo electrónico: moderador_super@hotmail.com </br>
 > Contraseña: lg1961s37w
 </br>
 
