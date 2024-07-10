@@ -13,6 +13,11 @@ https://youtu.be/dbGKBHpgtoc
 > - NodeJS
 >   </br> https://nodejs.org/es
 </br>
+### Credenciales del moderador
+> [!TIP]
+> Correo electrónico: moderador_super@hotmail.com
+> Contraseña: lg1961s37w
+</br>
 
 Instalar el proyecto localmente con el siguiente comando en el CMD
 ```
