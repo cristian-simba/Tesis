@@ -8,10 +8,10 @@ https://youtu.be/dbGKBHpgtoc
 ## Manual de instalación
 > [!IMPORTANT]
 > Antes de la instalación, se debe tener instalado
-> - Git
->   https://git-scm.com/downloads
+> - Git 
+>   </br> https://git-scm.com/downloads
 > - NodeJS
->   https://nodejs.org/es
+>   </br> https://nodejs.org/es
 </br>
 
 Instalar el proyecto localmente con el siguiente comando en el CMD
