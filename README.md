@@ -7,7 +7,8 @@ El manual de usuario nos dirige a un video donde se explica como usar la aplicac
 https://youtu.be/dbGKBHpgtoc
 ## Manual de instalación
 > [!IMPORTANT]
-> Antes de la instalación, se debe tener instalado
+> ### Instalaciones previas
+> Se debe contar con algunas herramientas previamente instaladas:
 > - Git 
 >   </br> https://git-scm.com/downloads
 > - NodeJS
@@ -20,6 +21,7 @@ https://youtu.be/dbGKBHpgtoc
 > Contraseña: lg1961s37w
 </br>
 
+### Instalación de la aplicación
 Instalar el proyecto localmente con el siguiente comando en el CMD
 ```
 git clone https://github.com/cristian-simba/Tesis
