@@ -8,8 +8,7 @@ https://youtu.be/dbGKBHpgtoc  </br> </br>
 
 > [!TIP]
 > ### Credenciales del moderador
-> Correo electrónico: moderador_super@hotmail.com </br>
-> Contraseña: lg1961s37w
+> Se encuentran en el Anexo IV del documento
 
 ## Manual de instalación
 > [!IMPORTANT]
