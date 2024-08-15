@@ -1,21 +1,19 @@
 import React from "react";
 import { Button } from "@radix-ui/themes";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export function DowloadButton({ text }) {
-  const handleClick = () => {
-    window.location.href = 'https://expo.dev/artifacts/eas/dC3MUqU5RNEqLJB62CQ6ra.apk';
-  };
-
   return (
-    <Button
-      radius="none"
-      size={{ md: "3", lg: "4" }}
-      className="hover:cursor-pointer"
-      onClick={handleClick}
-    >
-      {text}
-    </Button>
+    <Link to={'https://drive.google.com/file/d/1GL4NtgBbd3mmh5aETr6mwtVZQyHSsNUp/view?usp=sharing'}
+      target="_blank">
+      <Button
+        radius="none"
+        size={{ md: "3", lg: "4" }}
+        className="hover:cursor-pointer"
+        >
+        {text}
+      </Button>
+    </Link>
   );
 }
 
