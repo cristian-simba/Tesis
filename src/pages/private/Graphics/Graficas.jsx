@@ -27,7 +27,7 @@ export default function Graficas() {
      
     </div>
     <div className={`flex flex-col justify-center items-center col-span-2 px-2 py-10 rounded-lg ${theme === 'dark' ? 'bg-[#191919] border border-[#333333]'  : 'bg-[#FCFDFC]  border border-gray-400'}`}>
-      <Text className='pb-5 font-medium'>Total de reportes los últimos 5 días</Text>
+      <Text className='pb-5 font-medium'>Total de reportes</Text>
       <ReportesTiempo/>
     </div>
 
